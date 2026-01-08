@@ -18,6 +18,6 @@ document.getElementById("loginBtn").addEventListener("click", function (event) {
     
   } else {
     result.textContent = "❌ Sai tài khoản hoặc mật khẩu";
-  
+    console.log("kien");
   }
 });
