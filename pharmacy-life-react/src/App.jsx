@@ -24,10 +24,6 @@ import ImportList from './pages/Dashboard/Import/ImportList';
 import ImportCreate from './pages/Dashboard/Import/ImportCreate';
 import ImportDetail from './pages/Dashboard/Import/ImportDetail';
 import ImportEdit from './pages/Dashboard/Import/ImportEdit';
-import UserProfile from './pages/Profile/UserProfile';
-import Navbar from "./components/layout/Navbar";
-import Footer from "./components/layout/Footer";
-import HomePage from "./pages/Dashboard/HomePage";
 
 function App() {
   return (
@@ -44,7 +40,6 @@ function App() {
             <Route path="cart" element={<CartPage />} />
             <Route path="checkout" element={<CheckoutPage />} />
             <Route path="profile" element={<UserProfile />} />
-            {/* Hỗ trợ cả định dạng chuẩn và medicine=id */}
             <Route path=":medicineId" element={<MedicineDetail />} />
           </Route>
 
@@ -53,23 +48,14 @@ function App() {
             <Route index element={<Navigate to="/admin/dashboard" replace />} />
             <Route path="dashboard" element={<DashboardHome />} />
 
-            {/* Nhập hàng */}
+            {/* Quản lý Nhập hàng */}
             <Route path="import">
               <Route path="list" element={<ImportList />} />
               <Route path="create" element={<ImportCreate />} />
+              <Route path="detail/:id" element={<ImportDetail />} />
+              <Route path="edit/:id" element={<ImportEdit />} />
             </Route>
-
-        <main className="flex-grow-1">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/dashboard" element={<HomePage />} />
-            <Route path="/dashboard/import/list" element={<ImportList />} />
-            <Route path="/dashboard/import/create" element={<ImportCreate />} />
-            <Route path="/dashboard/import/detail/:id" element={<ImportDetail />} />
-            <Route path="/dashboard/import/edit/:id" element={<ImportEdit />} />
-            <Route path="/profile" element={<UserProfile />} />
-          </Routes>
-        </main>
+          </Route>
 
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
