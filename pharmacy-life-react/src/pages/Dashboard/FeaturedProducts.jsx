@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { getMedicines, getCategories } from "../../services/pharmacyService";
+import { useCart } from "../../context/CartContext";
 
 const API_BASE = "http://localhost:3002";
 
@@ -34,6 +36,7 @@ const ProductSkeleton = () => (
 );
 
 const ProductCard = ({ medicine, categoryName }) => {
+    const { addToCart } = useCart();
     const [wishlisted, setWishlisted] = useState(false);
     const inStock = medicine.RemainingQuantity > 0;
     const hasDiscount = medicine.OriginalPrice && medicine.OriginalPrice > medicine.SellingPrice;
@@ -48,10 +51,23 @@ const ProductCard = ({ medicine, categoryName }) => {
             : `${process.env.PUBLIC_URL}${medicine.ImageUrl}`
         : null;
 
+    // Hàm xử lý thêm vào giỏ hàng
+    const handleAddToCart = () => {
+        const product = {
+            id: medicine.MedicineId,
+            name: medicine.MedicineName,
+            price: medicine.SellingPrice,
+            image: medicine.ImageUrl,
+            unit: medicine.Unit,
+            category: categoryName
+        };
+        addToCart(product);
+    };
+
     return (
         <div id={`product-card-${medicine.MedicineId}`} className="card overflow-hidden group flex flex-col">
             {/* Image Area */}
-            <div className="relative bg-gradient-to-br from-slate-50 to-primary-50 aspect-square flex items-center justify-center overflow-hidden">
+            <Link to={`/medicine=${medicine.MedicineId}`} className="relative bg-gradient-to-br from-slate-50 to-primary-50 aspect-square flex items-center justify-center overflow-hidden">
                 {/* Medicine Code Badge */}
                 <span className="badge bg-slate-100 text-slate-500 absolute top-3 left-3 z-10 text-[10px]">
                     {medicine.MedicineCode}
@@ -60,8 +76,8 @@ const ProductCard = ({ medicine, categoryName }) => {
                 {/* Wishlist */}
                 <button
                     id={`wishlist-btn-${medicine.MedicineId}`}
-                    onClick={() => setWishlisted(!wishlisted)}
-                    className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center cursor-pointer hover:scale-110 transition-transform duration-200"
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); setWishlisted(!wishlisted); }}
+                    className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center cursor-pointer hover:scale-110 transition-transform duration-200 border-0"
                 >
                     <svg
                         className={`w-4 h-4 transition-colors duration-200 ${wishlisted ? "text-red-500" : "text-slate-400 group-hover:text-red-400"}`}
@@ -107,7 +123,7 @@ const ProductCard = ({ medicine, categoryName }) => {
                         </span>
                     </div>
                 )}
-            </div>
+            </Link>
 
             {/* Info */}
             <div className="p-4 flex flex-col flex-1">
@@ -119,9 +135,11 @@ const ProductCard = ({ medicine, categoryName }) => {
                 )}
 
                 {/* Name */}
-                <h3 className="text-sm font-semibold text-slate-800 mb-1.5 line-clamp-2 leading-snug">
-                    {medicine.MedicineName}
-                </h3>
+                <Link to={`/medicine=${medicine.MedicineId}`} className="text-decoration-none">
+                    <h3 className="text-sm font-semibold text-slate-800 mb-1.5 line-clamp-2 leading-snug hover:text-primary-500 transition-colors duration-200">
+                        {medicine.MedicineName}
+                    </h3>
+                </Link>
 
                 {/* Brand */}
                 {medicine.BrandOrigin && (
@@ -153,6 +171,7 @@ const ProductCard = ({ medicine, categoryName }) => {
                 {/* Add to Cart */}
                 <button
                     id={`add-to-cart-btn-${medicine.MedicineId}`}
+                    onClick={handleAddToCart}
                     disabled={!inStock}
                     className={`w-full py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2
             ${inStock
@@ -167,7 +186,7 @@ const ProductCard = ({ medicine, categoryName }) => {
                     {inStock ? "Add to Cart" : "Unavailable"}
                 </button>
             </div>
-        </div>
+        </div >
     );
 };
 
