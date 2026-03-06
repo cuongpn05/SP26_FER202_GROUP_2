@@ -5,6 +5,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import ImportList from './pages/Dashboard/Import/ImportList';
 import ImportCreate from './pages/Dashboard/Import/ImportCreate';
 import MedicineDetail from './pages/Medicine/MedicineDetail';
+import UserProfile from './pages/Profile/UserProfile';
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import HomePage from "./pages/Dashboard/HomePage";
@@ -59,6 +60,7 @@ function App() {
             <Route path="/dashboard/import/list" element={<ImportList />} />
             <Route path="/dashboard/import/create" element={<ImportCreate />} />
             <Route path="/:medicineId" element={<MedicineDetail />} />
+            <Route path="/profile" element={<UserProfile />} />
           </Routes>
         </main>
 
