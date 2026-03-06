@@ -87,10 +87,13 @@ const ActionIcons = ({ cartCount, toggleMobile }) => (
         </Link>
 
         {/* Login Button */}
-        <button className="hidden sm:flex items-center gap-2 bg-slate-900 text-white px-5 py-2.5 rounded-2xl font-bold text-sm hover:bg-slate-800 transition-all duration-300 shadow-md hover:shadow-lg active:scale-95">
+        <Link
+            to="/login"
+            className="hidden sm:flex items-center gap-2 bg-slate-900 text-white px-5 py-2.5 rounded-2xl font-bold text-sm hover:bg-slate-800 transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 no-underline"
+        >
             <User className="w-4 h-4" />
             Đăng nhập
-        </button>
+        </Link>
 
         {/* Mobile Toggle */}
         <button
@@ -197,10 +200,14 @@ const Navbar = () => {
                     </div>
 
                     <div className="mt-auto pt-6 border-t border-slate-100">
-                        <button className="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-3">
+                        <Link
+                            to="/login"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-3 no-underline shadow-lg active:scale-95 transition-transform"
+                        >
                             <User className="w-5 h-5" />
                             Đăng nhập / Đăng ký
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </div>
