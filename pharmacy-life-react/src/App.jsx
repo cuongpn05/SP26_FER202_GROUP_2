@@ -4,8 +4,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import ImportList from './pages/Dashboard/Import/ImportList';
 import ImportCreate from './pages/Dashboard/Import/ImportCreate';
+import React, { useState } from "react";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+import HomePage from "./pages/Dashboard/HomePage";
 
 function App() {
+  const [cartCount, setCartCount] = useState(0);
+
   return (
     <Router>
       <div className="bg-light min-vh-100 d-flex flex-column">
@@ -66,3 +72,14 @@ function App() {
 export default App;
 
 
+    <div className="min-h-screen flex flex-col">
+      <Navbar cartCount={cartCount} />
+      <div className="flex-1">
+        <HomePage />
+      </div>
+      <Footer />
+    </div>
+  );
+}
+
+export default App;
