@@ -14,6 +14,7 @@ import { CartProvider } from "./context/CartContext";
 import HomePage from "./pages/Dashboard/HomePage";
 import MedicineDetail from './pages/Medicine/MedicineDetail';
 import UserProfile from './pages/Profile/UserProfile';
+import Login from './pages/Auth/Login/Login';
 import CartPage from "./pages/Cart/CartPage";
 import CheckoutPage from "./pages/Checkout/CheckoutPage";
 
@@ -27,6 +28,9 @@ function App() {
     <CartProvider>
       <Router>
         <Routes>
+          {/* Auth Routes - Không dùng Layout chung */}
+          <Route path="/login" element={<Login />} />
+
           {/* Cấu hình Route cho trang người dùng */}
           <Route path="/" element={<ClientLayout />}>
             <Route index element={<HomePage />} />
