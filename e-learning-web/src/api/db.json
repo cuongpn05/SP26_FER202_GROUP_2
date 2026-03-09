@@ -7,6 +7,7 @@
     { "id": 5, "name": "Thiết kế đồ họa" },
     { "id": 6, "name": "Marketing" }
   ],
+
   "courses": [
     {
       "id": 1,
@@ -14,9 +15,9 @@
       "instructor": "Trần Anh Quân",
       "rating": 4.8,
       "price": 599000,
-      "category": "Khoa học máy tính",
+      "categoryId": 1,
       "level": "Intermediate",
-      "thumbnail": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=800"
+      "thumbnail": "https://images.unsplash.com/photo-1633356122544-f134324a6cee"
     },
     {
       "id": 2,
@@ -24,9 +25,9 @@
       "instructor": "Nguyễn Minh Hằng",
       "rating": 4.5,
       "price": 399000,
-      "category": "Kinh tế",
+      "categoryId": 2,
       "level": "Beginner",
-      "thumbnail": "https://images.unsplash.com/photo-1611974714656-511477732a67?auto=format&fit=crop&q=80&w=800"
+      "thumbnail": "https://images.unsplash.com/photo-1611974714656-511477732a67"
     },
     {
       "id": 3,
@@ -34,9 +35,9 @@
       "instructor": "Lê Thu Thủy",
       "rating": 4.7,
       "price": 450000,
-      "category": "Ngoại ngữ",
+      "categoryId": 3,
       "level": "Beginner",
-      "thumbnail": "https://images.unsplash.com/photo-1543702425-41e976865261?auto=format&fit=crop&q=80&w=800"
+      "thumbnail": "https://images.unsplash.com/photo-1543702425-41e976865261"
     },
     {
       "id": 4,
@@ -44,49 +45,95 @@
       "instructor": "Phạm Gia Bảo",
       "rating": 4.9,
       "price": 650000,
-      "category": "Thiết kế đồ họa",
+      "categoryId": 5,
       "level": "Advanced",
-      "thumbnail": "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&q=80&w=800"
+      "thumbnail": "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e"
+    }
+  ],
+
+  "users": [
+    {
+      "id": 1,
+      "name": "Lê Trường An",
+      "email": "anlt.ce190367@gmail.com",
+      "password": "123456",
+      "birthDate": "2005-07-27",
+      "role": "student",
+      "bio": "Sinh viên IT thích học React và AI"
+    },
+    {
+      "id": 2,
+      "name": "Nguyễn Văn Minh",
+      "email": "minh@gmail.com",
+      "password": "123456",
+      "birthDate": "2002-03-12",
+      "role": "student",
+      "bio": "Frontend Developer đang học thêm React"
+    },
+    {
+      "id": 3,
+      "name": "Trần Thị Lan",
+      "email": "lan@gmail.com",
+      "password": "123456",
+      "birthDate": "2001-11-09",
+      "role": "student",
+      "bio": "Sinh viên Marketing"
+    },
+    {
+      "id": 4,
+      "name": "Phạm Gia Bảo",
+      "email": "bao@gmail.com",
+      "password": "123456",
+      "birthDate": "1998-05-14",
+      "role": "instructor",
+      "bio": "UI/UX Designer và giảng viên thiết kế"
     },
     {
       "id": 5,
-      "title": "Kỹ năng thuyết trình trước đám đông",
-      "instructor": "Vũ Ngọc Mai",
-      "rating": 4.6,
-      "price": 299000,
-      "category": "Kỹ năng mềm",
-      "level": "Beginner",
-      "thumbnail": "https://images.unsplash.com/photo-1475721027785-f74dea9969a1?auto=format&fit=crop&q=80&w=800"
+      "name": "Admin System",
+      "email": "admin@gmail.com",
+      "password": "admin123",
+      "birthDate": "1995-01-01",
+      "role": "admin",
+      "bio": "Quản trị hệ thống"
+    }
+  ],
+
+  "enrollments": [
+    {
+      "id": 1,
+      "userId": 1,
+      "courseId": 1,
+      "progress": 80,
+      "status": "purchased"
     },
     {
-      "id": 6,
-      "title": "Data Analytics với Python",
-      "instructor": "Hoàng Đức Lộc",
-      "rating": 4.8,
-      "price": 799000,
-      "category": "Khoa học máy tính",
-      "level": "Advanced",
-      "thumbnail": "https://images.unsplash.com/photo-1551288049-bbbda536ad0a?auto=format&fit=crop&q=80&w=800"
+      "id": 2,
+      "userId": 1,
+      "courseId": 3,
+      "progress": 45,
+      "status": "learning"
     },
     {
-      "id": 7,
-      "title": "Mạng máy tính và An ninh mạng",
-      "instructor": "Đỗ Hữu Phước",
-      "rating": 4.4,
-      "price": 520000,
-      "category": "Khoa học máy tính",
-      "level": "Intermediate",
-      "thumbnail": "https://images.unsplash.com/photo-1558494949-ef010cbdcc48?auto=format&fit=crop&q=80&w=800"
+      "id": 3,
+      "userId": 1,
+      "courseId": 4,
+      "progress": 20,
+      "status": "learning"
     },
     {
-      "id": 8,
-      "title": "Digital Marketing Fundamentals",
-      "instructor": "Bùi Tuyết Nhi",
-      "rating": 4.7,
-      "price": 480000,
-      "category": "Marketing",
-      "level": "Beginner",
-      "thumbnail": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
+      "id": 4,
+      "userId": 2,
+      "courseId": 1,
+      "progress": 60,
+      "status": "learning"
+    },
+    {
+      "id": 5,
+      "userId": 3,
+      "courseId": 2,
+      "progress": 100,
+      "status": "completed"
     }
   ]
 }
