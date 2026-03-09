@@ -1,14 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import CourseExplorer from './components/CourseExplorer';
 import CourseLearningPage from './components/CourseLearningPage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AuthModal from './components/AuthModal';
 import CourseTable from './components/CourseTable';
+import ProfileSettings from './components/ProfileSettings';
 import { useAuth } from './context/AuthContext';
 import './App.css';
-import { useAuth } from './context/AuthContext';
+
 
 function App() {
   const { isLoggedIn, user } = useAuth();
@@ -18,7 +19,18 @@ function App() {
     <div className="App flex flex-col min-h-screen">
       <Navbar />
       <main className="flex-grow">
-        {isTeacher ? <CourseTable /> : <CourseExplorer />}
+        <Routes>
+          <Route 
+            path="/" 
+            element={isTeacher ? <CourseTable /> : <CourseExplorer />} 
+          />
+          <Route 
+            path="/profile" 
+            element={isLoggedIn ? <ProfileSettings /> : <Navigate to="/" />} 
+          />
+          <Route path="/course/:id" element={<CourseLearningPage />} />
+          {/* Add more routes as needed */}
+        </Routes>
       </main>
       <Footer />
       <AuthModal />
