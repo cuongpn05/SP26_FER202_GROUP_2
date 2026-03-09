@@ -1,5 +1,7 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CourseExplorer from './components/CourseExplorer';
+import CourseLearningPage from './components/CourseLearningPage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AuthModal from './components/AuthModal';
@@ -12,18 +14,19 @@ function App() {
 
   return (
     <Router>
-      <div className="App flex flex-col min-h-screen bg-gray-50">
-        <Navbar />
-        <main className="flex-grow pt-8">
-          <Routes>
-            <Route path="/" element={<CourseExplorer />} />
-            <Route 
-              path="/profile" 
-              element={isLoggedIn ? <ProfileSettings /> : <Navigate to="/" />} 
-            />
-          </Routes>
-        </main>
-        <Footer />
+      <div className="App flex flex-col min-h-screen">
+        <Routes>
+          <Route path="/" element={
+            <>
+              <Navbar />
+              <main className="flex-grow">
+                <CourseExplorer />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/learning/:courseId" element={<CourseLearningPage />} />
+        </Routes>
         <AuthModal />
       </div>
     </Router>
