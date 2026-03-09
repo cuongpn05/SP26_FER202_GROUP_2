@@ -7,21 +7,21 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#4F46E5', // Modern Indigo
-          light: '#EEF2FF',
-          dark: '#3730A3',
+          DEFAULT: '#1A73E8', // Professional Google Blue
+          light: '#E8F0FE',
+          dark: '#1557B0',
         },
         secondary: {
-          DEFAULT: '#22C55E', // Progress Green
-          light: '#DCFCE7',
-          dark: '#166534',
+          DEFAULT: '#E8F0FE', // Light Blue background/tag
+          light: '#F8FAFF',
+          dark: '#D1E3FF',
         },
         accent: {
-          orange: '#F37021', // Original brand orange
+          orange: '#F37021', // Keeping brand orange for accents if needed
         },
         text: {
-          main: '#312E81', // Deep indigo text
-          muted: '#6366F1',
+          main: '#202124', // Near black
+          muted: '#5F6368', // Grayish
         }
       },
       fontFamily: {
