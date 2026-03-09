@@ -3,24 +3,28 @@ import { courses, categories } from './mockData';
 
 // Giả lập Axios instance để demo logic yêu cầu
 const api = axios.create({
-  baseURL: 'https://fake-api.fpt-academy.com', // Endpoint giả định
+  baseURL: 'http://localhost:3636', // Chạy với json-server --port 3636
 });
 
 export const getCourses = async () => {
-  // Thực tế sẽ dùng api.get('/courses')
-  // Ở đây giả lập độ trễ 1.5s
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({ data: courses });
-    }, 1500);
-  });
+  return api.get('/courses');
 };
 
 export const getCategories = async () => {
-  // Thực tế sẽ dùng api.get('/categories')
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({ data: categories });
-    }, 800);
-  });
+  return api.get('/categories');
+};
+
+export const updateUserProfile = async (userId, userData) => {
+  // Cập nhật thông tin người dùng vào db.json qua json-server
+  return api.patch(`/users/${userId}`, userData);
+};
+
+export const getUserProfile = async (userId) => {
+  // Lấy dữ liệu người dùng từ db.json qua json-server
+  return api.get(`/users/${userId}`);
+};
+
+export const changePassword = async (userId, newPassword) => {
+  // Trong thực tế json-server không xử lý logic auth, nhưng ta vẫn PATCH để lưu mật khẩu mới
+  return api.patch(`/users/${userId}`, { password: newPassword });
 };
