@@ -334,7 +334,9 @@
       "password": "123456",
       "name": "Le Quang Nhat",
       "role": "student",
-      "avatar": "https://i.pravatar.cc/150?u=lqnhat.ce190875@gmail.com"
+      "avatar": "https://i.pravatar.cc/150?u=lqnhat.ce190875@gmail.com",
+      "bio": "",
+      "birthDate": "2026-03-13"
     }
   ],
   "enrollments": [

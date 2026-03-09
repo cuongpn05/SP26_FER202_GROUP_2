@@ -75,9 +75,15 @@ export const changePassword = async (userId, newPassword) => {
  */
 export const loginUser = async (email, password) => {
   try {
-    // json-server allows filtering by fields
-    const response = await api.get(`/users?email=${email}&password=${password}`);
-    return response;
+    // json-server 1.x blocks filtering by 'password' field via URL for security reasons.
+    // So we fetch all users matching the email, then verify password on the client side.
+    const response = await api.get('/users', { params: { email: email } });
+    
+    const user = response.data.find(
+      u => u.email.toLowerCase() === email.toLowerCase() && u.password === password
+    );
+    
+    return { data: user ? [user] : [] };
   } catch (error) {
     console.error("Login API Error:", error);
     throw error;
