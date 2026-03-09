@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Mail, Lock, User, Eye, EyeOff, Loader2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { loginUser, registerUser } from '../api/courses';
 
 const AuthModal = () => {
   const { isAuthModalOpen: isOpen, closeAuthModal: onClose, authMode: mode, setAuthMode: setMode, login } = useAuth();
@@ -13,6 +14,15 @@ const AuthModal = () => {
     password: '',
     fullName: ''
   });
+
+  React.useEffect(() => {
+    setFormData({
+      email: '',
+      password: '',
+      fullName: ''
+    });
+    setError(null);
+  }, [mode, isOpen]);
 
   if (!isOpen) return null;
 
@@ -131,6 +141,12 @@ const AuthModal = () => {
 
         {/* Form Body */}
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
+          {error && (
+            <div className="bg-red-50 text-red-600 p-3 rounded-xl text-xs font-bold animate-pulse text-center">
+              {error}
+            </div>
+          )}
+
           {mode === 'signup' && (
             <div className="space-y-1">
               <label className="text-xs font-bold text-text-muted uppercase tracking-wider px-1">

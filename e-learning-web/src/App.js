@@ -1,10 +1,14 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CourseExplorer from './components/CourseExplorer';
+import CourseLearningPage from './components/CourseLearningPage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AuthModal from './components/AuthModal';
 import CourseTable from './components/CourseTable';
 import { useAuth } from './context/AuthContext';
 import './App.css';
+import { useAuth } from './context/AuthContext';
 
 function App() {
   const { isLoggedIn, user } = useAuth();

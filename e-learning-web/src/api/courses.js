@@ -5,6 +5,9 @@ const api = axios.create({
   timeout: 5000,
 });
 
+/**
+ * Fetch all available courses and map categoryId to category name
+ */
 export const getCourses = async () => {
   const [coursesRes, categoriesRes] = await Promise.all([
     api.get('/courses'),
@@ -23,11 +26,13 @@ export const getCourses = async () => {
   return { data: normalizedCourses };
 };
 
+/**
+ * Fetch all course categories and return as simple strings for the filter sidebar
+ */
 export const getCategories = async () => {
   const response = await api.get('/categories');
   return { data: response.data.map((category) => category.name) };
 };
 
 export const deleteCourse = (id) => api.delete(`/courses/${id}`);
-
 export const updateCourse = (id, payload) => api.patch(`/courses/${id}`, payload);
