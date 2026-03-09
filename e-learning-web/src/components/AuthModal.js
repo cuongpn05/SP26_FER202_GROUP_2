@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { X, Mail, Lock, User, Eye, EyeOff, Loader2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { loginUser, registerUser } from '../api/courses';
 
 const AuthModal = () => {
   const { isAuthModalOpen: isOpen, closeAuthModal: onClose, authMode: mode, setAuthMode: setMode, login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const [formData, setFormData] = useState({
     email: '',
@@ -13,24 +15,44 @@ const AuthModal = () => {
     fullName: ''
   });
 
+  React.useEffect(() => {
+    setFormData({
+      email: '',
+      password: '',
+      fullName: ''
+    });
+    setError(null);
+  }, [mode, isOpen]);
+
   if (!isOpen) return null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setError(null);
     
-    // Mock API call
-    setTimeout(() => {
-      const userData = {
-        id: '1',
-        email: formData.email,
-        name: mode === 'signup' ? formData.fullName : 'Học Viên F-Academy',
-        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Felix'
-      };
-      
-      login(userData);
+    try {
+      if (mode === 'login') {
+        const response = await loginUser(formData.email, formData.password);
+        if (response.data.length > 0) {
+          login(response.data[0]);
+        } else {
+          setError('Email hoặc mật khẩu không chính xác.');
+        }
+      } else {
+        const response = await registerUser({
+          email: formData.email,
+          password: formData.password,
+          name: formData.fullName,
+        });
+        login(response.data);
+      }
+    } catch (err) {
+      setError(err.message || 'Có lỗi xảy ra, vui lòng thử lại sau.');
+      console.error(err);
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   const handleChange = (e) => {
@@ -93,6 +115,12 @@ const AuthModal = () => {
 
         {/* Form Body */}
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
+          {error && (
+            <div className="bg-red-50 text-red-600 p-3 rounded-xl text-xs font-bold animate-pulse text-center">
+              {error}
+            </div>
+          )}
+
           {mode === 'signup' && (
             <div className="space-y-1">
               <label className="text-xs font-bold text-text-muted uppercase tracking-wider px-1">
