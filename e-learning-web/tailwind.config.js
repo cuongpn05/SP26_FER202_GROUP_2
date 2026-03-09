@@ -7,22 +7,26 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#1A73E8',
-          light: '#E8F0FE',
-          dark: '#1557B0',
+          DEFAULT: '#4F46E5', // Modern Indigo
+          light: '#EEF2FF',
+          dark: '#3730A3',
         },
         secondary: {
-          DEFAULT: '#F37021', // F-Academy Orange
-          light: '#FF8C42',
-          dark: '#D95A1E',
+          DEFAULT: '#22C55E', // Progress Green
+          light: '#DCFCE7',
+          dark: '#166534',
+        },
+        accent: {
+          orange: '#F37021', // Original brand orange
         },
         text: {
-          main: '#202124',
-          muted: '#5F6368',
+          main: '#312E81', // Deep indigo text
+          muted: '#6366F1',
         }
       },
       fontFamily: {
-        sans: ['Inter', 'Roboto', 'sans-serif'],
+        heading: ['"Baloo 2"', 'cursive'],
+        body: ['Inter', 'Roboto', 'sans-serif'],
       },
       boxShadow: {
         'premium': '0 10px 30px rgba(0, 0, 0, 0.05)',

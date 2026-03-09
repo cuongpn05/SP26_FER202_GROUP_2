@@ -64,38 +64,7 @@ const CourseExplorer = () => {
 
   return (
     <div className="min-h-screen bg-gray-50/30 selection:bg-primary/20 selection:text-primary transition-colors duration-300">
-      {/* Mini Navbar */}
-      <nav className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
-         <div className="flex items-center space-x-12">
-            <h2 className="text-2xl font-black tracking-tighter text-primary">
-              F<span className="text-[#F37021]">.</span>Academy
-            </h2>
-            <div className="hidden lg:flex items-center space-x-8 text-sm font-bold text-text-muted">
-               <a href="#" className="text-primary hover:opacity-80 transition-opacity">Khóa học</a>
-               <a href="#" className="hover:text-primary transition-colors">Giảng viên</a>
-               <a href="#" className="hover:text-primary transition-colors">Cấp chứng chỉ</a>
-               <a href="#" className="hover:text-primary transition-colors">Doanh nghiệp</a>
-            </div>
-         </div>
-         <div className="flex items-center space-x-5">
-            <button className="p-2 text-text-muted hover:text-primary transition-colors relative group">
-               <Bell size={24} />
-               <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white group-hover:scale-125 transition-transform" />
-            </button>
-            <button className="p-2 text-text-muted hover:text-primary transition-colors">
-               <ShoppingCart size={24} />
-            </button>
-            <div className="h-8 w-[1px] bg-gray-200 hidden sm:block" />
-            <div className="flex items-center space-x-3 cursor-pointer group">
-               <UserCircle size={32} className="text-gray-400 group-hover:text-primary transition-colors" />
-               <div className="hidden sm:block">
-                  <p className="text-xs font-black uppercase text-text-main line-clamp-1">Trần Anh Quân</p>
-                  <p className="text-[10px] font-bold text-text-muted">Student-SE123456</p>
-               </div>
-               <ChevronDown size={14} className="text-text-muted group-hover:translate-y-0.5 transition-transform" />
-            </div>
-         </div>
-      </nav>
+
 
       {/* Hero Section */}
       <HeroSection searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
@@ -137,22 +106,7 @@ const CourseExplorer = () => {
         </div>
       </main>
 
-      {/* Footer Light */}
-      <footer className="bg-white border-t border-gray-100 py-12 mt-20">
-         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:row items-center justify-between space-y-6 md:space-y-0">
-            <div className="flex items-center space-x-3">
-               <h2 className="text-xl font-black tracking-tighter text-primary">
-                 F<span className="text-[#F37021]">.</span>Academy
-               </h2>
-               <span className="text-text-muted text-sm border-l border-gray-200 pl-3">© 2026 FPT Education. All rights reserved.</span>
-            </div>
-            <div className="flex items-center space-x-6 text-sm font-bold text-text-muted">
-               <a href="#" className="hover:text-primary transition-colors">Chính sách bảo mật</a>
-               <a href="#" className="hover:text-primary transition-colors">Điều khoản dịch vụ</a>
-               <a href="#" className="hover:text-primary transition-colors">Trung tâm hỗ trợ</a>
-            </div>
-         </div>
-      </footer>
+
     </div>
   );
 };
