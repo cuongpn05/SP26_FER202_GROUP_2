@@ -1,26 +1,33 @@
 import axios from 'axios';
-import { courses, categories } from './mockData';
 
-// Giả lập Axios instance để demo logic yêu cầu
 const api = axios.create({
-  baseURL: 'https://fake-api.fpt-academy.com', // Endpoint giả định
+  baseURL: 'http://localhost:3636',
+  timeout: 5000,
 });
 
 export const getCourses = async () => {
-  // Thực tế sẽ dùng api.get('/courses')
-  // Ở đây giả lập độ trễ 1.5s
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({ data: courses });
-    }, 1500);
-  });
+  const [coursesRes, categoriesRes] = await Promise.all([
+    api.get('/courses'),
+    api.get('/categories'),
+  ]);
+
+  const categoryMap = new Map(
+    categoriesRes.data.map((category) => [category.id, category.name])
+  );
+
+  const normalizedCourses = coursesRes.data.map((course) => ({
+    ...course,
+    category: categoryMap.get(course.categoryId) || 'Khac',
+  }));
+
+  return { data: normalizedCourses };
 };
 
 export const getCategories = async () => {
-  // Thực tế sẽ dùng api.get('/categories')
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({ data: categories });
-    }, 800);
-  });
+  const response = await api.get('/categories');
+  return { data: response.data.map((category) => category.name) };
 };
+
+export const deleteCourse = (id) => api.delete(`/courses/${id}`);
+
+export const updateCourse = (id, payload) => api.patch(`/courses/${id}`, payload);
