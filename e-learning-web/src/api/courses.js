@@ -25,3 +25,24 @@ export const getCategories = async () => {
     throw error;
   }
 };
+
+/**
+ * Fetch a user profile by ID from json-server
+ */
+export const getUserProfile = async (userId) => {
+  return api.get(`/users/${userId}`);
+};
+
+/**
+ * Update a user profile using PATCH via json-server
+ */
+export const updateUserProfile = async (userId, userData) => {
+  return api.patch(`/users/${userId}`, userData);
+};
+
+/**
+ * Change a user's password using PATCH via json-server
+ */
+export const changePassword = async (userId, newPassword) => {
+  return api.patch(`/users/${userId}`, { password: newPassword });
+};
