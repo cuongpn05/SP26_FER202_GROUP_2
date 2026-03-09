@@ -1,32 +1,29 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CourseExplorer from './components/CourseExplorer';
+import CourseLearningPage from './components/CourseLearningPage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AuthModal from './components/AuthModal';
-import ProfileSettings from './components/ProfileSettings';
+import CourseTable from './components/CourseTable';
+import { useAuth } from './context/AuthContext';
 import './App.css';
 import { useAuth } from './context/AuthContext';
 
 function App() {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, user } = useAuth();
+  const isTeacher = isLoggedIn && (user?.role === 'instructor' || user?.role === 'teacher');
 
   return (
-    <Router>
-      <div className="App flex flex-col min-h-screen bg-gray-50">
-        <Navbar />
-        <main className="flex-grow pt-8">
-          <Routes>
-            <Route path="/" element={<CourseExplorer />} />
-            <Route 
-              path="/profile" 
-              element={isLoggedIn ? <ProfileSettings /> : <Navigate to="/" />} 
-            />
-          </Routes>
-        </main>
-        <Footer />
-        <AuthModal />
-      </div>
-    </Router>
+    <div className="App flex flex-col min-h-screen">
+      <Navbar />
+      <main className="flex-grow">
+        {isTeacher ? <CourseTable /> : <CourseExplorer />}
+      </main>
+      <Footer />
+      <AuthModal />
+    </div>
+
   );
 }
 

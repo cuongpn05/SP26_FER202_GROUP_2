@@ -1,52 +1,37 @@
 import axios from 'axios';
 
-// Axios instance matching the local JSON server
 const api = axios.create({
-  baseURL: 'http://localhost:3636', // Chạy với json-server --port 3636
+  baseURL: 'http://localhost:3636',
+  timeout: 5000,
 });
 
 /**
  * Fetch all available courses and map categoryId to category name
  */
 export const getCourses = async () => {
-  try {
-    const [coursesRes, catsRes] = await Promise.all([
-      api.get('/courses'),
-      api.get('/categories')
-    ]);
+  const [coursesRes, categoriesRes] = await Promise.all([
+    api.get('/courses'),
+    api.get('/categories'),
+  ]);
 
-    // Create a lookup map for categories
-    const categoriesMap = catsRes.data.reduce((acc, cat) => {
-      acc[cat.id] = cat.name;
-      return acc;
-    }, {});
+  const categoryMap = new Map(
+    categoriesRes.data.map((category) => [category.id, category.name])
+  );
 
-    // Map the categoryId to a category string for the UI
-    const mappedCourses = coursesRes.data.map(course => ({
-      ...course,
-      category: categoriesMap[course.categoryId] || 'Khác'
-    }));
+  const normalizedCourses = coursesRes.data.map((course) => ({
+    ...course,
+    category: categoryMap.get(course.categoryId) || 'Khac',
+  }));
 
-    return { data: mappedCourses };
-  } catch (error) {
-    console.error("Error fetching courses from API:", error);
-    throw error;
-  }
+  return { data: normalizedCourses };
 };
 
 /**
  * Fetch all course categories and return as simple strings for the filter sidebar
  */
 export const getCategories = async () => {
-  try {
-    const response = await api.get('/categories');
-    // Map objects to names for the filter logic in CourseExplorer
-    const categoryNames = response.data.map(cat => cat.name);
-    return { data: categoryNames };
-  } catch (error) {
-    console.error("Error fetching categories from API:", error);
-    throw error;
-  }
+  const response = await api.get('/categories');
+  return { data: response.data.map((category) => category.name) };
 };
 
 /**
