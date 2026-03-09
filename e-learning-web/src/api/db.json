@@ -15,150 +15,20 @@
     {
       "id": "4",
       "name": "Kỹ năng mềm"
-  },
-  {
-    "id": "5",
-    "name": "Thiết kế đồ họa"
-  },
-  {
-    "id": "6",
-    "name": "Marketing"
-  }
-],
-"courses": [
-  {
-    "id": "1",
-    "title": "Lập trình ReactJS từ cơ bản đến nâng cao",
-    "instructor": "Trần Anh Quân",
-    "rating": 4.8,
-    "price": 599000,
-    "categoryId": 1,
-    "level": "Intermediate",
-    "thumbnail": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=500&h=300&fit=crop"
-  },
-  {
-    "id": "2",
-    "title": "Kinh tế vĩ mô cho người mới bắt đầu",
-    "instructor": "Nguyễn Minh Hằng",
-    "rating": 4.5,
-    "price": 399000,
-    "categoryId": 2,
-    "level": "Beginner",
-    "thumbnail": "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=500&h=300&fit=crop"
-  },
-  {
-    "id": "3",
-    "title": "Tiếng Anh chuyên ngành IT",
-    "instructor": "Lê Thu Thủy",
-    "rating": 4.7,
-    "price": 450000,
-    "categoryId": 3,
-    "level": "Beginner",
-    "thumbnail": "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=500&h=300&fit=crop"
-  },
-  {
-    "id": "4",
-    "title": "Thiết kế UI/UX với Figma",
-      "instructor": "Phạm Gia Bảo",
-      "rating": 4.9,
-      "price": 650000,
-      "categoryId": 5,
-      "level": "Advanced",
-      "thumbnail": "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=500&h=300&fit=crop"
     },
     {
       "id": "5",
-      "title": "Python cho Data Science",
-      "instructor": "Nguyễn Công Phú",
-      "rating": 4.7,
-      "price": 549000,
-      "categoryId": 1,
-      "level": "Advanced",
-      "thumbnail": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&h=300&fit=crop"
+      "name": "Thiết kế đồ họa"
     },
     {
       "id": "6",
-      "title": "HTML/CSS Xây dựng Website",
-      "instructor": "Đặng Minh Hiếu",
-      "rating": 4.6,
-      "price": 349000,
-      "categoryId": 1,
-      "level": "Beginner",
-      "thumbnail": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&h=300&fit=crop"
-    },
+      "name": "Marketing"
+    }
+  ],
+  "courses": [
     {
-      "id": "7",
-      "title": "Marketing Digital và SEO",
-      "instructor": "Võ Thị Hương",
-      "rating": 4.4,
-      "price": 399000,
-      "categoryId": 6,
-      "level": "Intermediate",
-      "thumbnail": "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=500&h=300&fit=crop"
-    },
-    {
-      "id": "8",
-      "title": "Kỹ năng lãnh đạo và quản lý",
-      "instructor": "Trương Quốc Toàn",
-      "rating": 4.5,
-      "price": 299000,
-      "categoryId": 4,
-      "level": "Beginner",
-      "thumbnail": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop"
-    },
-    {
-      "id": "9",
-      "title": "JavaScript ES6+ Nâng cao",
-      "instructor": "Lê Bảo Hân",
-      "rating": 4.8,
-      "price": 499000,
-      "categoryId": 1,
-      "level": "Intermediate",
-      "thumbnail": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&h=300&fit=crop"
-    },
-    {
-      "id": "10",
-      "title": "Thiết kế Đồ họa với Adobe CC",
-      "instructor": "Phạm Gia Bảo",
-      "rating": 4.9,
-      "price": 699000,
-      "categoryId": 5,
-      "level": "Advanced",
-      "thumbnail": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&h=300&fit=crop"
-    },
-    {
-      "id": "11",
-      "title": "Java Web Application với Servlet/JSP",
-      "instructor": "Nguyễn Thành Nam",
-      "rating": 4.7,
-      "price": 550000,
-      "categoryId": 1,
-      "level": "Intermediate",
-      "thumbnail": "https://images.unsplash.com/photo-1511376777868-611b54f68947?w=500&h=300&fit=crop"
-    },
-    {
-      "id": "12",
-      "title": "Kỹ năng thuyết trình trước đám đông",
-      "instructor": "Lê Hồng Minh",
-      "rating": 4.6,
-      "price": 250000,
-      "categoryId": 4,
-      "level": "Beginner",
-      "thumbnail": "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=500&h=300&fit=crop"
-    },
-    {
-      "id": "13",
-      "title": "Cấu trúc dữ liệu và Giải thuật (C/C++)",
-      "instructor": "Hoàng Văn Đức",
-      "rating": 4.9,
-      "price": 499000,
-      "categoryId": 1,
-      "level": "Advanced",
-      "thumbnail": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500&h=300&fit=crop"
-    },
-    {
-      "id": "14",
-      "title": "Xây dựng Backend với Node.js & Express",
+      "id": "1",
+      "title": "Lập trình ReactJS từ cơ bản đến nâng cao",
       "instructor": "Trần Anh Quân",
       "rating": 4.8,
       "price": 620000,
@@ -167,9 +37,9 @@
       "thumbnail": "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=500&h=300&fit=crop"
     },
     {
-      "id": "15",
-      "title": "Tiếng Nhật sơ cấp cho kỹ sư IT",
-      "instructor": "Yuki Tanaka",
+      "id": "2",
+      "title": "Kinh tế vĩ mô cho người mới bắt đầu",
+      "instructor": "Nguyễn Minh Hằng",
       "rating": 4.5,
       "price": 420000,
       "categoryId": 3,
@@ -177,29 +47,9 @@
       "thumbnail": "https://images.unsplash.com/photo-1528127269322-539801943592?w=500&h=300&fit=crop"
     },
     {
-      "id": "16",
-      "title": "Software Testing & Quality Assurance",
-      "instructor": "Đỗ Thị Kim Anh",
-      "rating": 4.7,
-      "price": 480000,
-      "categoryId": 1,
-      "level": "Intermediate",
-      "thumbnail": "https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=500&h=300&fit=crop"
-    },
-    {
-      "id": "17",
-      "title": "Quản trị cơ sở dữ liệu SQL Server",
-      "instructor": "Ngô Quốc Huy",
-      "rating": 4.6,
-      "price": 399000,
-      "categoryId": 1,
-      "level": "Beginner",
-      "thumbnail": "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=500&h=300&fit=crop"
-    },
-    {
-      "id": "18",
-      "title": "Viết CV và kỹ năng phỏng vấn IT",
-      "instructor": "Hà Kiều Anh",
+      "id": "4",
+      "title": "Thiết kế UI/UX với Figma",
+      "instructor": "Phạm Gia Bảo",
       "rating": 4.9,
       "price": 199000,
       "categoryId": 4,
