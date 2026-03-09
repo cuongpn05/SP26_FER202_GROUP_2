@@ -98,3 +98,17 @@ export const registerUser = async (userData) => {
     throw error;
   }
 };
+
+/**
+ * Update a course
+ */
+export const updateCourse = async (courseId, courseData) => {
+  return api.put(`/courses/${courseId}`, courseData);
+};
+
+/**
+ * Delete a course
+ */
+export const deleteCourse = async (courseId) => {
+  return api.delete(`/courses/${courseId}`);
+};

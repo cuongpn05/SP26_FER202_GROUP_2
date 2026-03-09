@@ -21,7 +21,7 @@ const AuthModal = () => {
       password: '',
       fullName: ''
     });
-    setError(null);
+    setAuthError('');
   }, [mode, isOpen]);
 
   if (!isOpen) return null;
@@ -141,9 +141,9 @@ const AuthModal = () => {
 
         {/* Form Body */}
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          {error && (
+          {authError && (
             <div className="bg-red-50 text-red-600 p-3 rounded-xl text-xs font-bold animate-pulse text-center">
-              {error}
+              {authError}
             </div>
           )}
 
