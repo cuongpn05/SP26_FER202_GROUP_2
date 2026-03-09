@@ -1,26 +1,47 @@
 import axios from 'axios';
-import { courses, categories } from './mockData';
 
-// Giả lập Axios instance để demo logic yêu cầu
+// Axios instance matching the local JSON server
 const api = axios.create({
-  baseURL: 'https://fake-api.fpt-academy.com', // Endpoint giả định
+  baseURL: 'http://localhost:3500',
 });
 
+/**
+ * Fetch all available courses and map categoryId to category name
+ */
 export const getCourses = async () => {
-  // Thực tế sẽ dùng api.get('/courses')
-  // Ở đây giả lập độ trễ 1.5s
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({ data: courses });
-    }, 1500);
-  });
+  try {
+    const [coursesRes, catsRes] = await Promise.all([
+      api.get('/courses'),
+      api.get('/categories')
+    ]);
+
+    const categoriesMap = catsRes.data.reduce((acc, cat) => {
+      acc[cat.id] = cat.name;
+      return acc;
+    }, {});
+
+    const mappedCourses = coursesRes.data.map(course => ({
+      ...course,
+      category: categoriesMap[course.categoryId] || 'Unknown'
+    }));
+
+    return { data: mappedCourses };
+  } catch (error) {
+    console.error("Error fetching courses from API:", error);
+    throw error;
+  }
 };
 
+/**
+ * Fetch all course categories and return as simple strings
+ */
 export const getCategories = async () => {
-  // Thực tế sẽ dùng api.get('/categories')
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({ data: categories });
-    }, 800);
-  });
+  try {
+    const response = await api.get('/categories');
+    const categoryNames = response.data.map(cat => cat.name);
+    return { data: categoryNames };
+  } catch (error) {
+    console.error("Error fetching categories from API:", error);
+    throw error;
+  }
 };
