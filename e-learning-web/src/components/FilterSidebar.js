@@ -112,7 +112,7 @@ const FilterSidebar = ({
           setSelectedLevel('all');
           setSelectedPriceRange('all');
         }}
-        className="w-full py-4 rounded-xl text-xs font-black uppercase tracking-widest text-[#F37021] bg-white border-2 border-[#F37021]/10 hover:bg-[#F37021]/5 hover:border-[#F37021]/30 transition-all active:scale-95"
+        className="w-full py-4 rounded-xl text-xs font-black uppercase tracking-widest text-primary bg-white border-2 border-primary/10 hover:bg-primary/5 hover:border-primary/30 transition-all active:scale-95"
       >
         Làm mới bộ lọc
       </button>

@@ -3,7 +3,9 @@ import { Search, MapPin, Play, Clock, Users, Globe } from 'lucide-react';
 
 const HeroSection = ({ searchQuery, setSearchQuery }) => {
   return (
-    <section className="relative bg-[#F37021] text-white overflow-hidden py-16 lg:py-24 rounded-3xl shadow-2xl mx-4 sm:mx-6 lg:mx-8 mt-6">
+    <section className="relative bg-primary text-white overflow-hidden py-16 lg:py-24 rounded-3xl shadow-2xl mx-4 sm:mx-6 lg:mx-8 mt-6">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary-dark to-blue-900 opacity-90"></div>
+      
       {/* Decorative patterns */}
       <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-60 h-60 bg-white/20 rounded-full blur-2xl"></div>
@@ -23,7 +25,7 @@ const HeroSection = ({ searchQuery, setSearchQuery }) => {
 
       <div className="hidden xl:block absolute bottom-20 left-[10%] glass-card p-4 animate-pulse duration-[4000ms]">
         <div className="flex items-center space-x-3 text-text-main">
-          <div className="bg-secondary/10 p-2 rounded-lg text-secondary">
+          <div className="bg-primary-light p-2 rounded-lg text-primary">
              <Clock size={20} />
           </div>
           <div>
@@ -42,10 +44,10 @@ const HeroSection = ({ searchQuery, setSearchQuery }) => {
 
         {/* Title */}
         <h1 className="text-3xl sm:text-4xl lg:text-6xl font-black text-center mb-6 leading-tight max-w-4xl tracking-tight drop-shadow-lg font-sans">
-          F-Academy: <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-orange-100">Kiến tạo tương lai số</span>
+          F-Academy: <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">Kiến tạo tương lai số</span>
         </h1>
         
-        <p className="text-lg sm:text-xl text-orange-50 font-medium mb-12 text-center max-w-2xl opacity-90 leading-relaxed font-sans">
+        <p className="text-lg sm:text-xl text-blue-50 font-medium mb-12 text-center max-w-2xl opacity-90 leading-relaxed font-sans">
           Nền tảng học trực tuyến chất lượng cao dành riêng cho sinh viên FPT. Học từ giảng viên hàng đầu, thực chiến dự án thực tế.
         </p>
 

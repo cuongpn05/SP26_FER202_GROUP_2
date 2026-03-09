@@ -49,7 +49,7 @@ const CourseCard = ({ course }) => {
         <div className="mt-auto pt-4 flex justify-between items-center border-t border-gray-50">
           <div className="flex flex-col">
             <span className="text-[10px] uppercase text-text-muted font-bold tracking-tighter">Giá khóa học</span>
-            <span className="text-lg font-extrabold text-[#F37021]">
+            <span className="text-lg font-extrabold text-primary">
               {(course.price).toLocaleString('vi-VN')}đ
             </span>
           </div>
