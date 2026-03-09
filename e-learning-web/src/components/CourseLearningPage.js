@@ -3,10 +3,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ChevronLeft, Menu } from 'lucide-react';
 
-// Lazy load VideoPlayer as requested
-const VideoPlayer = lazy(() => import('../components/VideoPlayer'));
-const CurriculumAccordion = lazy(() => import('../components/CurriculumAccordion'));
-const NoteSystem = lazy(() => import('../components/NoteSystem'));
+// Lazy load components
+const VideoPlayer = lazy(() => import('./VideoPlayer'));
+const CurriculumAccordion = lazy(() => import('./CurriculumAccordion'));
+const NoteSystem = lazy(() => import('./NoteSystem'));
 
 const API_URL = 'http://localhost:3636';
 
