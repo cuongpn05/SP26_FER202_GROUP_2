@@ -1,16 +1,33 @@
 {
   "categories": [
-    { "id": 1, "name": "Khoa học máy tính" },
-    { "id": 2, "name": "Kinh tế" },
-    { "id": 3, "name": "Ngoại ngữ" },
-    { "id": 4, "name": "Kỹ năng mềm" },
-    { "id": 5, "name": "Thiết kế đồ họa" },
-    { "id": 6, "name": "Marketing" }
+    {
+      "id": "1",
+      "name": "Khoa học máy tính"
+    },
+    {
+      "id": "2",
+      "name": "Kinh tế"
+    },
+    {
+      "id": "3",
+      "name": "Ngoại ngữ"
+    },
+    {
+      "id": "4",
+      "name": "Kỹ năng mềm"
+    },
+    {
+      "id": "5",
+      "name": "Thiết kế đồ họa"
+    },
+    {
+      "id": "6",
+      "name": "Marketing"
+    }
   ],
-
   "courses": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Lập trình ReactJS từ cơ bản đến nâng cao",
       "instructor": "Trần Anh Quân",
       "rating": 4.8,
@@ -20,7 +37,7 @@
       "thumbnail": "https://images.unsplash.com/photo-1633356122544-f134324a6cee"
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "Kinh tế vĩ mô cho người mới bắt đầu",
       "instructor": "Nguyễn Minh Hằng",
       "rating": 4.5,
@@ -30,7 +47,7 @@
       "thumbnail": "https://images.unsplash.com/photo-1611974714656-511477732a67"
     },
     {
-      "id": 3,
+      "id": "3",
       "title": "Tiếng Anh chuyên ngành IT",
       "instructor": "Lê Thu Thủy",
       "rating": 4.7,
@@ -40,7 +57,7 @@
       "thumbnail": "https://images.unsplash.com/photo-1543702425-41e976865261"
     },
     {
-      "id": 4,
+      "id": "4",
       "title": "Thiết kế UI/UX với Figma",
       "instructor": "Phạm Gia Bảo",
       "rating": 4.9,
@@ -50,10 +67,9 @@
       "thumbnail": "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e"
     }
   ],
-
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Lê Trường An",
       "email": "anlt.ce190367@gmail.com",
       "password": "123456",
@@ -62,7 +78,7 @@
       "bio": "Sinh viên IT thích học React và AI"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Nguyễn Văn Minh",
       "email": "minh@gmail.com",
       "password": "123456",
@@ -71,7 +87,7 @@
       "bio": "Frontend Developer đang học thêm React"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Trần Thị Lan",
       "email": "lan@gmail.com",
       "password": "123456",
@@ -80,7 +96,7 @@
       "bio": "Sinh viên Marketing"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Phạm Gia Bảo",
       "email": "bao@gmail.com",
       "password": "123456",
@@ -89,7 +105,7 @@
       "bio": "UI/UX Designer và giảng viên thiết kế"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Admin System",
       "email": "admin@gmail.com",
       "password": "admin123",
@@ -98,42 +114,98 @@
       "bio": "Quản trị hệ thống"
     }
   ],
-
   "enrollments": [
     {
-      "id": 1,
+      "id": "1",
       "userId": 1,
       "courseId": 1,
       "progress": 80,
       "status": "purchased"
     },
     {
-      "id": 2,
+      "id": "2",
       "userId": 1,
       "courseId": 3,
       "progress": 45,
       "status": "learning"
     },
     {
-      "id": 3,
+      "id": "3",
       "userId": 1,
       "courseId": 4,
       "progress": 20,
       "status": "learning"
     },
     {
-      "id": 4,
+      "id": "4",
       "userId": 2,
       "courseId": 1,
       "progress": 60,
       "status": "learning"
     },
     {
-      "id": 5,
+      "id": "5",
       "userId": 3,
       "courseId": 2,
       "progress": 100,
       "status": "completed"
     }
-  ]
+  ],
+  "chapters": [
+    {
+      "id": "1",
+      "courseId": 1,
+      "title": "Giới thiệu về React"
+    },
+    {
+      "id": "2",
+      "courseId": 1,
+      "title": "Hooks cơ bản"
+    },
+    {
+      "id": "3",
+      "courseId": 4,
+      "title": "Làm quen với Figma"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "1",
+      "chapterId": 1,
+      "title": "React là gì?",
+      "videoUrl": "https://youtu.be/NclbvXqvnyA?si=6vp0j4F0s3Ja9M00",
+      "duration": "10:00"
+    },
+    {
+      "id": "2",
+      "chapterId": 1,
+      "title": "Cài đặt môi trường",
+      "videoUrl": "https://www.youtube.com/embed/SqcY0GlETPk",
+      "duration": "15:00"
+    },
+    {
+      "id": "3",
+      "chapterId": 2,
+      "title": "useState Hook",
+      "videoUrl": "https://www.youtube.com/embed/SqcY0GlETPk",
+      "duration": "20:00"
+    },
+    {
+      "id": "4",
+      "chapterId": 2,
+      "title": "useEffect Hook",
+      "videoUrl": "https://www.youtube.com/embed/SqcY0GlETPk",
+      "duration": "25:00"
+    }
+  ],
+  "notes": [
+    {
+      "id": "073c",
+      "userId": 1,
+      "lessonId": "3",
+      "content": "tốt",
+      "timestamp": 1773068631027
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
