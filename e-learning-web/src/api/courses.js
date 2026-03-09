@@ -9,15 +9,38 @@ const api = axios.create({
  * Fetch all available courses and map categoryId to category name
  */
 export const getCourses = async () => {
-  return api.get('/courses');
+  try {
+    const [coursesRes, catsRes] = await Promise.all([
+      api.get('/courses'),
+      api.get('/categories')
+    ]);
+
+    // Create a lookup map for categories
+    const categoriesMap = catsRes.data.reduce((acc, cat) => {
+      acc[cat.id] = cat.name;
+      return acc;
+    }, {});
+
+    // Map the categoryId to a category string for the UI
+    const mappedCourses = coursesRes.data.map(course => ({
+      ...course,
+      category: categoriesMap[course.categoryId] || 'Khác'
+    }));
+
+    return { data: mappedCourses };
+  } catch (error) {
+    console.error("Error fetching courses from API:", error);
+    throw error;
+  }
 };
 
 /**
- * Fetch all course categories and return as simple strings
+ * Fetch all course categories and return as simple strings for the filter sidebar
  */
 export const getCategories = async () => {
   try {
     const response = await api.get('/categories');
+    // Map objects to names for the filter logic in CourseExplorer
     const categoryNames = response.data.map(cat => cat.name);
     return { data: categoryNames };
   } catch (error) {
