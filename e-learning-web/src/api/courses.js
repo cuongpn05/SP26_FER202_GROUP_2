@@ -2,34 +2,14 @@ import axios from 'axios';
 
 // Axios instance matching the local JSON server
 const api = axios.create({
-  baseURL: 'http://localhost:3500',
+  baseURL: 'http://localhost:3636', // Chạy với json-server --port 3636
 });
 
 /**
  * Fetch all available courses and map categoryId to category name
  */
 export const getCourses = async () => {
-  try {
-    const [coursesRes, catsRes] = await Promise.all([
-      api.get('/courses'),
-      api.get('/categories')
-    ]);
-
-    const categoriesMap = catsRes.data.reduce((acc, cat) => {
-      acc[cat.id] = cat.name;
-      return acc;
-    }, {});
-
-    const mappedCourses = coursesRes.data.map(course => ({
-      ...course,
-      category: categoriesMap[course.categoryId] || 'Unknown'
-    }));
-
-    return { data: mappedCourses };
-  } catch (error) {
-    console.error("Error fetching courses from API:", error);
-    throw error;
-  }
+  return api.get('/courses');
 };
 
 /**
