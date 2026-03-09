@@ -7,7 +7,7 @@ const AuthModal = () => {
   const { isAuthModalOpen: isOpen, closeAuthModal: onClose, authMode: mode, setAuthMode: setMode, login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [authError, setAuthError] = useState('');
 
   const [formData, setFormData] = useState({
     email: '',
@@ -29,33 +29,59 @@ const AuthModal = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setError(null);
-    
+    setAuthError('');
+
     try {
       if (mode === 'login') {
-        const response = await loginUser(formData.email, formData.password);
-        if (response.data.length > 0) {
-          login(response.data[0]);
-        } else {
-          setError('Email hoặc mật khẩu không chính xác.');
+        const normalizedEmail = formData.email.trim().toLowerCase();
+        const normalizedPassword = formData.password.trim();
+        const response = await fetch(
+          `http://localhost:3636/users?email=${encodeURIComponent(normalizedEmail)}`
+        );
+        const users = await response.json();
+
+        if (!Array.isArray(users) || users.length === 0) {
+          setAuthError('Email hoac mat khau khong dung.');
+          return;
         }
-      } else {
-        const response = await registerUser({
-          email: formData.email,
-          password: formData.password,
-          name: formData.fullName,
+
+        const matchedUser = users.find(
+          (item) =>
+            String(item.email || '').toLowerCase() === normalizedEmail &&
+            String(item.password || '') === normalizedPassword
+        );
+
+        if (!matchedUser) {
+          setAuthError('Email hoac mat khau khong dung.');
+          return;
+        }
+
+        login({
+          id: String(matchedUser.id),
+          email: matchedUser.email,
+          name: matchedUser.name,
+          role: matchedUser.role,
+          avatar: matchedUser.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(matchedUser.name || 'user')}`,
         });
-        login(response.data);
+        return;
       }
-    } catch (err) {
-      setError(err.message || 'Có lỗi xảy ra, vui lòng thử lại sau.');
-      console.error(err);
+
+      login({
+        id: Date.now().toString(),
+        email: formData.email,
+        name: formData.fullName || 'Hoc vien moi',
+        role: 'student',
+        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=NewUser',
+      });
+    } catch (error) {
+      setAuthError('Khong the ket noi den may chu.');
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleChange = (e) => {
+    if (authError) setAuthError('');
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -198,6 +224,10 @@ const AuthModal = () => {
           </div>
 
           {/* Submit Button */}
+          {authError && (
+            <p className="text-sm font-semibold text-red-500 px-1">{authError}</p>
+          )}
+
           <button
             type="submit"
             disabled={isLoading}
