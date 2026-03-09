@@ -15,56 +15,216 @@
     {
       "id": "4",
       "name": "Kỹ năng mềm"
-    },
-    {
-      "id": "5",
-      "name": "Thiết kế đồ họa"
-    },
-    {
-      "id": "6",
-      "name": "Marketing"
-    }
-  ],
-  "courses": [
-    {
-      "id": "1",
-      "title": "Lập trình ReactJS từ cơ bản đến nâng cao",
-      "instructor": "Trần Anh Quân",
-      "rating": 4.8,
-      "price": 599000,
-      "categoryId": 1,
-      "level": "Intermediate",
-      "thumbnail": "https://images.unsplash.com/photo-1633356122544-f134324a6cee"
-    },
-    {
-      "id": "2",
-      "title": "Kinh tế vĩ mô cho người mới bắt đầu",
-      "instructor": "Nguyễn Minh Hằng",
-      "rating": 4.5,
-      "price": 399000,
-      "categoryId": 2,
-      "level": "Beginner",
-      "thumbnail": "https://images.unsplash.com/photo-1611974714656-511477732a67"
-    },
-    {
-      "id": "3",
-      "title": "Tiếng Anh chuyên ngành IT",
-      "instructor": "Lê Thu Thủy",
-      "rating": 4.7,
-      "price": 450000,
-      "categoryId": 3,
-      "level": "Beginner",
-      "thumbnail": "https://images.unsplash.com/photo-1543702425-41e976865261"
-    },
-    {
-      "id": "4",
-      "title": "Thiết kế UI/UX với Figma",
+  },
+  {
+    "id": "5",
+    "name": "Thiết kế đồ họa"
+  },
+  {
+    "id": "6",
+    "name": "Marketing"
+  }
+],
+"courses": [
+  {
+    "id": "1",
+    "title": "Lập trình ReactJS từ cơ bản đến nâng cao",
+    "instructor": "Trần Anh Quân",
+    "rating": 4.8,
+    "price": 599000,
+    "categoryId": 1,
+    "level": "Intermediate",
+    "thumbnail": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=500&h=300&fit=crop"
+  },
+  {
+    "id": "2",
+    "title": "Kinh tế vĩ mô cho người mới bắt đầu",
+    "instructor": "Nguyễn Minh Hằng",
+    "rating": 4.5,
+    "price": 399000,
+    "categoryId": 2,
+    "level": "Beginner",
+    "thumbnail": "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=500&h=300&fit=crop"
+  },
+  {
+    "id": "3",
+    "title": "Tiếng Anh chuyên ngành IT",
+    "instructor": "Lê Thu Thủy",
+    "rating": 4.7,
+    "price": 450000,
+    "categoryId": 3,
+    "level": "Beginner",
+    "thumbnail": "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=500&h=300&fit=crop"
+  },
+  {
+    "id": "4",
+    "title": "Thiết kế UI/UX với Figma",
       "instructor": "Phạm Gia Bảo",
       "rating": 4.9,
       "price": 650000,
       "categoryId": 5,
       "level": "Advanced",
-      "thumbnail": "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e"
+      "thumbnail": "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=500&h=300&fit=crop"
+    },
+    {
+      "id": "5",
+      "title": "Python cho Data Science",
+      "instructor": "Nguyễn Công Phú",
+      "rating": 4.7,
+      "price": 549000,
+      "categoryId": 1,
+      "level": "Advanced",
+      "thumbnail": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&h=300&fit=crop"
+    },
+    {
+      "id": "6",
+      "title": "HTML/CSS Xây dựng Website",
+      "instructor": "Đặng Minh Hiếu",
+      "rating": 4.6,
+      "price": 349000,
+      "categoryId": 1,
+      "level": "Beginner",
+      "thumbnail": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&h=300&fit=crop"
+    },
+    {
+      "id": "7",
+      "title": "Marketing Digital và SEO",
+      "instructor": "Võ Thị Hương",
+      "rating": 4.4,
+      "price": 399000,
+      "categoryId": 6,
+      "level": "Intermediate",
+      "thumbnail": "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=500&h=300&fit=crop"
+    },
+    {
+      "id": "8",
+      "title": "Kỹ năng lãnh đạo và quản lý",
+      "instructor": "Trương Quốc Toàn",
+      "rating": 4.5,
+      "price": 299000,
+      "categoryId": 4,
+      "level": "Beginner",
+      "thumbnail": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop"
+    },
+    {
+      "id": "9",
+      "title": "JavaScript ES6+ Nâng cao",
+      "instructor": "Lê Bảo Hân",
+      "rating": 4.8,
+      "price": 499000,
+      "categoryId": 1,
+      "level": "Intermediate",
+      "thumbnail": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&h=300&fit=crop"
+    },
+    {
+      "id": "10",
+      "title": "Thiết kế Đồ họa với Adobe CC",
+      "instructor": "Phạm Gia Bảo",
+      "rating": 4.9,
+      "price": 699000,
+      "categoryId": 5,
+      "level": "Advanced",
+      "thumbnail": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&h=300&fit=crop"
+    },
+    {
+      "id": "11",
+      "title": "Java Web Application với Servlet/JSP",
+      "instructor": "Nguyễn Thành Nam",
+      "rating": 4.7,
+      "price": 550000,
+      "categoryId": 1,
+      "level": "Intermediate",
+      "thumbnail": "https://images.unsplash.com/photo-1511376777868-611b54f68947?w=500&h=300&fit=crop"
+    },
+    {
+      "id": "12",
+      "title": "Kỹ năng thuyết trình trước đám đông",
+      "instructor": "Lê Hồng Minh",
+      "rating": 4.6,
+      "price": 250000,
+      "categoryId": 4,
+      "level": "Beginner",
+      "thumbnail": "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=500&h=300&fit=crop"
+    },
+    {
+      "id": "13",
+      "title": "Cấu trúc dữ liệu và Giải thuật (C/C++)",
+      "instructor": "Hoàng Văn Đức",
+      "rating": 4.9,
+      "price": 499000,
+      "categoryId": 1,
+      "level": "Advanced",
+      "thumbnail": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500&h=300&fit=crop"
+    },
+    {
+      "id": "14",
+      "title": "Xây dựng Backend với Node.js & Express",
+      "instructor": "Trần Anh Quân",
+      "rating": 4.8,
+      "price": 620000,
+      "categoryId": 1,
+      "level": "Intermediate",
+      "thumbnail": "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=500&h=300&fit=crop"
+    },
+    {
+      "id": "15",
+      "title": "Tiếng Nhật sơ cấp cho kỹ sư IT",
+      "instructor": "Yuki Tanaka",
+      "rating": 4.5,
+      "price": 420000,
+      "categoryId": 3,
+      "level": "Beginner",
+      "thumbnail": "https://images.unsplash.com/photo-1528127269322-539801943592?w=500&h=300&fit=crop"
+    },
+    {
+      "id": "16",
+      "title": "Software Testing & Quality Assurance",
+      "instructor": "Đỗ Thị Kim Anh",
+      "rating": 4.7,
+      "price": 480000,
+      "categoryId": 1,
+      "level": "Intermediate",
+      "thumbnail": "https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=500&h=300&fit=crop"
+    },
+    {
+      "id": "17",
+      "title": "Quản trị cơ sở dữ liệu SQL Server",
+      "instructor": "Ngô Quốc Huy",
+      "rating": 4.6,
+      "price": 399000,
+      "categoryId": 1,
+      "level": "Beginner",
+      "thumbnail": "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=500&h=300&fit=crop"
+    },
+    {
+      "id": "18",
+      "title": "Viết CV và kỹ năng phỏng vấn IT",
+      "instructor": "Hà Kiều Anh",
+      "rating": 4.9,
+      "price": 199000,
+      "categoryId": 4,
+      "level": "Beginner",
+      "thumbnail": "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=500&h=300&fit=crop"
+    },
+    {
+      "id": "19",
+      "title": "An toàn thông tin và Bảo mật Web",
+      "instructor": "Vương Thế Hải",
+      "rating": 4.8,
+      "price": 750000,
+      "categoryId": 1,
+      "level": "Advanced",
+      "thumbnail": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500&h=300&fit=crop"
+    },
+    {
+      "id": "20",
+      "title": "Lập trình Mobile với React Native",
+      "instructor": "Nguyễn Minh Hiếu",
+      "rating": 4.7,
+      "price": 680000,
+      "categoryId": 1,
+      "level": "Intermediate",
+      "thumbnail": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500&h=300&fit=crop"
     }
   ],
   "users": [
@@ -75,7 +235,8 @@
       "password": "123456",
       "birthDate": "2005-07-27",
       "role": "student",
-      "bio": "Sinh viên IT thích học React và AI"
+      "bio": "Sinh viên IT thích học React và AI",
+      "avatar": "https://i.pravatar.cc/150?img=1"
     },
     {
       "id": "2",
@@ -84,7 +245,8 @@
       "password": "123456",
       "birthDate": "2002-03-12",
       "role": "student",
-      "bio": "Frontend Developer đang học thêm React"
+      "bio": "Frontend Developer đang học thêm React",
+      "avatar": "https://i.pravatar.cc/150?img=2"
     },
     {
       "id": "3",
@@ -93,7 +255,8 @@
       "password": "123456",
       "birthDate": "2001-11-09",
       "role": "student",
-      "bio": "Sinh viên Marketing"
+      "bio": "Sinh viên Marketing",
+      "avatar": "https://i.pravatar.cc/150?img=3"
     },
     {
       "id": "4",
@@ -102,7 +265,8 @@
       "password": "123456",
       "birthDate": "1998-05-14",
       "role": "instructor",
-      "bio": "UI/UX Designer và giảng viên thiết kế"
+      "bio": "UI/UX Designer và giảng viên thiết kế",
+      "avatar": "https://i.pravatar.cc/150?img=4"
     },
     {
       "id": "5",
@@ -111,7 +275,66 @@
       "password": "admin123",
       "birthDate": "1995-01-01",
       "role": "admin",
-      "bio": "Quản trị hệ thống"
+      "bio": "Quản trị hệ thống",
+      "avatar": "https://i.pravatar.cc/150?img=5"
+    },
+    {
+      "id": "6",
+      "name": "Trần Anh Quân",
+      "email": "quan@gmail.com",
+      "password": "123456",
+      "birthDate": "1997-08-15",
+      "role": "instructor",
+      "bio": "Chuyên gia React và Frontend Architecture",
+      "avatar": "https://i.pravatar.cc/150?img=6"
+    },
+    {
+      "id": "7",
+      "name": "Nguyễn Minh Hằng",
+      "email": "hang@gmail.com",
+      "password": "123456",
+      "birthDate": "2000-05-20",
+      "role": "instructor",
+      "bio": "Giáo sư Kinh tế tại Đại học",
+      "avatar": "https://i.pravatar.cc/150?img=7"
+    },
+    {
+      "id": "8",
+      "name": "Lê Thu Thủy",
+      "email": "thuy@gmail.com",
+      "password": "123456",
+      "birthDate": "1999-02-14",
+      "role": "instructor",
+      "bio": "Giáo viên Tiếng Anh chuyên ngành",
+      "avatar": "https://i.pravatar.cc/150?img=8"
+    },
+    {
+      "id": "9",
+      "name": "Võ Thiên Phú",
+      "email": "phu@gmail.com",
+      "password": "123456",
+      "birthDate": "2003-11-08",
+      "role": "student",
+      "bio": "Sinh viên năm 2 chuyên ngành Công nghệ thông tin",
+      "avatar": "https://i.pravatar.cc/150?img=9"
+    },
+    {
+      "id": "10",
+      "name": "Hoàng Thu Hà",
+      "email": "ha@gmail.com",
+      "password": "123456",
+      "birthDate": "2004-03-25",
+      "role": "student",
+      "bio": "Học viên lập trình web",
+      "avatar": "https://i.pravatar.cc/150?img=10"
+    },
+    {
+      "id": "b06b",
+      "email": "lqnhat.ce190875@gmail.com",
+      "password": "123456",
+      "name": "Le Quang Nhat",
+      "role": "student",
+      "avatar": "https://i.pravatar.cc/150?u=lqnhat.ce190875@gmail.com"
     }
   ],
   "enrollments": [
@@ -149,62 +372,97 @@
       "courseId": 2,
       "progress": 100,
       "status": "completed"
-    }
-  ],
-  "chapters": [
-    {
-      "id": "1",
-      "courseId": 1,
-      "title": "Giới thiệu về React"
     },
     {
-      "id": "2",
-      "courseId": 1,
-      "title": "Hooks cơ bản"
+      "id": "6",
+      "userId": 2,
+      "courseId": 5,
+      "progress": 75,
+      "status": "learning"
     },
     {
-      "id": "3",
-      "courseId": 4,
-      "title": "Làm quen với Figma"
-    }
-  ],
-  "lessons": [
-    {
-      "id": "1",
-      "chapterId": 1,
-      "title": "React là gì?",
-      "videoUrl": "https://youtu.be/NclbvXqvnyA?si=6vp0j4F0s3Ja9M00",
-      "duration": "10:00"
+      "id": "7",
+      "userId": 3,
+      "courseId": 6,
+      "progress": 30,
+      "status": "learning"
     },
     {
-      "id": "2",
-      "chapterId": 1,
-      "title": "Cài đặt môi trường",
-      "videoUrl": "https://www.youtube.com/embed/SqcY0GlETPk",
-      "duration": "15:00"
-    },
-    {
-      "id": "3",
-      "chapterId": 2,
-      "title": "useState Hook",
-      "videoUrl": "https://www.youtube.com/embed/SqcY0GlETPk",
-      "duration": "20:00"
-    },
-    {
-      "id": "4",
-      "chapterId": 2,
-      "title": "useEffect Hook",
-      "videoUrl": "https://www.youtube.com/embed/SqcY0GlETPk",
-      "duration": "25:00"
-    }
-  ],
-  "notes": [
-    {
-      "id": "073c",
+      "id": "8",
       "userId": 1,
-      "lessonId": "3",
-      "content": "tốt",
-      "timestamp": 1773068631027
+      "courseId": 9,
+      "progress": 55,
+      "status": "learning"
+    },
+    {
+      "id": "9",
+      "userId": 9,
+      "courseId": 1,
+      "progress": 40,
+      "status": "learning"
+    },
+    {
+      "id": "10",
+      "userId": 9,
+      "courseId": 6,
+      "progress": 90,
+      "status": "learning"
+    },
+    {
+      "id": "11",
+      "userId": 10,
+      "courseId": 4,
+      "progress": 65,
+      "status": "learning"
+    },
+    {
+      "id": "12",
+      "userId": 10,
+      "courseId": 7,
+      "progress": 35,
+      "status": "learning"
+    },
+    {
+      "id": "13",
+      "userId": 2,
+      "courseId": 7,
+      "progress": 100,
+      "status": "completed"
+    },
+    {
+      "id": "14",
+      "userId": 3,
+      "courseId": 8,
+      "progress": 50,
+      "status": "learning"
+    },
+    {
+      "id": "15",
+      "userId": 1,
+      "courseId": 5,
+      "progress": 25,
+      "status": "learning"
+    },
+    {
+      "id": "16",
+      "userId": 9,
+      "courseId": 9,
+      "progress": 70,
+      "status": "learning"
+    },
+    {
+      "id": "17",
+      "userId": 10,
+      "courseId": 10,
+      "progress": 15,
+      "status": "learning"
+    },
+    {
+      "id": "18",
+      "userId": 2,
+      "courseId": 10,
+      "progress": 40,
+      "status": "learning"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

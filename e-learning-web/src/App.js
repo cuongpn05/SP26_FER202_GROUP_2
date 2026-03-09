@@ -5,9 +5,13 @@ import CourseLearningPage from './components/CourseLearningPage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AuthModal from './components/AuthModal';
+import ProfileSettings from './components/ProfileSettings';
 import './App.css';
+import { useAuth } from './context/AuthContext';
 
 function App() {
+  const { isLoggedIn } = useAuth();
+
   return (
     <Router>
       <div className="App flex flex-col min-h-screen">
