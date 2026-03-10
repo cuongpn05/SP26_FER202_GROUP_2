@@ -8,6 +8,7 @@ import AuthModal from './components/AuthModal';
 import CourseTable from './components/CourseTable';
 import ProfileSettings from './components/ProfileSettings';
 import CategoryManagement from './components/CategoryManagement';
+import MyCourses from './components/MyCourses';
 import { useAuth } from './context/AuthContext';
 import './App.css';
 
@@ -31,6 +32,10 @@ function App() {
           <Route
             path="/profile"
             element={isLoggedIn ? <ProfileSettings /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/my-courses"
+            element={isLoggedIn ? <MyCourses /> : <Navigate to="/" />}
           />
           <Route path="/learning/:courseId" element={<CourseLearningPage />} />
           <Route

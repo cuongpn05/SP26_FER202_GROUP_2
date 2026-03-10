@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 import { updateUserProfile, getUserProfile, changePassword } from '../api/courses';
-import { User, Mail, Calendar, Lock, BookOpen, Save, AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
+import { User, Mail, Calendar, Lock, BookOpen, Save, AlertCircle, CheckCircle2, Loader2, Sparkles } from 'lucide-react';
 
 const ProfileSettings = () => {
   const { user: authUser, login } = useAuth();
@@ -129,6 +130,18 @@ const ProfileSettings = () => {
               <span className="inline-block mt-3 px-3 py-1 bg-white/20 rounded-full text-xs font-medium backdrop-blur-sm">
                 Vai trò: {authUser.role === 'student' ? 'Học viên' : 'Giảng viên'}
               </span>
+              
+              {authUser.role === 'student' && (
+                <div className="mt-8">
+                  <Link 
+                    to="/my-courses"
+                    className="inline-flex items-center gap-2 bg-white text-blue-600 px-6 py-2.5 rounded-xl font-bold shadow-lg hover:scale-105 transition-all hover:bg-blue-50"
+                  >
+                    <BookOpen size={20} />
+                    Khóa học của tôi
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>
