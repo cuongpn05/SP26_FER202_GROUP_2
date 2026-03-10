@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import CourseExplorer from './components/CourseExplorer';
 import CourseLearningPage from './components/CourseLearningPage';
 import Navbar from './components/Navbar';
@@ -13,11 +13,14 @@ import './App.css';
 
 function App() {
   const { isLoggedIn, user } = useAuth();
+  const location = useLocation();
+  
   const isTeacher = isLoggedIn && (user?.role === 'instructor' || user?.role === 'teacher');
+  const isLearningPage = location.pathname.startsWith('/learning/');
 
   return (
     <div className="App flex flex-col min-h-screen">
-      <Navbar />
+      {!isLearningPage && <Navbar />}
       <main className="flex-grow">
         <Routes>
           <Route 
@@ -28,11 +31,11 @@ function App() {
             path="/profile" 
             element={isLoggedIn ? <ProfileSettings /> : <Navigate to="/" />} 
           />
-          <Route path="/course/:id" element={<CourseLearningPage />} />
+          <Route path="/learning/:courseId" element={<CourseLearningPage />} />
           {/* Add more routes as needed */}
         </Routes>
       </main>
-      <Footer />
+      {!isLearningPage && <Footer />}
       <AuthModal />
     </div>
 
