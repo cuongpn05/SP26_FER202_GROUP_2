@@ -346,22 +346,22 @@
       "id": "2",
       "chapterId": 1,
       "title": "Cài đặt môi trường",
-      "videoUrl": "https://www.youtube.com/embed/SqcY0GlETPk",
-      "duration": "15:00"
+      "videoUrl": "https://youtu.be/AGWJl3NMGrQ?si=OofVoAMrWOOg6HoW",
+      "duration": "11:01"
     },
     {
       "id": "3",
       "chapterId": 2,
       "title": "useState Hook",
-      "videoUrl": "https://www.youtube.com/embed/SqcY0GlETPk",
-      "duration": "20:00"
+      "videoUrl": "https://youtu.be/AFHpF265kbg?si=7tPzB3N-qigh9san",
+      "duration": "21:59"
     },
     {
       "id": "4",
       "chapterId": 2,
       "title": "useEffect Hook",
-      "videoUrl": "https://www.youtube.com/embed/SqcY0GlETPk",
-      "duration": "25:00"
+      "videoUrl": "https://youtu.be/hjIxfXKmkjk?si=1xvhj6pXjHyrzbfW",
+      "duration": "24:49"
     }
   ],
   "notes": [
