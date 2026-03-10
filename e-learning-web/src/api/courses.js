@@ -112,3 +112,50 @@ export const updateCourse = async (courseId, courseData) => {
 export const deleteCourse = async (courseId) => {
   return api.delete(`/courses/${courseId}`);
 };
+
+/**
+ * Fetch all categories with full data (id, name)
+ */
+export const getAllCategories = async () => {
+  return api.get('/categories');
+};
+
+/**
+ * Fetch courses by categoryId
+ */
+export const getCoursesByCategory = async (categoryId) => {
+  return api.get(`/courses?categoryId=${categoryId}`);
+};
+
+/**
+ * Add a new category
+ */
+export const addCategory = async (categoryName) => {
+  try {
+    // Lấy toàn bộ danh mục hiện có để tìm ID lớn nhất
+    const response = await api.get('/categories');
+    const categories = response.data;
+
+    let maxId = 0;
+    categories.forEach(cat => {
+      const numericId = parseInt(cat.id, 10);
+      if (!isNaN(numericId) && numericId > maxId) {
+        maxId = numericId;
+      }
+    });
+
+    // Tăng ID lên 1
+    const newId = String(maxId + 1);
+
+    return await api.post('/categories', { id: newId, name: categoryName });
+  } catch (error) {
+    console.error("Lỗi khi tạo danh mục mới:", error);
+    throw error;
+  }
+};
+/**
+ * Delete a category
+ */
+export const deleteCategory = async (categoryId) => {
+  return api.delete(`/categories/${categoryId}`);
+};
