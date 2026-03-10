@@ -31,7 +31,7 @@ const CourseGrid = ({ courses, loading }) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-      <Suspense fallback={[...Array(6)].map((_, i) => <SkeletonCard key={i} />)}>
+      <Suspense fallback={<>{[...Array(6)].map((_, i) => <SkeletonCard key={i} />)}</>}>
         {courses.map((course) => (
           <CourseCardLazy key={course.id} course={course} />
         ))}
