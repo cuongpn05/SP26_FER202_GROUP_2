@@ -28,26 +28,31 @@ const CourseLearningPage = () => {
         setLoading(true);
         // Ensure courseId is a number for comparison
         const numericCourseId = Number(courseId);
-        
-        const [courseRes, chaptersRes, lessonsRes] = await Promise.all([
+
+        const [courseRes, chaptersRes, lessonsRes, categoriesRes] = await Promise.all([
           axios.get(`${API_URL}/courses/${numericCourseId}`),
           axios.get(`${API_URL}/chapters?courseId=${numericCourseId}`),
-          axios.get(`${API_URL}/lessons`)
+          axios.get(`${API_URL}/lessons`),
+          axios.get(`${API_URL}/categories`)
         ]);
 
-        setCourse(courseRes.data);
+        const courseData = courseRes.data;
+        const categoryMatch = categoriesRes.data.find(c => String(c.id) === String(courseData.categoryId));
+        courseData.category = categoryMatch ? categoryMatch.name : 'Khác';
+
+        setCourse(courseData);
         setChapters(chaptersRes.data);
-        
+
         // Filter lessons for these chapters, ensuring numeric comparison
         const chapterIds = chaptersRes.data.map(c => Number(c.id));
         const filteredLessons = lessonsRes.data.filter(l => chapterIds.includes(Number(l.chapterId)));
-        
+
         setLessons(filteredLessons);
 
         if (filteredLessons.length > 0) {
           setCurrentLesson(filteredLessons[0]);
         }
-        
+
         setLoading(false);
       } catch (err) {
         console.error('Error fetching course data:', err);
@@ -77,7 +82,7 @@ const CourseLearningPage = () => {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-neutral-900 text-white p-4 text-center">
         <h2 className="text-2xl font-bold mb-4">{error || 'Không tìm thấy khóa học'}</h2>
-        <button 
+        <button
           onClick={() => navigate('/')}
           className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors"
         >
@@ -92,18 +97,21 @@ const CourseLearningPage = () => {
       {/* Header */}
       <header className="h-14 border-b border-neutral-800 flex items-center justify-between px-4 bg-neutral-900 z-10">
         <div className="flex items-center gap-4">
-          <button 
+          <button
             onClick={() => navigate('/')}
             className="p-2 hover:bg-neutral-800 rounded-full transition-colors"
           >
             <ChevronLeft size={24} />
           </button>
-          <h1 className="text-lg font-semibold truncate max-w-md hidden sm:block">
-            {course.title}
-          </h1>
+          <div className="hidden sm:flex flex-col">
+            <span className="text-xs text-indigo-400 font-bold uppercase tracking-wider">{course.category}</span>
+            <h1 className="text-lg font-semibold truncate max-w-md">
+              {course.title}
+            </h1>
+          </div>
         </div>
         <div className="flex items-center gap-4">
-          <button 
+          <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             className="p-2 hover:bg-neutral-800 rounded-full transition-colors"
           >
@@ -152,6 +160,8 @@ const CourseLearningPage = () => {
           </div>
         </div>
 
+        {/* Sidebar - Curriculum */}
+        <aside
         {/* Right Side - Intelligence Panel (4/12) */}
         <aside 
           className={`
@@ -159,6 +169,42 @@ const CourseLearningPage = () => {
             ${isSidebarOpen ? 'translate-x-0 opacity-100' : 'translate-x-full lg:hidden opacity-0'}
           `}
         >
+          <div className="flex flex-col h-full">
+            {/* Tabs Header */}
+            <div className="flex border-b border-neutral-800">
+              <button
+                onClick={() => setActiveTab('curriculum')}
+                className={`flex-1 py-4 text-sm font-bold transition-all relative ${activeTab === 'curriculum' ? 'text-indigo-500 bg-neutral-800/20' : 'text-neutral-500 hover:text-neutral-300'}`}
+              >
+                Nội dung
+                {activeTab === 'curriculum' && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-500" />}
+              </button>
+              <button
+                onClick={() => setActiveTab('notes')}
+                className={`flex-1 py-4 text-sm font-bold transition-all relative ${activeTab === 'notes' ? 'text-indigo-500 bg-neutral-800/20' : 'text-neutral-500 hover:text-neutral-300'}`}
+              >
+                Ghi chú
+                {activeTab === 'notes' && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-500" />}
+              </button>
+              <button
+                onClick={() => setIsSidebarOpen(false)}
+                className="p-4 hover:bg-neutral-800 rounded lg:hidden text-neutral-500"
+              >
+                <ChevronLeft className="rotate-180" size={20} />
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto">
+              <Suspense fallback={<div className="p-8 text-center text-neutral-500 animate-pulse">Đang tải...</div>}>
+                {activeTab === 'curriculum' ? (
+                  <CurriculumAccordion
+                    chapters={chapters}
+                    lessons={lessons}
+                    currentLessonId={currentLesson?.id}
+                    onLessonSelect={handleLessonSelect}
+                  />
+                ) : (
+                  <div className="p-4 animate-in fade-in slide-in-from-right-2 duration-300">
           <div className="flex flex-col h-full bg-gradient-to-b from-[#0C0C0D] to-black">
             {/* Sidebar Navigation Header */}
             <div className="p-8 pb-4">

@@ -13,6 +13,7 @@ export default function CourseTable({ courses, onEdit, onDelete }) {
     instructor: "",
     level: "Beginner",
     price: "",
+    categoryId: "",
   });
 
   const hasExternalCourses = Array.isArray(courses) && courses.length > 0;
@@ -77,12 +78,13 @@ export default function CourseTable({ courses, onEdit, onDelete }) {
       instructor: course.instructor || "",
       level: course.level || "Beginner",
       price: String(course.price ?? ""),
+      categoryId: String(course.categoryId ?? "1"),
     });
   };
 
   const cancelEdit = () => {
     setEditingId(null);
-    setEditForm({ title: "", instructor: "", level: "Beginner", price: "" });
+    setEditForm({ title: "", instructor: "", level: "Beginner", price: "", categoryId: "" });
   };
 
   const handleSaveEdit = async (id) => {
@@ -103,6 +105,7 @@ export default function CourseTable({ courses, onEdit, onDelete }) {
       instructor,
       level: editForm.level,
       price: priceNumber,
+      categoryId: Number(editForm.categoryId),
     };
 
     try {
@@ -133,6 +136,7 @@ export default function CourseTable({ courses, onEdit, onDelete }) {
                 <th className="px-6 py-3 text-left font-bold text-text-muted uppercase tracking-wide">ID</th>
                 <th className="px-6 py-3 text-left font-bold text-text-muted uppercase tracking-wide">Title</th>
                 <th className="px-6 py-3 text-left font-bold text-text-muted uppercase tracking-wide">Instructor</th>
+                <th className="px-6 py-3 text-left font-bold text-text-muted uppercase tracking-wide">Category</th>
                 <th className="px-6 py-3 text-left font-bold text-text-muted uppercase tracking-wide">Level</th>
                 <th className="px-6 py-3 text-left font-bold text-text-muted uppercase tracking-wide">Price</th>
                 <th className="px-6 py-3 text-right font-bold text-text-muted uppercase tracking-wide">Actions</th>
@@ -197,6 +201,25 @@ export default function CourseTable({ courses, onEdit, onDelete }) {
                       <td className="px-6 py-4">
                         {isEditing ? (
                           <select
+                            value={editForm.categoryId}
+                            onChange={(e) => setEditForm((prev) => ({ ...prev, categoryId: e.target.value }))}
+                            className="w-full px-2 py-1 border border-gray-300 rounded-md"
+                          >
+                            <option value="1">Khoa học máy tính</option>
+                            <option value="2">Kinh tế</option>
+                            <option value="3">Ngoại ngữ</option>
+                            <option value="4">Kỹ năng mềm</option>
+                            <option value="5">Thiết kế đồ họa</option>
+                            <option value="6">Marketing</option>
+                          </select>
+                        ) : (
+                          <span className="text-text-main font-medium">{c.category || "Khác"}</span>
+                        )}
+                      </td>
+
+                      <td className="px-6 py-4">
+                        {isEditing ? (
+                          <select
                             value={editForm.level}
                             onChange={(e) => setEditForm((prev) => ({ ...prev, level: e.target.value }))}
                             className="w-full px-2 py-1 border border-gray-300 rounded-md"
@@ -206,7 +229,7 @@ export default function CourseTable({ courses, onEdit, onDelete }) {
                             <option value="Advanced">Advanced</option>
                           </select>
                         ) : (
-                          <span className="inline-flex px-2.5 py-1 rounded-full bg-primary/10 text-primary font-semibold text-xs">
+                          <span className="inline-flex px-2.5 py-1 rounded-full bg-primary/10 text-primary font-semibold text-xs whitespace-nowrap">
                             {c.level || "N/A"}
                           </span>
                         )}
