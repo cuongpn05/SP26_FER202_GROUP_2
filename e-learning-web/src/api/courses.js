@@ -7,8 +7,9 @@ const api = axios.create({
 
 /**
  * Fetch all available courses and map categoryId to category name
+ * If instructorId is provided, filter courses by instructor
  */
-export const getCourses = async () => {
+export const getCourses = async (instructorId = null) => {
   const [coursesRes, categoriesRes] = await Promise.all([
     api.get('/courses'),
     api.get('/categories'),
@@ -18,12 +19,17 @@ export const getCourses = async () => {
     categoriesRes.data.map((category) => [String(category.id), category.name])
   );
 
-  const normalizedCourses = coursesRes.data.map((course) => ({
+  let courses = coursesRes.data.map((course) => ({
     ...course,
-    category: categoryMap.get(String(course.categoryId)) || 'Khác',
+    category: categoryMap.get(course.categoryId) || 'Khác',
   }));
 
-  return { data: normalizedCourses };
+  // Filter by instructor if instructorId is provided
+  if (instructorId) {
+    courses = courses.filter((course) => course.instructorId === instructorId);
+  }
+
+  return { data: courses };
 };
 
 /**
@@ -114,48 +120,8 @@ export const deleteCourse = async (courseId) => {
 };
 
 /**
- * Fetch all categories with full data (id, name)
+ * Create a new course
  */
-export const getAllCategories = async () => {
-  return api.get('/categories');
-};
-
-/**
- * Fetch courses by categoryId
- */
-export const getCoursesByCategory = async (categoryId) => {
-  return api.get(`/courses?categoryId=${categoryId}`);
-};
-
-/**
- * Add a new category
- */
-export const addCategory = async (categoryName) => {
-  try {
-    // Lấy toàn bộ danh mục hiện có để tìm ID lớn nhất
-    const response = await api.get('/categories');
-    const categories = response.data;
-
-    let maxId = 0;
-    categories.forEach(cat => {
-      const numericId = parseInt(cat.id, 10);
-      if (!isNaN(numericId) && numericId > maxId) {
-        maxId = numericId;
-      }
-    });
-
-    // Tăng ID lên 1
-    const newId = String(maxId + 1);
-
-    return await api.post('/categories', { id: newId, name: categoryName });
-  } catch (error) {
-    console.error("Lỗi khi tạo danh mục mới:", error);
-    throw error;
-  }
-};
-/**
- * Delete a category
- */
-export const deleteCategory = async (categoryId) => {
-  return api.delete(`/categories/${categoryId}`);
+export const createCourse = async (courseData) => {
+  return api.post('/courses', courseData);
 };
