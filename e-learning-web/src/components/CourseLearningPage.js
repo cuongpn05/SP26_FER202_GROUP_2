@@ -144,67 +144,29 @@ const CourseLearningPage = () => {
           {/* Bottom Control Bar/Status within Player Area */}
           <div className="h-16 border-t border-white/5 bg-[#080809]/40 backdrop-blur-md px-8 flex items-center justify-between">
             <div className="flex items-center gap-6">
-               <div className="flex items-center gap-2 text-neutral-500 text-[10px] font-black uppercase tracking-widest">
-                  <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]"></div>
-                  HD Streaming Active
-               </div>
+              <div className="flex items-center gap-2 text-neutral-500 text-[10px] font-black uppercase tracking-widest">
+                <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]"></div>
+                HD Streaming Active
+              </div>
             </div>
             <div className="flex gap-4">
-               <button className="flex items-center gap-2 text-[10px] font-black text-neutral-400 hover:text-white transition-colors uppercase tracking-widest">
-                  Tự động phát
-                  <div className="w-8 h-4 bg-white/10 rounded-full relative">
-                    <div className="absolute right-1 top-1 w-2 h-2 bg-primary rounded-full"></div>
-                  </div>
-               </button>
+              <button className="flex items-center gap-2 text-[10px] font-black text-neutral-400 hover:text-white transition-colors uppercase tracking-widest">
+                Tự động phát
+                <div className="w-8 h-4 bg-white/10 rounded-full relative">
+                  <div className="absolute right-1 top-1 w-2 h-2 bg-primary rounded-full"></div>
+                </div>
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Sidebar - Curriculum */}
-        <aside
         {/* Right Side - Intelligence Panel (4/12) */}
-        <aside 
+        <aside
           className={`
             fixed lg:relative inset-y-0 right-0 lg:w-4/12 w-[85%] bg-[#0C0C0D] border-l border-white/5 transform transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-50 shadow-[0_0_100px_rgba(0,0,0,0.8)] flex flex-col
             ${isSidebarOpen ? 'translate-x-0 opacity-100' : 'translate-x-full lg:hidden opacity-0'}
           `}
         >
-          <div className="flex flex-col h-full">
-            {/* Tabs Header */}
-            <div className="flex border-b border-neutral-800">
-              <button
-                onClick={() => setActiveTab('curriculum')}
-                className={`flex-1 py-4 text-sm font-bold transition-all relative ${activeTab === 'curriculum' ? 'text-indigo-500 bg-neutral-800/20' : 'text-neutral-500 hover:text-neutral-300'}`}
-              >
-                Nội dung
-                {activeTab === 'curriculum' && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-500" />}
-              </button>
-              <button
-                onClick={() => setActiveTab('notes')}
-                className={`flex-1 py-4 text-sm font-bold transition-all relative ${activeTab === 'notes' ? 'text-indigo-500 bg-neutral-800/20' : 'text-neutral-500 hover:text-neutral-300'}`}
-              >
-                Ghi chú
-                {activeTab === 'notes' && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-500" />}
-              </button>
-              <button
-                onClick={() => setIsSidebarOpen(false)}
-                className="p-4 hover:bg-neutral-800 rounded lg:hidden text-neutral-500"
-              >
-                <ChevronLeft className="rotate-180" size={20} />
-              </button>
-            </div>
-
-            <div className="flex-1 overflow-y-auto">
-              <Suspense fallback={<div className="p-8 text-center text-neutral-500 animate-pulse">Đang tải...</div>}>
-                {activeTab === 'curriculum' ? (
-                  <CurriculumAccordion
-                    chapters={chapters}
-                    lessons={lessons}
-                    currentLessonId={currentLesson?.id}
-                    onLessonSelect={handleLessonSelect}
-                  />
-                ) : (
-                  <div className="p-4 animate-in fade-in slide-in-from-right-2 duration-300">
           <div className="flex flex-col h-full bg-gradient-to-b from-[#0C0C0D] to-black">
             {/* Sidebar Navigation Header */}
             <div className="p-8 pb-4">
@@ -213,29 +175,29 @@ const CourseLearningPage = () => {
                   <h3 className="font-black font-heading text-xl text-white uppercase tracking-tighter">Bảng điều khiển</h3>
                   <div className="h-1 w-8 bg-primary mt-2 rounded-full"></div>
                 </div>
-                <button 
-                   onClick={() => setIsSidebarOpen(false)}
-                   className="lg:hidden p-2.5 hover:bg-white/5 rounded-xl text-neutral-500 hover:text-white transition-all border border-transparent hover:border-white/5"
+                <button
+                  onClick={() => setIsSidebarOpen(false)}
+                  className="lg:hidden p-2.5 hover:bg-white/5 rounded-xl text-neutral-500 hover:text-white transition-all border border-transparent hover:border-white/5"
                 >
                   <X size={18} />
                 </button>
               </div>
-              
+
               {/* Premium Tab Switcher */}
               <div className="flex p-1.5 bg-black/40 rounded-[20px] border border-white/5 mb-6 ring-1 ring-white/5 shadow-inner grow-0">
-                <button 
+                <button
                   onClick={() => setActiveTab('curriculum')}
                   className={`flex-1 py-3 text-[9px] font-black rounded-[15px] transition-all duration-500 uppercase tracking-[2px] ${activeTab === 'curriculum' ? 'bg-primary text-white shadow-xl shadow-primary/30' : 'text-neutral-600 hover:text-neutral-400'}`}
                 >
                   Lộ trình
                 </button>
-                <button 
+                <button
                   onClick={() => setActiveTab('info')}
                   className={`flex-1 py-3 text-[9px] font-black rounded-[15px] transition-all duration-500 uppercase tracking-[2px] ${activeTab === 'info' ? 'bg-white/10 text-white shadow-xl' : 'text-neutral-600 hover:text-neutral-400'}`}
                 >
                   Chi tiết
                 </button>
-                <button 
+                <button
                   onClick={() => setActiveTab('notes')}
                   className={`flex-1 py-3 text-[9px] font-black rounded-[15px] transition-all duration-500 uppercase tracking-[2px] ${activeTab === 'notes' ? 'bg-indigo-600 text-white shadow-xl shadow-indigo-600/30' : 'text-neutral-600 hover:text-neutral-400'}`}
                 >
@@ -243,7 +205,7 @@ const CourseLearningPage = () => {
                 </button>
               </div>
             </div>
-            
+
             {/* Tab Content Area */}
             <div className="flex-1 overflow-y-auto custom-scrollbar px-6 pb-12">
               <Suspense fallback={
@@ -254,15 +216,15 @@ const CourseLearningPage = () => {
               }>
                 {activeTab === 'curriculum' && (
                   <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-                    <CurriculumAccordion 
-                      chapters={chapters} 
-                      lessons={lessons} 
+                    <CurriculumAccordion
+                      chapters={chapters}
+                      lessons={lessons}
                       currentLessonId={currentLesson?.id}
                       onLessonSelect={handleLessonSelect}
                     />
                   </div>
                 )}
-                
+
                 {activeTab === 'info' && (
                   <div className="animate-in fade-in slide-in-from-right-4 duration-500 space-y-10 p-4">
                     <div className="space-y-6">
@@ -295,7 +257,7 @@ const CourseLearningPage = () => {
                         Sử dụng mã nguồn và tài liệu đính kèm để thực hành song song với video bài giảng.
                       </p>
                       <button className="mt-5 w-full py-3 bg-white/[0.03] hover:bg-white/10 rounded-xl text-[10px] font-black text-white border border-white/5 transition-all uppercase tracking-widest">
-                         Tải xuống Resources
+                        Tải xuống Resources
                       </button>
                     </div>
                   </div>
