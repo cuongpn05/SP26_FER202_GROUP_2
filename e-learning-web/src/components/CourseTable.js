@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { deleteCourse, getCourses, updateCourse } from "../api/courses";
+import { useAuth } from "../context/AuthContext";
 
-export default function CourseTable({ courses, onEdit, onDelete }) {
+export default function CourseTable({ courses, onEdit, onDelete, onAddNew }) {
+  const { user } = useAuth();
   const [internalCourses, setInternalCourses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -25,10 +27,12 @@ export default function CourseTable({ courses, onEdit, onDelete }) {
       setLoading(true);
       setError("");
       try {
-        const response = await getCourses();
+        // If user is instructor, only fetch their courses
+        const instructorId = user?.role === 'instructor' ? user.id : null;
+        const response = await getCourses(instructorId);
         if (isMounted) setInternalCourses(response.data || []);
       } catch (err) {
-        if (isMounted) setError("Khong tai duoc du lieu khoa hoc");
+        if (isMounted) setError("Không tải được dữ liệu khóa học");
       } finally {
         if (isMounted) setLoading(false);
       }
@@ -38,7 +42,7 @@ export default function CourseTable({ courses, onEdit, onDelete }) {
     return () => {
       isMounted = false;
     };
-  }, [hasExternalCourses]);
+  }, [hasExternalCourses, user]);
 
   const rows = useMemo(
     () => (hasExternalCourses ? courses : internalCourses),
@@ -121,10 +125,20 @@ export default function CourseTable({ courses, onEdit, onDelete }) {
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="bg-white rounded-2xl border border-gray-100 shadow-premium overflow-hidden">
-        <div className="px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-primary/5 to-transparent">
-          <h2 className="text-2xl font-black text-text-main">Course Table</h2>
-          <p className="text-sm text-text-muted mt-1">Quan ly danh sach khoa hoc</p>
+       {/* Header */}
+        <div className="px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-primary/5 to-transparent flex justify-between items-center">
+          <div>
+            <h2 className="text-2xl font-black text-text-main">Course Table</h2>
+            <p className="text-sm text-text-muted mt-1">Quan ly danh sach khoa hoc</p>
+          </div>
+          <button
+            onClick={onAddNew}
+            className="px-4 py-2 rounded-lg bg-primary text-white font-semibold hover:bg-primary-dark transition-colors whitespace-nowrap"
+          >
+            + Thêm khóa học
+          </button>
         </div>
+        {/* Header */}
 
         <div className="overflow-x-auto">
           <table className="min-w-full text-sm">

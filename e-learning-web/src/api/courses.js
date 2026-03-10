@@ -7,8 +7,9 @@ const api = axios.create({
 
 /**
  * Fetch all available courses and map categoryId to category name
+ * If instructorId is provided, filter courses by instructor
  */
-export const getCourses = async () => {
+export const getCourses = async (instructorId = null) => {
   const [coursesRes, categoriesRes] = await Promise.all([
     api.get('/courses'),
     api.get('/categories'),
@@ -18,12 +19,17 @@ export const getCourses = async () => {
     categoriesRes.data.map((category) => [category.id, category.name])
   );
 
-  const normalizedCourses = coursesRes.data.map((course) => ({
+  let courses = coursesRes.data.map((course) => ({
     ...course,
-    category: categoryMap.get(course.categoryId) || 'Khac',
+    category: categoryMap.get(course.categoryId) || 'Khác',
   }));
 
-  return { data: normalizedCourses };
+  // Filter by instructor if instructorId is provided
+  if (instructorId) {
+    courses = courses.filter((course) => course.instructorId === instructorId);
+  }
+
+  return { data: courses };
 };
 
 /**
@@ -111,4 +117,11 @@ export const updateCourse = async (courseId, courseData) => {
  */
 export const deleteCourse = async (courseId) => {
   return api.delete(`/courses/${courseId}`);
+};
+
+/**
+ * Create a new course
+ */
+export const createCourse = async (courseData) => {
+  return api.post('/courses', courseData);
 };
