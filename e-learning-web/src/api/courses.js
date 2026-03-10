@@ -16,7 +16,7 @@ export const getCourses = async (instructorId = null) => {
   ]);
 
   const categoryMap = new Map(
-    categoriesRes.data.map((category) => [category.id, category.name])
+    categoriesRes.data.map((category) => [String(category.id), category.name])
   );
 
   let courses = coursesRes.data.map((course) => ({
@@ -69,11 +69,11 @@ export const loginUser = async (email, password) => {
     // json-server 1.x blocks filtering by 'password' field via URL for security reasons.
     // So we fetch all users matching the email, then verify password on the client side.
     const response = await api.get('/users', { params: { email: email } });
-    
+
     const user = response.data.find(
       u => u.email.toLowerCase() === email.toLowerCase() && u.password === password
     );
-    
+
     return { data: user ? [user] : [] };
   } catch (error) {
     console.error("Login API Error:", error);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Bell, Menu, LogOut, Settings, User as UserIcon, BookOpen, ChevronDown } from 'lucide-react';
+import { Search, Bell, Menu, LogOut, Settings, User as UserIcon, BookOpen, ChevronDown, FolderPlus } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -22,7 +22,7 @@ const Navbar = () => {
     <nav className="sticky top-0 z-40 bg-white/80 backdrop-blur-lg border-b border-gray-100 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          
+
           {/* Logo & Brand */}
           <Link to="/" className="flex items-center space-x-3 group cursor-pointer decoration-transparent">
             <div className="p-2 bg-primary rounded-xl shadow-lg shadow-primary/20 group-hover:rotate-6 transition-transform">
@@ -58,16 +58,18 @@ const Navbar = () => {
                   <Bell size={20} />
                   <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-secondary rounded-full border-2 border-white"></span>
                 </button>
-                
+
                 {/* Profile Dropdown */}
                 <div className="relative">
-                  <button 
+                  <button
                     onClick={() => setIsProfileOpen(!isProfileOpen)}
                     className="flex items-center space-x-2 p-1 pl-2 hover:bg-gray-50 rounded-2xl border border-transparent hover:border-gray-100 transition-all cursor-pointer outline-none"
                   >
                     <div className="text-right hidden sm:block">
                       <p className="text-xs font-bold text-text-main leading-none">{user.name}</p>
-                      <p className="text-[10px] text-text-muted leading-tight mt-0.5">Học viên Premium</p>
+                      <p className="text-[10px] text-text-muted leading-tight mt-0.5">
+                        {user.role === 'admin' ? 'Quản trị viên' : (user.role === 'instructor' ? 'Giảng viên' : 'Học viên Premium')}
+                      </p>
                     </div>
                     <div className="w-10 h-10 rounded-xl overflow-hidden border-2 border-primary/20 p-0.5">
                       <img src={user.avatar || 'https://via.placeholder.com/40'} alt="Avatar" className="w-full h-full object-cover rounded-lg" />
@@ -82,20 +84,32 @@ const Navbar = () => {
                         <p className="text-xs font-bold text-text-muted uppercase tracking-wider">Tài khoản</p>
                         <p className="text-sm font-semibold text-text-main truncate mt-0.5">{user.email}</p>
                       </div>
-                      <Link 
-                        to="/profile" 
+                      <Link
+                        to="/profile"
                         onClick={() => setIsProfileOpen(false)}
                         className="w-full flex items-center space-x-3 px-4 py-2.5 text-sm text-text-muted hover:text-primary hover:bg-primary-light transition-colors cursor-pointer text-left decoration-transparent"
                       >
                         <UserIcon size={18} />
                         <span>Hồ sơ của tôi</span>
                       </Link>
+
+                      {user.role === 'admin' && (
+                        <Link
+                          to="/admin/categories"
+                          onClick={() => setIsProfileOpen(false)}
+                          className="w-full flex items-center space-x-3 px-4 py-2.5 text-sm text-text-muted hover:text-primary hover:bg-primary-light transition-colors cursor-pointer text-left decoration-transparent"
+                        >
+                          <FolderPlus size={18} />
+                          <span>Quản lí danh mục</span>
+                        </Link>
+                      )}
+
                       <button className="w-full flex items-center space-x-3 px-4 py-2.5 text-sm text-text-muted hover:text-primary hover:bg-primary-light transition-colors cursor-pointer text-left outline-none border-none">
                         <Settings size={18} />
                         <span>Cài đặt</span>
                       </button>
                       <div className="h-px bg-gray-50 my-1"></div>
-                      <button 
+                      <button
                         onClick={handleLogout}
                         className="w-full flex items-center space-x-3 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors cursor-pointer text-left outline-none border-none"
                       >
@@ -108,13 +122,13 @@ const Navbar = () => {
               </>
             ) : (
               <div className="flex items-center space-x-2">
-                <button 
+                <button
                   onClick={() => openAuth('login')}
                   className="px-5 py-2.5 text-sm font-bold text-text-main hover:text-primary transition-colors cursor-pointer outline-none border-none"
                 >
                   Đăng nhập
                 </button>
-                <button 
+                <button
                   onClick={() => openAuth('signup')}
                   className="px-5 py-2.5 text-sm font-bold bg-primary text-white rounded-xl shadow-lg shadow-primary/20 hover:bg-primary-dark transition-all transform hover:-translate-y-0.5 active:scale-95 cursor-pointer outline-none border-none"
                 >
@@ -122,7 +136,7 @@ const Navbar = () => {
                 </button>
               </div>
             )}
-            
+
             <button className="md:hidden p-2 text-text-main hover:bg-gray-100 rounded-xl cursor-pointer outline-none border-none">
               <Menu size={24} />
             </button>

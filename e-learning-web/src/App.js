@@ -8,6 +8,8 @@ import AuthModal from './components/AuthModal';
 import CourseTable from './components/CourseTable';
 import CourseForm from './components/CourseForm';
 import ProfileSettings from './components/ProfileSettings';
+import CategoryManagement from './components/CategoryManagement';
+import MyCourses from './components/MyCourses';
 import { useAuth } from './context/AuthContext';
 import './App.css';
 
@@ -15,7 +17,7 @@ import './App.css';
 function App() {
   const { isLoggedIn, user } = useAuth();
   const location = useLocation();
-  
+
   const isTeacher = isLoggedIn && (user?.role === 'instructor' || user?.role === 'teacher');
   const isLearningPage = location.pathname.startsWith('/learning/');
   
@@ -43,11 +45,15 @@ function App() {
               )
             } 
           />
-          <Route 
-            path="/profile" 
-            element={isLoggedIn ? <ProfileSettings /> : <Navigate to="/" />} 
+          <Route
+            path="/my-courses"
+            element={isLoggedIn ? <MyCourses /> : <Navigate to="/" />}
           />
           <Route path="/learning/:courseId" element={<CourseLearningPage />} />
+          <Route
+            path="/admin/categories"
+            element={isLoggedIn && user?.role === 'admin' ? <CategoryManagement /> : <Navigate to="/" />}
+          />
           {/* Add more routes as needed */}
         </Routes>
       </main>

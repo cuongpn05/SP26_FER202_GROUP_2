@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 const CourseCard = ({ course }) => {
   return (
     <div className="group bg-white rounded-xl shadow-premium hover:shadow-premium-hover overflow-hidden transition-all duration-300 border border-gray-100 flex flex-col h-full animate-fade-in cursor-pointer">
-      <Link to={`/learning/${course.id}`} className="flex flex-col h-full">
+      <Link to={`/course/${course.id}`} className="flex flex-col h-full">
         {/* Thumbnail */}
         <div className="relative h-48 overflow-hidden">
-          <img 
-            src={course.thumbnail} 
-            alt={course.title} 
+          <img
+            src={course.thumbnail}
+            alt={course.title}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
           <div className="absolute top-3 right-3 bg-primary/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
@@ -26,7 +26,7 @@ const CourseCard = ({ course }) => {
           <h3 className="text-lg font-bold text-text-main line-clamp-2 leading-tight group-hover:text-primary transition-colors min-h-[3.5rem]">
             {course.title}
           </h3>
-          
+
           <div className="flex items-center mt-3 text-text-muted text-sm space-x-2">
             <User size={14} className="text-primary" />
             <span className="font-medium">{course.instructor}</span>
@@ -36,10 +36,10 @@ const CourseCard = ({ course }) => {
           <div className="flex items-center mt-2.5">
             <div className="flex text-amber-400">
               {[...Array(5)].map((_, i) => (
-                <Star 
-                  key={i} 
-                  size={14} 
-                  fill={i < Math.floor(course.rating) ? "currentColor" : "none"} 
+                <Star
+                  key={i}
+                  size={14}
+                  fill={i < Math.floor(course.rating) ? "currentColor" : "none"}
                   className={i < Math.floor(course.rating) ? "text-amber-400" : "text-gray-300"}
                 />
               ))}
