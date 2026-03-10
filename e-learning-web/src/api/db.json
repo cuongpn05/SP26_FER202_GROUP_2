@@ -399,6 +399,13 @@
       "lessonId": 3,
       "content": "useState dùng để quản lý state trong Functional Component.",
       "timestamp": 1741544000000
+    },
+    {
+      "id": "8088",
+      "userId": 1,
+      "lessonId": "1",
+      "content": "tot",
+      "timestamp": 1773127921581
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
