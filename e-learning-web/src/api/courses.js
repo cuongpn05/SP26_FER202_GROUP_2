@@ -21,7 +21,7 @@ export const getCourses = async (instructorId = null) => {
 
   let courses = coursesRes.data.map((course) => ({
     ...course,
-    category: categoryMap.get(course.categoryId) || 'Khác',
+    category: categoryMap.get(String(course.categoryId)) || 'Khác',
   }));
 
   // Filter by instructor if instructorId is provided
