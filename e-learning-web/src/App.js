@@ -10,6 +10,7 @@ import CourseForm from './components/CourseForm';
 import ProfileSettings from './components/ProfileSettings';
 import CategoryManagement from './components/CategoryManagement';
 import MyCourses from './components/MyCourses';
+import CourseDetail from './components/CourseDetail';
 import { useAuth } from './context/AuthContext';
 import './App.css';
 
@@ -49,7 +50,15 @@ function App() {
             path="/my-courses"
             element={isLoggedIn ? <MyCourses /> : <Navigate to="/" />}
           />
+          <Route
+            path="/course-detail/:courseId"
+            element={isLoggedIn ? <CourseDetail /> : <Navigate to="/" />}
+          />
           <Route path="/learning/:courseId" element={<CourseLearningPage />} />
+          <Route
+            path="/profile"
+            element={isLoggedIn ? <ProfileSettings /> : <Navigate to="/" />}
+          />
           <Route
             path="/admin/categories"
             element={isLoggedIn && user?.role === 'admin' ? <CategoryManagement /> : <Navigate to="/" />}

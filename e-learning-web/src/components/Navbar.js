@@ -93,6 +93,15 @@ const Navbar = () => {
                         <span>Hồ sơ của tôi</span>
                       </Link>
 
+                      <Link
+                        to="/my-courses"
+                        onClick={() => setIsProfileOpen(false)}
+                        className="w-full flex items-center space-x-3 px-4 py-2.5 text-sm text-text-muted hover:text-primary hover:bg-primary-light transition-colors cursor-pointer text-left decoration-transparent"
+                      >
+                        <BookOpen size={18} />
+                        <span>Khóa học của tôi</span>
+                      </Link>
+
                       {user.role === 'admin' && (
                         <Link
                           to="/admin/categories"
