@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import CourseExplorer from './components/CourseExplorer';
+import CourseDetail from './components/CourseDetail';
 import CourseLearningPage from './components/CourseLearningPage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -57,6 +58,7 @@ function App() {
             path="/profile"
             element={isLoggedIn ? <ProfileSettings /> : <Navigate to="/" />}
           />
+          <Route path="/course-detail/:courseId" element={<CourseDetail />} />
           <Route path="/learning/:courseId" element={<CourseLearningPage />} />
           <Route
             path="/lesson-editor/:courseId"
