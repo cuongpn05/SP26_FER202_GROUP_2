@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Bell, Menu, LogOut, Settings, User as UserIcon, BookOpen, ChevronDown, FolderPlus } from 'lucide-react';
+import { Search, Bell, Menu, LogOut, Settings, User as UserIcon, BookOpen, ChevronDown, FolderPlus, ListVideo, LibraryBig } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -7,6 +7,9 @@ const Navbar = () => {
   const { isLoggedIn, user, logout, openAuthModal } = useAuth();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const navigate = useNavigate();
+  const logoTarget = user && (user.role === 'admin' || user.role === 'instructor' || user.role === 'teacher')
+    ? '/explore'
+    : '/';
 
   const openAuth = (mode) => {
     openAuthModal(mode);
@@ -24,7 +27,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-20">
 
           {/* Logo & Brand */}
-          <Link to="/" className="flex items-center space-x-3 group cursor-pointer decoration-transparent">
+          <Link to={logoTarget} className="flex items-center space-x-3 group cursor-pointer decoration-transparent">
             <div className="p-2 bg-primary rounded-xl shadow-lg shadow-primary/20 group-hover:rotate-6 transition-transform">
               <BookOpen className="text-white" size={24} />
             </div>
@@ -93,14 +96,38 @@ const Navbar = () => {
                         <span>Hồ sơ của tôi</span>
                       </Link>
 
-                      <Link
-                        to="/my-courses"
-                        onClick={() => setIsProfileOpen(false)}
-                        className="w-full flex items-center space-x-3 px-4 py-2.5 text-sm text-text-muted hover:text-primary hover:bg-primary-light transition-colors cursor-pointer text-left decoration-transparent"
-                      >
-                        <BookOpen size={18} />
-                        <span>Khóa học của tôi</span>
-                      </Link>
+                      {user.role === 'student' && (
+                        <Link
+                          to="/my-courses"
+                          onClick={() => setIsProfileOpen(false)}
+                          className="w-full flex items-center space-x-3 px-4 py-2.5 text-sm text-text-muted hover:text-primary hover:bg-primary-light transition-colors cursor-pointer text-left decoration-transparent"
+                        >
+                          <BookOpen size={18} />
+                          <span>Khóa học của tôi</span>
+                        </Link>
+                      )}
+
+                      {(user.role === 'admin' || user.role === 'instructor' || user.role === 'teacher') && (
+                        <Link
+                          to="/instructor/courses"
+                          onClick={() => setIsProfileOpen(false)}
+                          className="w-full flex items-center space-x-3 px-4 py-2.5 text-sm text-text-muted hover:text-primary hover:bg-primary-light transition-colors cursor-pointer text-left decoration-transparent"
+                        >
+                          <LibraryBig size={18} />
+                          <span>Quản lý khóa học</span>
+                        </Link>
+                      )}
+
+                      {(user.role === 'admin' || user.role === 'instructor' || user.role === 'teacher') && (
+                        <Link
+                          to="/lesson-editor/1"
+                          onClick={() => setIsProfileOpen(false)}
+                          className="w-full flex items-center space-x-3 px-4 py-2.5 text-sm text-text-muted hover:text-primary hover:bg-primary-light transition-colors cursor-pointer text-left decoration-transparent"
+                        >
+                          <ListVideo size={18} />
+                          <span>Quản lý bài học</span>
+                        </Link>
+                      )}
 
                       {user.role === 'admin' && (
                         <Link

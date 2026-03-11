@@ -1,5 +1,6 @@
 import React from 'react';
 import { BookOpen, Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, Youtube } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -11,14 +12,14 @@ const Footer = () => {
           
           {/* Brand Info */}
           <div className="space-y-6">
-            <div className="flex items-center space-x-3">
+            <Link to="/" className="flex items-center space-x-3 decoration-transparent">
               <div className="p-2 bg-primary rounded-xl shadow-lg shadow-primary/20">
                 <BookOpen className="text-white" size={24} />
               </div>
               <span className="text-2xl font-black text-text-main tracking-tight">
                 F-<span className="text-primary">Academy</span>
               </span>
-            </div>
+            </Link>
             <p className="text-text-muted text-sm leading-relaxed">
               Nền tảng học trực tuyến hàng đầu, giúp bạn chinh phục đỉnh cao tri thức với đội ngũ giảng viên giàu kinh nghiệm.
             </p>

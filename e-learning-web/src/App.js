@@ -7,10 +7,11 @@ import Footer from './components/Footer';
 import AuthModal from './components/AuthModal';
 import CourseTable from './components/CourseTable';
 import CourseForm from './components/CourseForm';
-import ProfileSettings from './components/ProfileSettings';
 import CategoryManagement from './components/CategoryManagement';
 import MyCourses from './components/MyCourses';
-import CourseDetail from './components/CourseDetail';
+import ProfileSettings from './components/ProfileSettings';
+import LessonListEditor from './components/LessonListEditor';
+import InstructorCourseManager from './components/InstructorCourseManager';
 import { useAuth } from './context/AuthContext';
 import './App.css';
 
@@ -20,6 +21,7 @@ function App() {
   const location = useLocation();
 
   const isTeacher = isLoggedIn && (user?.role === 'instructor' || user?.role === 'teacher');
+  const canAccessLessonEditor = isTeacher || (isLoggedIn && user?.role === 'admin');
   const isLearningPage = location.pathname.startsWith('/learning/');
   
   const [showAddForm, setShowAddForm] = useState(false);
@@ -29,6 +31,7 @@ function App() {
       {!isLearningPage && <Navbar />}
       <main className="flex-grow">
         <Routes>
+          <Route path="/explore" element={<CourseExplorer />} />
           <Route 
             path="/" 
             element={
@@ -51,13 +54,21 @@ function App() {
             element={isLoggedIn ? <MyCourses /> : <Navigate to="/" />}
           />
           <Route
-            path="/course-detail/:courseId"
-            element={isLoggedIn ? <CourseDetail /> : <Navigate to="/" />}
+            path="/profile"
+            element={isLoggedIn ? <ProfileSettings /> : <Navigate to="/" />}
           />
           <Route path="/learning/:courseId" element={<CourseLearningPage />} />
           <Route
-            path="/profile"
-            element={isLoggedIn ? <ProfileSettings /> : <Navigate to="/" />}
+            path="/lesson-editor/:courseId"
+            element={canAccessLessonEditor ? <LessonListEditor /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/instructor/courses"
+            element={canAccessLessonEditor ? <InstructorCourseManager /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/lesson-editor"
+            element={canAccessLessonEditor ? <LessonListEditor /> : <Navigate to="/" />}
           />
           <Route
             path="/admin/categories"
