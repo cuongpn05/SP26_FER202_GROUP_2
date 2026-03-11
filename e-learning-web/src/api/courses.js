@@ -41,6 +41,45 @@ export const getCategories = async () => {
 };
 
 /**
+ * Fetch all categories with full details
+ */
+export const getAllCategories = async () => {
+  return api.get('/categories');
+};
+
+/**
+ * Add a new category
+ */
+export const addCategory = async (name) => {
+  return api.post('/categories', { name });
+};
+
+/**
+ * Delete a category
+ */
+export const deleteCategory = async (id) => {
+  return api.delete(`/categories/${id}`);
+};
+
+/**
+ * Get courses by category ID
+ */
+export const getCoursesByCategory = async (categoryId) => {
+  // Try both string and number for categoryId because the mock DB has mixed types
+  const [resStr, resNum] = await Promise.all([
+    api.get('/courses', { params: { categoryId: String(categoryId) } }),
+    api.get('/courses', { params: { categoryId: Number(categoryId) } })
+  ]);
+
+  // Combine and remove duplicates
+  const combined = [...resStr.data, ...resNum.data];
+  const uniqueCourses = Array.from(new Set(combined.map(c => c.id)))
+    .map(id => combined.find(c => c.id === id));
+
+  return { data: uniqueCourses };
+};
+
+/**
  * Fetch a user profile by ID from json-server
  */
 export const getUserProfile = async (userId) => {
