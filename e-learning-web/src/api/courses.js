@@ -164,3 +164,43 @@ export const deleteCourse = async (courseId) => {
 export const createCourse = async (courseData) => {
   return api.post('/courses', courseData);
 };
+
+/**
+ * Get chapters in a course
+ */
+export const getChaptersByCourse = async (courseId) => {
+  return api.get('/chapters', { params: { courseId: Number(courseId) } });
+};
+
+/**
+ * Get lessons by chapter list
+ */
+export const getLessonsByChapterIds = async (chapterIds = []) => {
+  const response = await api.get('/lessons');
+  const targetIds = chapterIds.map((id) => Number(id));
+  const data = response.data.filter((lesson) =>
+    targetIds.includes(Number(lesson.chapterId))
+  );
+  return { data };
+};
+
+/**
+ * Create a lesson
+ */
+export const createLesson = async (lessonData) => {
+  return api.post('/lessons', lessonData);
+};
+
+/**
+ * Update a lesson
+ */
+export const updateLesson = async (lessonId, lessonData) => {
+  return api.put(`/lessons/${lessonId}`, lessonData);
+};
+
+/**
+ * Delete a lesson
+ */
+export const deleteLessonById = async (lessonId) => {
+  return api.delete(`/lessons/${lessonId}`);
+};
