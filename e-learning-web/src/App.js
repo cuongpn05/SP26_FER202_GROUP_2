@@ -3,6 +3,7 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import CourseExplorer from './components/CourseExplorer';
 import CourseDetail from './components/CourseDetail';
 import CourseLearningPage from './components/CourseLearningPage';
+import HomePage from './components/HomePage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AuthModal from './components/AuthModal';
@@ -46,7 +47,7 @@ function App() {
                   <CourseTable onAddNew={() => setShowAddForm(true)} />
                 )
               ) : (
-                <CourseExplorer />
+                <HomePage />
               )
             } 
           />
