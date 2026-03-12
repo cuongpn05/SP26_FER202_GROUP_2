@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import HeroSection from './HeroSection';
 import FilterSidebar from './FilterSidebar';
 import CourseGrid from './CourseGrid';
 import { getCourses, getCategories } from '../api/courses';
-import { Search, ChevronDown, Bell, UserCircle, ShoppingCart } from 'lucide-react';
+import { Search, ChevronDown, Bell, UserCircle, ShoppingCart, ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -27,6 +26,10 @@ const CourseExplorer = () => {
   const [sortBy, setSortBy] = useState('featured');
   const [isSortOpen, setIsSortOpen] = useState(false);
   const sortRef = useRef(null);
+
+  // Pagination States
+  const [currentPage, setCurrentPage] = useState(1);
+  const coursesPerPage = 6;
 
   // Sync search query with URL
   useEffect(() => {
@@ -103,33 +106,51 @@ const CourseExplorer = () => {
     const sorted = [...filteredCourses];
     switch (sortBy) {
       case 'highest-rated':
-        return sorted.sort((a, b) => b.rating - a.rating);
+        sorted.sort((a, b) => b.rating - a.rating);
+        break;
       case 'newest':
-        return sorted.sort((a, b) => {
+        sorted.sort((a, b) => {
           const idA = parseInt(a.id, 10);
           const idB = parseInt(b.id, 10);
           return (!isNaN(idA) && !isNaN(idB)) ? idB - idA : String(b.id).localeCompare(String(a.id));
         });
+        break;
       case 'price-asc':
-        return sorted.sort((a, b) => a.price - b.price);
+        sorted.sort((a, b) => a.price - b.price);
+        break;
       case 'price-desc':
-        return sorted.sort((a, b) => b.price - a.price);
+        sorted.sort((a, b) => b.price - a.price);
+        break;
       case 'popular':
       case 'featured':
       default:
-        return sorted;
+        break;
     }
+    return sorted;
   }, [filteredCourses, sortBy]);
+
+  // Reset page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, selectedCategory, selectedLevel, selectedPriceRange, sortBy]);
+
+  // Pagination calculations
+  const totalPages = Math.ceil(sortedCourses.length / coursesPerPage);
+  const indexOfLastCourse = currentPage * coursesPerPage;
+  const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
+  const currentCourses = sortedCourses.slice(indexOfFirstCourse, indexOfLastCourse);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="min-h-screen bg-gray-50/30 selection:bg-primary/20 selection:text-primary transition-colors duration-300">
 
 
-      {/* Hero Section */}
-      <HeroSection searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex flex-col lg:flex-row gap-12">
           {/* Sidebar - 25% */}
           <div className="lg:w-1/4">
@@ -180,7 +201,51 @@ const CourseExplorer = () => {
               </div>
             </div>
 
-            <CourseGrid courses={sortedCourses} loading={loading} />
+            <CourseGrid courses={currentCourses} loading={loading} />
+
+            {/* Pagination Controls */}
+            {!loading && totalPages > 1 && (
+              <div className="mt-12 flex items-center justify-center space-x-2">
+                <button
+                  onClick={() => paginate(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className={`flex items-center space-x-1 px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 
+                    ${currentPage === 1 
+                      ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                      : 'bg-white text-text-main hover:bg-primary hover:text-white shadow-sm border border-gray-100'}`}
+                >
+                  <ChevronLeft size={16} />
+                  <span>Trước</span>
+                </button>
+
+                <div className="flex items-center space-x-2 mx-4">
+                  {[...Array(totalPages)].map((_, i) => (
+                    <button
+                      key={i + 1}
+                      onClick={() => paginate(i + 1)}
+                      className={`w-10 h-10 rounded-xl text-sm font-bold transition-all duration-200 
+                        ${currentPage === i + 1 
+                          ? 'bg-primary text-white shadow-md shadow-primary/20 scale-110' 
+                          : 'bg-white text-text-main hover:bg-primary/10 hover:text-primary'}`}
+                    >
+                      {i + 1}
+                    </button>
+                  ))}
+                </div>
+
+                <button
+                  onClick={() => paginate(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className={`flex items-center space-x-1 px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 
+                    ${currentPage === totalPages 
+                      ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                      : 'bg-white text-text-main hover:bg-primary hover:text-white shadow-sm border border-gray-100'}`}
+                >
+                  <span>Sau</span>
+                  <ChevronRight size={16} />
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </main>

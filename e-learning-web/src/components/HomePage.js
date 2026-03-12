@@ -39,9 +39,9 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-gray-50/30">
       {/* Hero Section */}
-      <HeroSection 
-        searchQuery={searchQuery} 
-        setSearchQuery={setSearchQuery} 
+      <HeroSection
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
         onSearch={handleSearch}
       />
 
@@ -63,8 +63,8 @@ const HomePage = () => {
 
         {/* Nút Xem chi tiết */}
         <div className="flex justify-center pb-12">
-          <Link 
-            to="/explore" 
+          <Link
+            to="/explore"
             className="group flex items-center space-x-3 bg-white border-2 border-primary text-primary px-10 py-5 rounded-2xl font-black transition-all hover:bg-primary hover:text-white shadow-xl shadow-primary/10 hover:shadow-primary/30 active:scale-95"
           >
             <span className="text-xl">Khám phá tất cả khóa học</span>
