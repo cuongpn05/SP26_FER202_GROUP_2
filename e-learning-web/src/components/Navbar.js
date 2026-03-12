@@ -111,7 +111,7 @@ const Navbar = () => {
                         <span>Hồ sơ của tôi</span>
                       </Link>
 
-                      {user.role === 'student' && (
+                      {(user.role === 'student' || user.role === 'instructor' || user.role === 'teacher') && (
                         <Link
                           to="/my-courses"
                           onClick={() => setIsProfileOpen(false)}
