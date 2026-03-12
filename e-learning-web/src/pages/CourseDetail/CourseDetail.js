@@ -252,7 +252,7 @@ const CourseDetail = () => {
                         {/* Rating Card */}
                         <div className="bg-white rounded-3xl p-8 shadow-xl shadow-gray-200/50 border border-gray-100">
                             <h3 className="text-lg font-black text-gray-800 mb-6 w-full">Đánh giá khóa học</h3>
-                            <div className="flex items-center gap-4 mb-6">
+                            <div className="flex items-center gap-4">
                                 <div className="bg-yellow-50 p-4 rounded-2xl flex flex-col items-center justify-center min-w-[100px] border border-yellow-100">
                                     <span className="text-4xl font-black text-yellow-600">{course.rating || 0}</span>
                                     <div className="flex text-yellow-500 mt-1">
@@ -267,7 +267,7 @@ const CourseDetail = () => {
                                 </div>
                                 <div>
                                     <p className="text-gray-600 font-bold mb-1">Xếp hạng trung bình</p>
-                                    <p className="text-gray-400 text-sm font-medium">Dựa trên đánh giá của cộng đồng học viên</p>
+                                    <p className="text-gray-400 text-sm font-medium">Đánh giá từ học viên đã tham gia khóa học này</p>
                                 </div>
                             </div>
                         </div>
