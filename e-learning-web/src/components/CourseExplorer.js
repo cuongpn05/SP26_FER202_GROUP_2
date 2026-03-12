@@ -5,12 +5,18 @@ import CourseGrid from './CourseGrid';
 import { getCourses, getCategories } from '../api/courses';
 import { Search, ChevronDown, Bell, UserCircle, ShoppingCart } from 'lucide-react';
 
+import { useNavigate, useLocation } from 'react-router-dom';
+
 const CourseExplorer = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const initialSearch = queryParams.get('search') || '';
+
   // States
   const [originalCourses, setOriginalCourses] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(initialSearch);
 
   // Filter States
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -21,6 +27,12 @@ const CourseExplorer = () => {
   const [sortBy, setSortBy] = useState('featured');
   const [isSortOpen, setIsSortOpen] = useState(false);
   const sortRef = useRef(null);
+
+  // Sync search query with URL
+  useEffect(() => {
+    const query = queryParams.get('search') || '';
+    setSearchQuery(query);
+  }, [location.search]);
 
   // Close dropdown on click outside
   useEffect(() => {
