@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const CourseCard = ({ course }) => {
   return (
     <div className="group bg-white rounded-xl shadow-premium hover:shadow-premium-hover overflow-hidden transition-all duration-300 border border-gray-100 flex flex-col h-full animate-fade-in cursor-pointer">
-      <Link to={`/course/${course.id}`} className="flex flex-col h-full">
+      <Link to={`/learning/${course.id}`} className="flex flex-col h-full">
         {/* Thumbnail */}
         <div className="relative h-48 overflow-hidden">
           <img

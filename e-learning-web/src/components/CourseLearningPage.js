@@ -14,7 +14,6 @@ const CourseLearningPage = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
   const [course, setCourse] = useState(null);
-  const [chapters, setChapters] = useState([]);
   const [lessons, setLessons] = useState([]);
   const [currentLesson, setCurrentLesson] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -26,13 +25,11 @@ const CourseLearningPage = () => {
     const fetchCourseData = async () => {
       try {
         setLoading(true);
-        // Ensure courseId is a number for comparison
         const numericCourseId = Number(courseId);
 
-        const [courseRes, chaptersRes, lessonsRes, categoriesRes] = await Promise.all([
+        const [courseRes, lessonsRes, categoriesRes] = await Promise.all([
           axios.get(`${API_URL}/courses/${numericCourseId}`),
-          axios.get(`${API_URL}/chapters?courseId=${numericCourseId}`),
-          axios.get(`${API_URL}/lessons`),
+          axios.get(`${API_URL}/lessons?courseId=${numericCourseId}`),
           axios.get(`${API_URL}/categories`)
         ]);
 
@@ -41,16 +38,10 @@ const CourseLearningPage = () => {
         courseData.category = categoryMatch ? categoryMatch.name : 'Khác';
 
         setCourse(courseData);
-        setChapters(chaptersRes.data);
+        setLessons(lessonsRes.data);
 
-        // Filter lessons for these chapters, ensuring numeric comparison
-        const chapterIds = chaptersRes.data.map(c => Number(c.id));
-        const filteredLessons = lessonsRes.data.filter(l => chapterIds.includes(Number(l.chapterId)));
-
-        setLessons(filteredLessons);
-
-        if (filteredLessons.length > 0) {
-          setCurrentLesson(filteredLessons[0]);
+        if (lessonsRes.data.length > 0) {
+          setCurrentLesson(lessonsRes.data[0]);
         }
 
         setLoading(false);
@@ -139,25 +130,7 @@ const CourseLearningPage = () => {
                 </div>
               )}
             </Suspense>
-          </div>
-
-          {/* Bottom Control Bar/Status within Player Area */}
-          <div className="h-16 border-t border-white/5 bg-[#080809]/40 backdrop-blur-md px-8 flex items-center justify-between">
-            <div className="flex items-center gap-6">
-              <div className="flex items-center gap-2 text-neutral-500 text-[10px] font-black uppercase tracking-widest">
-                <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]"></div>
-                HD Streaming Active
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <button className="flex items-center gap-2 text-[10px] font-black text-neutral-400 hover:text-white transition-colors uppercase tracking-widest">
-                Tự động phát
-                <div className="w-8 h-4 bg-white/10 rounded-full relative">
-                  <div className="absolute right-1 top-1 w-2 h-2 bg-primary rounded-full"></div>
-                </div>
-              </button>
-            </div>
-          </div>
+          </div>       
         </div>
 
         {/* Right Side - Intelligence Panel (4/12) */}
@@ -217,7 +190,6 @@ const CourseLearningPage = () => {
                 {activeTab === 'curriculum' && (
                   <div className="animate-in fade-in slide-in-from-right-4 duration-500">
                     <CurriculumAccordion
-                      chapters={chapters}
                       lessons={lessons}
                       currentLessonId={currentLesson?.id}
                       onLessonSelect={handleLessonSelect}
