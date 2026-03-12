@@ -31,7 +31,8 @@ const ProfileSettings = () => {
             ...prev,
             name: userData.name || '',
             bio: userData.bio || '',
-            birthDate: userData.birthDate || ''
+            birthDate: userData.birthDate || '',
+            avatar: userData.avatar || ''
           }));
         }
       } catch (error) {
@@ -115,10 +116,22 @@ const ProfileSettings = () => {
         <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-10 md:p-14 text-white relative">
           <div className="flex flex-col md:flex-row items-center gap-6">
             <div className="relative group">
-              <div className="w-24 h-24 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border-4 border-white/30 text-4xl font-bold">
-                {authUser.name.charAt(0)}
+              <div className="w-24 h-24 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border-4 border-white/30 text-4xl font-bold overflow-hidden shadow-inner">
+                {formData.avatar ? (
+                  <img 
+                    src={formData.avatar} 
+                    alt={authUser.name} 
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.parentNode.innerHTML = authUser.name.charAt(0);
+                    }}
+                  />
+                ) : (
+                  authUser.name.charAt(0)
+                )}
               </div>
-              <button className="absolute bottom-0 right-0 bg-white text-blue-600 p-1.5 rounded-full shadow-lg hover:scale-110 transition-transform">
+              <button className="absolute bottom-0 right-0 bg-white text-blue-600 p-1.5 rounded-full shadow-lg hover:scale-110 transition-transform cursor-default">
                 <User size={16} />
               </button>
             </div>
