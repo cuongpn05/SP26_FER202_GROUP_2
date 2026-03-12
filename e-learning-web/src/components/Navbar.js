@@ -11,6 +11,8 @@ const Navbar = () => {
     ? '/explore'
     : '/';
 
+  const [searchQuery, setSearchQuery] = useState('');
+
   const openAuth = (mode) => {
     openAuthModal(mode);
   };
@@ -19,6 +21,16 @@ const Navbar = () => {
     logout();
     navigate('/');
     setIsProfileOpen(false);
+  };
+
+  const handleSearch = (e) => {
+    if (e.key === 'Enter') {
+      if (searchQuery.trim()) {
+        navigate(`/explore?search=${encodeURIComponent(searchQuery.trim())}`);
+      } else {
+        navigate('/explore');
+      }
+    }
   };
 
   return (
@@ -45,6 +57,9 @@ const Navbar = () => {
               <input
                 type="text"
                 placeholder="Tìm khóa học, giảng viên..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={handleSearch}
                 className="w-full pl-12 pr-4 py-2.5 bg-gray-50 border border-gray-100 rounded-2xl focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary/50 outline-none transition-all text-sm"
               />
               <div className="absolute right-3 top-1/2 -translate-y-1/2 bg-gray-200 text-[10px] font-bold text-text-muted px-1.5 py-0.5 rounded border border-gray-300">
