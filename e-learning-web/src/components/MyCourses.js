@@ -16,17 +16,30 @@ const MyCourses = () => {
             if (!user?.id) return;
             try {
                 setLoading(true);
-                // 1. Fetch enrollments for this user
-                const enrollmentsRes = await axios.get(`http://localhost:3636/enrollments?userId=${user.id}`);
-                const enrollments = enrollmentsRes.data;
+                // 1. Fetch all enrollments
+                const enrollmentsRes = await axios.get(`http://localhost:3636/enrollments`);
+                const allEnrollments = enrollmentsRes.data;
 
-                if (enrollments.length === 0) {
+                // 2. Find courses that the user is enrolled in
+                // With the new structure, we need to find all course objects where user.id is in enrolledUsers
+                const myEnrollments = [];
+                allEnrollments.forEach(item => {
+                    const userEnrollment = item.enrolledUsers?.find(eu => String(eu.userId) === String(user.id));
+                    if (userEnrollment) {
+                        myEnrollments.push({
+                            courseId: item.courseId,
+                            ...userEnrollment
+                        });
+                    }
+                });
+
+                if (myEnrollments.length === 0) {
                     setCourses([]);
                     setLoading(false);
                     return;
                 }
 
-                // 2. Fetch all courses
+                // 3. Fetch all courses and categories
                 const coursesRes = await axios.get('http://localhost:3636/courses');
                 const allCourses = coursesRes.data;
                 const categoriesRes = await axios.get('http://localhost:3636/categories');
@@ -34,19 +47,20 @@ const MyCourses = () => {
 
                 const categoryMap = new Map(categories.map(c => [String(c.id), c.name]));
 
-                // 3. Filter courses that the user has enrolled in
-                const enrolledCourseIds = enrollments.map(e => String(e.courseId));
-                const myEnrolledCourses = allCourses
-                    .filter(c => enrolledCourseIds.includes(String(c.id)))
-                    .map(c => {
-                        const enrollment = enrollments.find(e => String(e.courseId) === String(c.id));
+                // 4. Map the data back to the courses state
+                const myEnrolledCourses = myEnrollments
+                    .map(enrollment => {
+                        const courseData = allCourses.find(c => String(c.id) === String(enrollment.courseId));
+                        if (!courseData) return null;
+
                         return {
-                            ...c,
-                            category: categoryMap.get(String(c.categoryId)) || 'Khác',
-                            enrollmentStatus: enrollment?.status,
-                            progress: enrollment?.progress || 0
+                            ...courseData,
+                            category: categoryMap.get(String(courseData.categoryId)) || 'Khác',
+                            enrollmentStatus: enrollment.status,
+                            progress: enrollment.progress || 0
                         };
-                    });
+                    })
+                    .filter(c => c !== null);
 
                 setCourses(myEnrolledCourses);
             } catch (err) {

@@ -30,23 +30,34 @@ const CourseDetail = () => {
 
             try {
                 setLoading(true);
-                // Fetch course details
+                // 1. Fetch course details
                 const courseRes = await axios.get(`http://localhost:3636/courses/${courseId}`);
                 const courseData = courseRes.data;
 
-                // Fetch enrollment status for this specific user & course
-                const enrollmentRes = await axios.get(
-                  `http://localhost:3636/enrollments?userId=${user.id}&courseId=${courseId}`
-                );
+                // 2. Fetch all enrollments to find the participation of this user in THIS course
+                const enrollmentsRes = await axios.get(`http://localhost:3636/enrollments`);
+                const allEnrollments = enrollmentsRes.data;
                 
-                if (enrollmentRes.data.length === 0) {
+                // Find the enrollment object for this course
+                const courseEnrollment = allEnrollments.find(e => String(e.courseId) === String(courseId));
+                
+                if (!courseEnrollment) {
+                    setError("Dữ liệu khóa học này chưa được khởi tạo.");
+                    setLoading(false);
+                    return;
+                }
+
+                // Find the specific user in the enrolledUsers array
+                const userEnrollment = courseEnrollment.enrolledUsers?.find(eu => String(eu.userId) === String(user.id));
+                
+                if (!userEnrollment) {
                     setError("Bạn chưa đăng ký khóa học này.");
                     setLoading(false);
                     return;
                 }
 
                 setCourse(courseData);
-                setEnrollment(enrollmentRes.data[0]);
+                setEnrollment(userEnrollment);
             } catch (err) {
                 console.error("Error fetching course details:", err);
                 setError("Có lỗi xảy ra khi tải thông tin khóa học.");
