@@ -10,7 +10,8 @@ import {
   CheckCircle, 
   Loader2, 
   AlertCircle,
-  PlayCircle
+  PlayCircle,
+  Star
 } from 'lucide-react';
 import ProgressChart from '../../components/common/ProgressChart';
 import { useAuth } from '../../context/AuthContext';
@@ -21,8 +22,29 @@ const CourseDetail = () => {
     const navigate = useNavigate();
     const [course, setCourse] = useState(null);
     const [enrollment, setEnrollment] = useState(null);
+    const [lessons, setLessons] = useState([]);
+    const [totalDuration, setTotalDuration] = useState('0:00');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const calculateTotalDuration = (courseLessons) => {
+        let totalSeconds = 0;
+        courseLessons.forEach(lesson => {
+            if (lesson.duration) {
+                const [minutes, seconds] = lesson.duration.split(':').map(Number);
+                totalSeconds += (minutes * 60) + (seconds || 0);
+            }
+        });
+
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        if (hours > 0) {
+            return `${hours}h ${minutes}m`;
+        }
+        return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    };
 
     useEffect(() => {
         const fetchCourseDetail = async () => {
@@ -34,7 +56,13 @@ const CourseDetail = () => {
                 const courseRes = await axios.get(`http://localhost:3636/courses/${courseId}`);
                 const courseData = courseRes.data;
 
-                // 2. Fetch all enrollments to find the participation of this user in THIS course
+                // 2. Fetch lessons for this course
+                const lessonsRes = await axios.get(`http://localhost:3636/lessons?courseId=${courseId}`);
+                const courseLessons = lessonsRes.data;
+                setLessons(courseLessons);
+                setTotalDuration(calculateTotalDuration(courseLessons));
+
+                // 3. Fetch all enrollments to find the participation of this user in THIS course
                 const enrollmentsRes = await axios.get(`http://localhost:3636/enrollments`);
                 const allEnrollments = enrollmentsRes.data;
                 
@@ -134,7 +162,7 @@ const CourseDetail = () => {
                                           {course.level}
                                       </span>
                                       <span className="bg-white/20 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg">
-                                          {course.duration}
+                                          {totalDuration}
                                       </span>
                                   </div>
                                   <h1 className="text-3xl md:text-4xl font-black text-white leading-tight mb-2">
@@ -160,7 +188,7 @@ const CourseDetail = () => {
                             <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-10">
                               <div className="flex flex-col gap-1 p-4 bg-gray-50 rounded-2xl border border-gray-100">
                                 <span className="text-gray-400 text-[11px] font-black uppercase tracking-wider">Thời lượng</span>
-                                <span className="text-gray-800 font-bold flex items-center gap-2"><Clock size={16} className="text-blue-600"/> {course.duration}</span>
+                                <span className="text-gray-800 font-bold flex items-center gap-2"><Clock size={16} className="text-blue-600"/> {totalDuration}</span>
                               </div>
                               <div className="flex flex-col gap-1 p-4 bg-gray-50 rounded-2xl border border-gray-100">
                                 <span className="text-gray-400 text-[11px] font-black uppercase tracking-wider">Cấp độ</span>
@@ -168,7 +196,7 @@ const CourseDetail = () => {
                               </div>
                               <div className="flex flex-col gap-1 p-4 bg-gray-50 rounded-2xl border border-gray-100">
                                 <span className="text-gray-400 text-[11px] font-black uppercase tracking-wider">Bài giảng</span>
-                                <span className="text-gray-800 font-bold flex items-center gap-2"><BookOpen size={16} className="text-blue-600"/> {course.lessonsCount || 24}</span>
+                                <span className="text-gray-800 font-bold flex items-center gap-2"><BookOpen size={16} className="text-blue-600"/> {lessons.length}</span>
                               </div>
                               <div className="flex flex-col gap-1 p-4 bg-gray-50 rounded-2xl border border-gray-100">
                                 <span className="text-gray-400 text-[11px] font-black uppercase tracking-wider">Chứng chỉ</span>
@@ -221,15 +249,27 @@ const CourseDetail = () => {
                             </Link>
                         </div>
 
-                        {/* Support Card */}
-                        <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-8 text-white shadow-xl shadow-blue-200/50">
-                            <h4 className="font-black text-xl mb-2 italic">Hỗ trợ 24/7</h4>
-                            <p className="text-white/80 text-sm font-medium leading-relaxed italic mb-6">
-                                Bạn gặp khó khăn trong quá trình học tập? Hãy liên hệ ngay với giảng viên hoặc cộng đồng học viên!
-                            </p>
-                            <button className="w-full bg-white/20 backdrop-blur-md hover:bg-white/30 text-white font-black py-3 rounded-2xl transition-all border border-white/20 uppercase tracking-widest text-xs">
-                                Nhắn tin cho giảng viên
-                            </button>
+                        {/* Rating Card */}
+                        <div className="bg-white rounded-3xl p-8 shadow-xl shadow-gray-200/50 border border-gray-100">
+                            <h3 className="text-lg font-black text-gray-800 mb-6 w-full">Đánh giá khóa học</h3>
+                            <div className="flex items-center gap-4 mb-6">
+                                <div className="bg-yellow-50 p-4 rounded-2xl flex flex-col items-center justify-center min-w-[100px] border border-yellow-100">
+                                    <span className="text-4xl font-black text-yellow-600">{course.rating || 0}</span>
+                                    <div className="flex text-yellow-500 mt-1">
+                                        {[...Array(5)].map((_, i) => (
+                                            <Star 
+                                                key={i} 
+                                                size={14} 
+                                                fill={i < Math.floor(course.rating || 0) ? "currentColor" : "none"} 
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
+                                <div>
+                                    <p className="text-gray-600 font-bold mb-1">Xếp hạng trung bình</p>
+                                    <p className="text-gray-400 text-sm font-medium">Dựa trên đánh giá của cộng đồng học viên</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
