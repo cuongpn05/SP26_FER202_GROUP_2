@@ -12,12 +12,13 @@ const Footer = () => {
           
           {/* Brand Info */}
           <div className="space-y-6">
-            <Link to="/" className="flex items-center space-x-3 decoration-transparent">
-              <div className="p-2 bg-primary rounded-xl shadow-lg shadow-primary/20">
-                <BookOpen className="text-white" size={24} />
+            <Link to="/" className="flex items-center space-x-3 group">
+              <div className="w-11 h-11 bg-[#1A73E8] rounded-[14px] flex items-center justify-center shadow-lg shadow-[#1A73E8]/20 transition-all duration-300">
+                <BookOpen className="text-white" size={22} strokeWidth={2.5} />
               </div>
-              <span className="text-2xl font-black text-text-main tracking-tight">
-                F-<span className="text-primary">Academy</span>
+              <span className="text-2xl font-black tracking-tighter">
+                <span className="text-[#202124]">F-</span>
+                <span className="text-[#1A73E8]">Academy</span>
               </span>
             </Link>
             <p className="text-text-muted text-sm leading-relaxed">
