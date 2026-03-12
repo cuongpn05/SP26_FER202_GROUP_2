@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
 const AuthContext = createContext();
 
@@ -18,27 +18,27 @@ export const AuthProvider = ({ children }) => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState('login');
 
-  const openAuthModal = (mode = 'login') => {
+  const openAuthModal = useCallback((mode = 'login') => {
     setAuthMode(mode);
     setIsAuthModalOpen(true);
-  };
+  }, []);
 
-  const closeAuthModal = () => {
+  const closeAuthModal = useCallback(() => {
     setIsAuthModalOpen(false);
-  };
+  }, []);
 
-  const login = (userData) => {
+  const login = useCallback((userData) => {
     setUser(userData);
     setIsLoggedIn(true);
     localStorage.setItem('user', JSON.stringify(userData));
     closeAuthModal();
-  };
+  }, [closeAuthModal]);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     setUser(null);
     setIsLoggedIn(false);
     localStorage.removeItem('user');
-  };
+  }, []);
 
   const value = React.useMemo(() => ({
     user,
@@ -50,7 +50,16 @@ export const AuthProvider = ({ children }) => {
     openAuthModal,
     closeAuthModal,
     setAuthMode
-  }), [user, isLoggedIn, isAuthModalOpen, authMode]);
+  }), [
+    user,
+    isLoggedIn,
+    login,
+    logout,
+    isAuthModalOpen,
+    authMode,
+    openAuthModal,
+    closeAuthModal,
+  ]);
 
   return (
     <AuthContext.Provider value={value}>

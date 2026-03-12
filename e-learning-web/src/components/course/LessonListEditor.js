@@ -6,9 +6,11 @@ import {
   getCourses,
   getChaptersByCourse,
   getLessonsByChapterIds,
+  getLessonsByCourseId,
   updateLesson,
 } from "../../api/courses";
 import { useAuth } from "../../context/AuthContext";
+import ConfirmDeleteModal from "../common/ConfirmDeleteModal";
 
 const initialState = {
   loading: false,
@@ -95,7 +97,10 @@ export default function LessonListEditor({ courseId: propCourseId }) {
   const fixedCourseId = propCourseId || routeCourseId || "";
   const [availableCourses, setAvailableCourses] = useState([]);
   const [selectedCourseId, setSelectedCourseId] = useState(fixedCourseId);
+  const [lessonToDelete, setLessonToDelete] = useState(null);
   const [state, dispatch] = useReducer(reducer, initialState);
+  const activeCourseId = fixedCourseId || selectedCourseId;
+  const hasChapters = state.chapters.length > 0;
 
   useEffect(() => {
     setSelectedCourseId(fixedCourseId);
@@ -128,10 +133,9 @@ export default function LessonListEditor({ courseId: propCourseId }) {
       try {
         const chaptersRes = await getChaptersByCourse(courseId);
         const chapters = chaptersRes.data || [];
-
-        const lessonsRes = await getLessonsByChapterIds(
-          chapters.map((chapter) => chapter.id)
-        );
+        const lessonsRes = chapters.length > 0
+          ? await getLessonsByChapterIds(chapters.map((chapter) => chapter.id))
+          : await getLessonsByCourseId(courseId);
 
         dispatch({
           type: "LOAD_SUCCESS",
@@ -180,18 +184,18 @@ export default function LessonListEditor({ courseId: propCourseId }) {
     });
   };
 
-  const handleDelete = async (lessonId) => {
-    const shouldDelete = window.confirm("Bạn có chắc muốn xóa bài học này?");
-    if (!shouldDelete) return;
+  const handleDelete = async () => {
+    if (!lessonToDelete) return;
 
     dispatch({ type: "SUBMIT_START" });
     try {
-      await deleteLessonById(lessonId);
-      dispatch({ type: "REMOVE_LESSON", payload: lessonId });
+      await deleteLessonById(lessonToDelete.id);
+      dispatch({ type: "REMOVE_LESSON", payload: lessonToDelete.id });
+      setLessonToDelete(null);
     } catch (error) {
       dispatch({
         type: "LOAD_ERROR",
-        payload: "Xóa bài học thất bại. Vui lòng thử lại.",
+        payload: "Xóa video thất bại. Vui lòng thử lại.",
       });
     } finally {
       dispatch({ type: "SUBMIT_END" });
@@ -202,19 +206,22 @@ export default function LessonListEditor({ courseId: propCourseId }) {
     event.preventDefault();
     const { id, title, videoUrl, duration, chapterId } = state.form;
 
-    if (!title.trim() || !videoUrl.trim() || !chapterId) {
+    if (!title.trim() || !videoUrl.trim() || (hasChapters && !chapterId)) {
       dispatch({
         type: "LOAD_ERROR",
-        payload: "Vui lòng nhập đầy đủ tiêu đề, link video và chương.",
+        payload: hasChapters
+          ? "Vui lòng nhập đầy đủ tiêu đề, link video và chương."
+          : "Vui lòng nhập đầy đủ tiêu đề và link video.",
       });
       return;
     }
 
     const payload = {
+      courseId: Number(activeCourseId),
       title: title.trim(),
       videoUrl: videoUrl.trim(),
       duration: duration.trim() || "10:00",
-      chapterId: Number(chapterId),
+      ...(hasChapters ? { chapterId: Number(chapterId) } : {}),
     };
 
     dispatch({ type: "SUBMIT_START" });
@@ -310,7 +317,7 @@ export default function LessonListEditor({ courseId: propCourseId }) {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className={`grid gap-3 ${hasChapters ? "grid-cols-2" : "grid-cols-1"}`}>
               <div>
                 <label className="block text-sm font-semibold text-text-main mb-2">
                   Thời lượng
@@ -325,29 +332,32 @@ export default function LessonListEditor({ courseId: propCourseId }) {
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-text-main mb-2">
-                  Chương
-                </label>
-                <select
-                  name="chapterId"
-                  value={state.form.chapterId}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                  disabled={state.chapters.length === 0}
-                >
-                  {state.chapters.length === 0 ? (
-                    <option value="">Không có chương</option>
-                  ) : (
-                    state.chapters.map((chapter) => (
+              {hasChapters && (
+                <div>
+                  <label className="block text-sm font-semibold text-text-main mb-2">
+                    Chương
+                  </label>
+                  <select
+                    name="chapterId"
+                    value={state.form.chapterId}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    {state.chapters.map((chapter) => (
                       <option key={chapter.id} value={String(chapter.id)}>
                         {chapter.title}
                       </option>
-                    ))
-                  )}
-                </select>
-              </div>
+                    ))}
+                  </select>
+                </div>
+              )}
             </div>
+
+            {!hasChapters && activeCourseId && (
+              <div className="p-3 rounded-lg text-sm bg-blue-50 border border-blue-200 text-blue-700">
+                Khóa học này chưa có chương, video sẽ được thêm trực tiếp vào khóa học.
+              </div>
+            )}
 
             <div className="flex gap-3">
               <button
@@ -355,7 +365,7 @@ export default function LessonListEditor({ courseId: propCourseId }) {
                 disabled={state.submitting || state.loading}
                 className="px-5 py-2.5 rounded-lg bg-primary text-white font-semibold hover:bg-primary-dark transition-colors disabled:opacity-50"
               >
-                {state.form.id ? "Lưu cập nhật" : "Thêm bài học"}
+                {state.form.id ? "Lưu video" : "Thêm video"}
               </button>
               <button
                 type="button"
@@ -368,7 +378,7 @@ export default function LessonListEditor({ courseId: propCourseId }) {
           </form>
 
           <div>
-            <h3 className="text-lg font-bold text-text-main mb-3">Danh sách bài học</h3>
+            <h3 className="text-lg font-bold text-text-main mb-3">Danh sách video bài học</h3>
             {state.loading ? (
               <p className="text-sm text-text-muted">Đang tải dữ liệu...</p>
             ) : state.lessons.length === 0 ? (
@@ -377,16 +387,21 @@ export default function LessonListEditor({ courseId: propCourseId }) {
               <ul className="space-y-3 max-h-[460px] overflow-y-auto pr-1">
                 {state.lessons
                   .slice()
-                  .sort((a, b) => Number(a.chapterId) - Number(b.chapterId))
+                  .sort((a, b) => {
+                    if (!hasChapters) return Number(a.id) - Number(b.id);
+                    return Number(a.chapterId) - Number(b.chapterId);
+                  })
                   .map((lesson) => (
                     <li
                       key={lesson.id}
                       className="border border-gray-200 rounded-xl p-4 bg-white"
                     >
                       <p className="font-semibold text-text-main">{lesson.title}</p>
-                      <p className="text-xs text-text-muted mt-1">
-                        Chương: {chapterNameMap.get(String(lesson.chapterId)) || "N/A"}
-                      </p>
+                      {hasChapters && (
+                        <p className="text-xs text-text-muted mt-1">
+                          Chương: {chapterNameMap.get(String(lesson.chapterId)) || "N/A"}
+                        </p>
+                      )}
                       <a
                         href={lesson.videoUrl}
                         target="_blank"
@@ -401,14 +416,14 @@ export default function LessonListEditor({ courseId: propCourseId }) {
                           onClick={() => handleEdit(lesson)}
                           className="px-3 py-1.5 rounded-md bg-blue-50 text-blue-700 text-sm font-medium hover:bg-blue-100"
                         >
-                          Sửa
+                          Sửa video
                         </button>
                         <button
                           type="button"
-                          onClick={() => handleDelete(lesson.id)}
+                          onClick={() => setLessonToDelete(lesson)}
                           className="px-3 py-1.5 rounded-md bg-red-50 text-red-700 text-sm font-medium hover:bg-red-100"
                         >
-                          Xóa
+                          Xóa video
                         </button>
                       </div>
                     </li>
@@ -417,6 +432,18 @@ export default function LessonListEditor({ courseId: propCourseId }) {
             )}
           </div>
         </div>
+
+        <ConfirmDeleteModal
+          isOpen={Boolean(lessonToDelete)}
+          title="Xác nhận xóa video"
+          message={`Bạn có chắc muốn xóa video "${lessonToDelete?.title || ""}"?`}
+          confirmText="Xóa video"
+          loading={state.submitting}
+          onCancel={() => {
+            if (!state.submitting) setLessonToDelete(null);
+          }}
+          onConfirm={handleDelete}
+        />
       </div>
     </section>
   );

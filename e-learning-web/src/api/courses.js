@@ -176,7 +176,24 @@ export const createCourse = async (courseData) => {
  * Get chapters in a course
  */
 export const getChaptersByCourse = async (courseId) => {
-  return api.get('/chapters', { params: { courseId: Number(courseId) } });
+  try {
+    const [resStr, resNum] = await Promise.all([
+      api.get('/chapters', { params: { courseId: String(courseId) } }),
+      api.get('/chapters', { params: { courseId: Number(courseId) } })
+    ]);
+
+    const combined = [...resStr.data, ...resNum.data];
+    const uniqueChapters = Array.from(new Set(combined.map((chapter) => chapter.id)))
+      .map((id) => combined.find((chapter) => chapter.id === id));
+
+    return { data: uniqueChapters };
+  } catch (error) {
+    if (error?.response?.status === 404) {
+      return { data: [] };
+    }
+
+    throw error;
+  }
 };
 
 /**
@@ -189,6 +206,22 @@ export const getLessonsByChapterIds = async (chapterIds = []) => {
     targetIds.includes(Number(lesson.chapterId))
   );
   return { data };
+};
+
+/**
+ * Get lessons by course ID
+ */
+export const getLessonsByCourseId = async (courseId) => {
+  const [resStr, resNum] = await Promise.all([
+    api.get('/lessons', { params: { courseId: String(courseId) } }),
+    api.get('/lessons', { params: { courseId: Number(courseId) } })
+  ]);
+
+  const combined = [...resStr.data, ...resNum.data];
+  const uniqueLessons = Array.from(new Set(combined.map((lesson) => lesson.id)))
+    .map((id) => combined.find((lesson) => lesson.id === id));
+
+  return { data: uniqueLessons };
 };
 
 /**

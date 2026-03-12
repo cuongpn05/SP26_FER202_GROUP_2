@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { deleteCourse, getCourses, updateCourse } from "../../api/courses";
 import { useAuth } from "../../context/AuthContext";
+import ConfirmDeleteModal from "../../components/common/ConfirmDeleteModal";
 
 export default function CourseTable({ courses, onEdit, onDelete, onAddNew }) {
   const { user } = useAuth();
@@ -10,6 +11,7 @@ export default function CourseTable({ courses, onEdit, onDelete, onAddNew }) {
   const [deletingId, setDeletingId] = useState(null);
   const [editingId, setEditingId] = useState(null);
   const [savingId, setSavingId] = useState(null);
+  const [courseToDelete, setCourseToDelete] = useState(null);
   const [editForm, setEditForm] = useState({
     title: "",
     instructor: "",
@@ -50,19 +52,19 @@ export default function CourseTable({ courses, onEdit, onDelete, onAddNew }) {
     [hasExternalCourses, courses, internalCourses]
   );
 
-  const handleDelete = async (id) => {
-    const confirmed = window.confirm("Ban co chac muon xoa khoa hoc nay?");
-    if (!confirmed) return;
+  const handleDelete = async () => {
+    if (!courseToDelete) return;
 
     setError("");
-    setDeletingId(id);
+    setDeletingId(courseToDelete.id);
     try {
       if (onDelete) {
-        await onDelete(id);
+        await onDelete(courseToDelete.id);
       } else {
-        await deleteCourse(id);
-        setInternalCourses((prev) => prev.filter((course) => course.id !== id));
+        await deleteCourse(courseToDelete.id);
+        setInternalCourses((prev) => prev.filter((course) => course.id !== courseToDelete.id));
       }
+      setCourseToDelete(null);
     } catch (err) {
       setError("Xoa khoa hoc that bai. Vui long thu lai.");
     } finally {
@@ -291,7 +293,7 @@ export default function CourseTable({ courses, onEdit, onDelete, onAddNew }) {
                                 Edit
                               </button>
                               <button
-                                onClick={() => handleDelete(c.id)}
+                                onClick={() => setCourseToDelete(c)}
                                 disabled={deletingId === c.id}
                                 className="px-3 py-1.5 rounded-lg bg-red-100 text-red-600 font-semibold hover:bg-red-200 transition-colors"
                               >
@@ -308,6 +310,18 @@ export default function CourseTable({ courses, onEdit, onDelete, onAddNew }) {
           </table>
         </div>
       </div>
+
+      <ConfirmDeleteModal
+        isOpen={Boolean(courseToDelete)}
+        title="Confirm course deletion"
+        message={`Are you sure you want to delete "${courseToDelete?.title || ""}"? This action cannot be undone.`}
+        confirmText="Delete"
+        loading={Boolean(deletingId)}
+        onCancel={() => {
+          if (!deletingId) setCourseToDelete(null);
+        }}
+        onConfirm={handleDelete}
+      />
     </section>
   );
 }
