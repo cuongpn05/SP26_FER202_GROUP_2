@@ -22,12 +22,13 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 group">
-            <div className="w-10 h-10 bg-[#1A73E8] rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform">
-              <span className="text-white font-black text-xl italic">F</span>
+          <Link to="/" className="flex items-center space-x-3 group">
+            <div className="w-11 h-11 bg-[#1A73E8] rounded-[14px] flex items-center justify-center shadow-lg shadow-[#1A73E8]/20 transform group-hover:rotate-6 transition-all duration-300">
+              <BookOpen className="text-white" size={22} strokeWidth={2.5} />
             </div>
-            <span className="text-2xl font-black tracking-tighter text-[#202124]">
-              Academy<span className="text-[#1A73E8]">.</span>
+            <span className="text-2xl font-black tracking-tighter">
+              <span className="text-[#202124]">F-</span>
+              <span className="text-[#1A73E8]">Academy</span>
             </span>
           </Link>
 
@@ -55,12 +56,24 @@ const Header = () => {
               <div className="relative">
                 <button 
                   onClick={() => setIsProfileOpen(!isProfileOpen)}
-                  className="flex items-center space-x-3 p-1.5 hover:bg-gray-50 rounded-2xl transition-all"
+                  className="flex items-center space-x-3 p-1.5 hover:bg-gray-50 rounded-2xl transition-all border border-transparent hover:border-gray-100"
                 >
-                  <div className="w-9 h-9 rounded-xl overflow-hidden border border-[#1A73E8]/20">
-                    <img src={user.avatar} alt="Avatar" className="w-full h-full object-cover" />
+                  <div className="hidden lg:flex flex-col items-end mr-1">
+                    <span className="text-sm font-bold text-[#1A73E8]">{user.name}</span>
+                    
                   </div>
-                  <ChevronDown size={14} className={`text-[#5F6368] transition-transform ${isProfileOpen ? 'rotate-180' : ''}`} />
+                  <div className="w-9 h-9 rounded-xl overflow-hidden border border-[#1A73E8]/20 shadow-sm relative">
+                    <img 
+                      src={user.avatar} 
+                      alt="Avatar" 
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=1A73E8&color=fff`;
+                      }}
+                    />
+                  </div>
+                  <ChevronDown size={14} className={`text-[#5F6368] transition-transform duration-300 ${isProfileOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {isProfileOpen && (
