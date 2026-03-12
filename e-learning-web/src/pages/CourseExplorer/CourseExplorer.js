@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import FilterSidebar from './FilterSidebar';
-import CourseGrid from './CourseGrid';
-import { getCourses, getCategories } from '../api/courses';
+import FilterSidebar from './components/FilterSidebar';
+import CourseGrid from '../../components/common/CourseGrid';
+import { getCourses, getCategories } from '../../api/courses';
 import { Search, ChevronDown, Bell, UserCircle, ShoppingCart, ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { useNavigate, useLocation } from 'react-router-dom';

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
-import { updateUserProfile, getUserProfile, changePassword } from '../api/courses';
+import { updateUserProfile, getUserProfile, changePassword } from '../../api/courses';
 import { User, Mail, Calendar, Lock, BookOpen, Save, AlertCircle, CheckCircle2, Loader2, Sparkles } from 'lucide-react';
 
 const ProfileSettings = () => {

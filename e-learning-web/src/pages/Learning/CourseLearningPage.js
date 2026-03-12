@@ -4,9 +4,9 @@ import axios from 'axios';
 import { ChevronLeft, Menu, X } from 'lucide-react';
 
 // Lazy load components
-const VideoPlayer = lazy(() => import('./VideoPlayer'));
-const CurriculumAccordion = lazy(() => import('./CurriculumAccordion'));
-const NoteSystem = lazy(() => import('./NoteSystem'));
+const VideoPlayer = lazy(() => import('../../components/course/VideoPlayer'));
+const CurriculumAccordion = lazy(() => import('../../components/course/CurriculumAccordion'));
+const NoteSystem = lazy(() => import('../../components/course/NoteSystem'));
 
 const API_URL = 'http://localhost:3636';
 

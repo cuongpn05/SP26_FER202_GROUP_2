@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAllCategories, addCategory, deleteCategory, getCoursesByCategory } from '../api/courses';
+import { getAllCategories, addCategory, deleteCategory, getCoursesByCategory } from '../../api/courses';
 import { Plus, Trash2, Eye, X, BookOpen } from 'lucide-react';
 
 const CategoryManagement = () => {

@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import CourseExplorer from './components/CourseExplorer';
-import CourseDetail from './components/CourseDetail';
-import CourseLearningPage from './components/CourseLearningPage';
-import HomePage from './components/HomePage';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import AuthModal from './components/AuthModal';
-import CourseTable from './components/CourseTable';
-import CourseForm from './components/CourseForm';
-import CategoryManagement from './components/CategoryManagement';
-import MyCourses from './components/MyCourses';
-import ProfileSettings from './components/ProfileSettings';
-import LessonListEditor from './components/LessonListEditor';
-import InstructorCourseManager from './components/InstructorCourseManager';
+import CourseExplorer from './pages/CourseExplorer/CourseExplorer';
+import CourseDetail from './pages/CourseDetail/CourseDetail';
+import CourseLearningPage from './pages/Learning/CourseLearningPage';
+import HomePage from './pages/Home/HomePage';
+import Header from './layouts/Header';
+import Footer from './layouts/Footer';
+import AuthModal from './components/auth/AuthModal';
+import CourseTable from './pages/Admin/CourseTable';
+import CourseForm from './pages/Instructor/CourseForm';
+import CategoryManagement from './pages/Admin/CategoryManagement';
+import MyCourses from './pages/MyCourses/MyCourses';
+import ProfileSettings from './pages/Profile/ProfileSettings';
+import LessonListEditor from './components/course/LessonListEditor';
+import InstructorCourseManager from './pages/Instructor/InstructorCourseManager';
 import { useAuth } from './context/AuthContext';
 import './App.css';
 
@@ -30,7 +30,7 @@ function App() {
 
   return (
     <div className="App flex flex-col min-h-screen">
-      {!isLearningPage && <Navbar />}
+      {!isLearningPage && <Header />}
       <main className="flex-grow">
         <Routes>
           <Route path="/explore" element={<CourseExplorer />} />
