@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { deleteCourse, getCourses, updateCourse } from "../api/courses";
-import { useAuth } from "../context/AuthContext";
+import { deleteCourse, getCourses, updateCourse } from "../../api/courses";
+import { useAuth } from "../../context/AuthContext";
 
 export default function CourseTable({ courses, onEdit, onDelete, onAddNew }) {
   const { user } = useAuth();

@@ -12,8 +12,8 @@ import {
   AlertCircle,
   PlayCircle
 } from 'lucide-react';
-import ProgressChart from './ProgressChart';
-import { useAuth } from '../context/AuthContext';
+import ProgressChart from '../../components/common/ProgressChart';
+import { useAuth } from '../../context/AuthContext';
 
 const CourseDetail = () => {
     const { courseId } = useParams();

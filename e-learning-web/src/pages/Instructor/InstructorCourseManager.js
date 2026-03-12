@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { deleteCourse, getCourses } from "../api/courses";
+import { deleteCourse, getCourses } from "../../api/courses";
 import CourseForm from "./CourseForm";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 export default function InstructorCourseManager() {
   const { user } = useAuth();

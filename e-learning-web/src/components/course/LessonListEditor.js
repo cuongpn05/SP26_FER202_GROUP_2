@@ -7,8 +7,8 @@ import {
   getChaptersByCourse,
   getLessonsByChapterIds,
   updateLesson,
-} from "../api/courses";
-import { useAuth } from "../context/AuthContext";
+} from "../../api/courses";
+import { useAuth } from "../../context/AuthContext";
 
 const initialState = {
   loading: false,

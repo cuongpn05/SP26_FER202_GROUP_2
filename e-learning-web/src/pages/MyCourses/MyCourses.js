@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
-import CourseCard from './CourseCard';
+import CourseCard from '../../components/common/CourseCard';
 import { BookOpen, Loader2, PlayCircle, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 

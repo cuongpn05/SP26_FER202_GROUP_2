@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { createCourse, updateCourse, getCategories } from "../api/courses";
-import { useAuth } from "../context/AuthContext";
+import { createCourse, updateCourse, getCategories } from "../../api/courses";
+import { useAuth } from "../../context/AuthContext";
 
 export default function CourseForm({ course, onSuccess, onCancel }) {
   const { user } = useAuth();
