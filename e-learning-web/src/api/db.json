@@ -208,11 +208,11 @@
       "id": "1",
       "name": "Lê Trường An",
       "email": "anlt.ce190367@gmail.com",
-      "password": "123456",
+      "password": "123",
       "birthDate": "2005-07-27",
       "role": "student",
-      "bio": "Sinh viên IT thích học React và Agent",
-      "avatar": "https://i.pravatar.cc/150?img=1"
+      "bio": "Sinh viên IT thích học ReactJS và AI agent",
+      "avatar": "https://cdn2.fptshop.com.vn/unsafe/800x0/gojo_satoru_2_e99aad9ba2.jpg"
     },
     {
       "id": "2",
@@ -387,130 +387,168 @@
   ],
   "enrollments": [
     {
-      "id": "1",
-      "userId": 1,
-      "courseId": 1,
-      "progress": 80,
-      "status": "purchased"
+      "courseId": "1",
+      "enrolledUsers": [
+        {
+          "userId": "1",
+          "progress": 80,
+          "status": "purchased"
+        },
+        {
+          "userId": "2",
+          "progress": 60,
+          "status": "learning"
+        },
+        {
+          "userId": "9",
+          "progress": 40,
+          "status": "learning"
+        }
+      ]
     },
     {
-      "id": "2",
-      "userId": 1,
-      "courseId": 3,
-      "progress": 45,
-      "status": "learning"
+      "courseId": "2",
+      "enrolledUsers": [
+        {
+          "userId": "3",
+          "progress": 100,
+          "status": "completed"
+        }
+      ]
     },
     {
-      "id": "3",
-      "userId": 1,
-      "courseId": 4,
-      "progress": 20,
-      "status": "learning"
+      "courseId": "3",
+      "enrolledUsers": [
+        {
+          "userId": "1",
+          "progress": 45,
+          "status": "learning"
+        }
+      ]
     },
     {
-      "id": "4",
-      "userId": 2,
-      "courseId": 1,
-      "progress": 60,
-      "status": "learning"
+      "courseId": "4",
+      "enrolledUsers": [
+        {
+          "userId": "1",
+          "progress": 20,
+          "status": "learning"
+        },
+        {
+          "userId": "10",
+          "progress": 65,
+          "status": "learning"
+        }
+      ]
     },
     {
-      "id": "5",
-      "userId": 3,
-      "courseId": 2,
-      "progress": 100,
-      "status": "completed"
+      "courseId": "5",
+      "enrolledUsers": [
+        {
+          "userId": "2",
+          "progress": 75,
+          "status": "learning"
+        },
+        {
+          "userId": "1",
+          "progress": 25,
+          "status": "learning"
+        }
+      ]
     },
     {
-      "id": "6",
-      "userId": 2,
-      "courseId": 5,
-      "progress": 75,
-      "status": "learning"
+      "courseId": "6",
+      "enrolledUsers": [
+        {
+          "userId": "3",
+          "progress": 30,
+          "status": "learning"
+        },
+        {
+          "userId": "9",
+          "progress": 90,
+          "status": "learning"
+        }
+      ]
     },
     {
-      "id": "7",
-      "userId": 3,
-      "courseId": 6,
-      "progress": 30,
-      "status": "learning"
+      "courseId": "7",
+      "enrolledUsers": [
+        {
+          "userId": "10",
+          "progress": 35,
+          "status": "learning"
+        },
+        {
+          "userId": "2",
+          "progress": 100,
+          "status": "completed"
+        }
+      ]
     },
     {
-      "id": "8",
-      "userId": 1,
-      "courseId": 9,
-      "progress": 55,
-      "status": "learning"
+      "courseId": "8",
+      "enrolledUsers": [
+        {
+          "userId": "3",
+          "progress": 50,
+          "status": "learning"
+        }
+      ]
     },
     {
-      "id": "9",
-      "userId": 9,
-      "courseId": 1,
-      "progress": 40,
-      "status": "learning"
+      "courseId": "9",
+      "enrolledUsers": [
+        {
+          "userId": "1",
+          "progress": 55,
+          "status": "learning"
+        },
+        {
+          "userId": "9",
+          "progress": 70,
+          "status": "learning"
+        }
+      ]
     },
     {
-      "id": "10",
-      "userId": 9,
-      "courseId": 6,
-      "progress": 90,
-      "status": "learning"
+      "courseId": "10",
+      "enrolledUsers": [
+        {
+          "userId": "10",
+          "progress": 15,
+          "status": "learning"
+        },
+        {
+          "userId": "2",
+          "progress": 40,
+          "status": "learning"
+        }
+      ]
     },
     {
-      "id": "11",
-      "userId": 10,
-      "courseId": 4,
-      "progress": 65,
-      "status": "learning"
+      "courseId": "11",
+      "enrolledUsers": []
     },
     {
-      "id": "12",
-      "userId": 10,
-      "courseId": 7,
-      "progress": 35,
-      "status": "learning"
+      "courseId": "12",
+      "enrolledUsers": []
     },
     {
-      "id": "13",
-      "userId": 2,
-      "courseId": 7,
-      "progress": 100,
-      "status": "completed"
+      "courseId": "13",
+      "enrolledUsers": []
     },
     {
-      "id": "14",
-      "userId": 3,
-      "courseId": 8,
-      "progress": 50,
-      "status": "learning"
+      "courseId": "14",
+      "enrolledUsers": []
     },
     {
-      "id": "15",
-      "userId": 1,
-      "courseId": 5,
-      "progress": 25,
-      "status": "learning"
+      "courseId": "15",
+      "enrolledUsers": []
     },
     {
-      "id": "16",
-      "userId": 9,
-      "courseId": 9,
-      "progress": 70,
-      "status": "learning"
-    },
-    {
-      "id": "17",
-      "userId": 10,
-      "courseId": 10,
-      "progress": 15,
-      "status": "learning"
-    },
-    {
-      "id": "18",
-      "userId": 2,
-      "courseId": 10,
-      "progress": 40,
-      "status": "learning"
+      "courseId": "16",
+      "enrolledUsers": []
     }
   ],
   "lessons": [
