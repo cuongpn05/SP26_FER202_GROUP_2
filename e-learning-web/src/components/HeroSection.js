@@ -1,7 +1,13 @@
 import React from 'react';
 import { Search, MapPin, Play, Clock, Users, Globe } from 'lucide-react';
 
-const HeroSection = ({ searchQuery, setSearchQuery }) => {
+const HeroSection = ({ searchQuery, setSearchQuery, onSearch }) => {
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && onSearch) {
+      onSearch();
+    }
+  };
+
   return (
     <section className="relative bg-primary text-white overflow-hidden py-16 lg:py-24 rounded-3xl shadow-2xl mx-4 sm:mx-6 lg:mx-8 mt-6">
       <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary-dark to-blue-900 opacity-90"></div>
@@ -60,11 +66,15 @@ const HeroSection = ({ searchQuery, setSearchQuery }) => {
                 type="text" 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={handleKeyDown}
                 placeholder="Khóa học bạn đang tìm kiếm là gì?"
                 className="w-full pl-12 pr-4 py-4 rounded-xl text-text-main placeholder-text-muted/60 text-lg transition-all focus:ring-0 outline-none hover:bg-gray-50/50"
               />
             </div>
-            <button className="w-full sm:w-auto btn-primary py-4 px-10 text-lg font-bold shadow-xl shadow-primary/20 hover:shadow-primary/40">
+            <button 
+              onClick={onSearch}
+              className="w-full sm:w-auto btn-primary py-4 px-10 text-lg font-bold shadow-xl shadow-primary/20 hover:shadow-primary/40"
+            >
               Tìm kiếm ngay
             </button>
           </div>
