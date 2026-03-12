@@ -16,7 +16,7 @@ import {
 import ProgressChart from '../../components/common/ProgressChart';
 import { useAuth } from '../../context/AuthContext';
 
-const CourseDetail = () => {
+const EnrollDetail = () => {
     const { courseId } = useParams();
     const { user } = useAuth();
     const navigate = useNavigate();
@@ -278,4 +278,4 @@ const CourseDetail = () => {
     );
 };
 
-export default CourseDetail;
+export default EnrollDetail;
