@@ -86,6 +86,12 @@ const Header = () => {
                       <User size={18} />
                       <span>Hồ sơ</span>
                     </Link>
+                    {user.role !== 'admin' && (
+                      <Link to="/my-courses" className="flex items-center space-x-3 px-4 py-2.5 text-sm text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE] transition-colors">
+                        <BookOpen size={18} />
+                        <span>Khóa học của tôi</span>
+                      </Link>
+                    )}
                     <button 
                       onClick={() => { logout(); navigate('/'); }}
                       className="w-full flex items-center space-x-3 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors text-left"
