@@ -8,8 +8,11 @@ const ProfileSettings = () => {
   const { user: authUser, login } = useAuth();
   const [formData, setFormData] = useState({
     name: '',
+    email: '',
+    role: '',
     bio: '',
     birthDate: '',
+    avatar: '',
     currentPassword: '',
     newPassword: '',
     confirmPassword: ''
@@ -20,23 +23,33 @@ const ProfileSettings = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      // Vì json-server sử dụng ID từ db.json, ta lấy từ authUser
+      // Gọi trực tiếp đến API endpoint để lấy dữ liệu mới nhất
       if (!authUser?.id) return;
       try {
         setFetching(true);
-        const response = await getUserProfile(authUser.id);
-        if (response.data) {
-          const userData = response.data;
+        // Sử dụng fetch API truyền thống để làm rõ ràng việc lấy data từ link trực tiếp
+        const apiUrl = `http://localhost:3636/users/${authUser.id}`;
+        const response = await fetch(apiUrl);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const userData = await response.json();
+        
+        if (userData) {
           setFormData(prev => ({
             ...prev,
             name: userData.name || '',
+            email: userData.email || '',
+            role: userData.role || '',
             bio: userData.bio || '',
             birthDate: userData.birthDate || '',
             avatar: userData.avatar || ''
           }));
         }
       } catch (error) {
-        console.error("Lỗi khi tải dữ liệu người dùng:", error);
+        console.error("Lỗi khi tải dữ liệu người dùng từ link trực tiếp:", error);
         setStatus({ type: 'error', message: 'Không thể kết nối với API (Port 3636)' });
       } finally {
         setFetching(false);
@@ -55,6 +68,44 @@ const ProfileSettings = () => {
     e.preventDefault();
     setLoading(true);
     setStatus({ type: '', message: '' });
+
+    // Validation tên không được để trống
+    if (!formData.name || formData.name.trim() === '') {
+      setStatus({ type: 'error', message: 'Họ và tên không được để trống.' });
+      setLoading(false);
+      return;
+    }
+
+    // Validation ngày sinh
+    if (formData.birthDate) {
+      const birthDate = new Date(formData.birthDate);
+      const today = new Date();
+      
+      // Tính tuổi
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+
+      if (birthDate > today) {
+        setStatus({ type: 'error', message: 'Ngày sinh không được vượt quá ngày hiện tại.' });
+        setLoading(false);
+        return;
+      }
+
+      if (age < 5) {
+        setStatus({ type: 'error', message: 'Bạn phải ít nhất 5 tuổi để tham gia.' });
+        setLoading(false);
+        return;
+      }
+
+      if (age >= 199) {
+        setStatus({ type: 'error', message: 'Vui lòng kiểm tra lại năm sinh (phải nhỏ hơn 199 tuổi).' });
+        setLoading(false);
+        return;
+      }
+    }
 
     try {
       const updateData = {
@@ -81,8 +132,20 @@ const ProfileSettings = () => {
 
   const handleChangePassword = async (e) => {
     e.preventDefault();
+    
+    // Validation mật khẩu
+    if (!formData.currentPassword || !formData.newPassword || !formData.confirmPassword) {
+      setStatus({ type: 'password-error', message: 'Vui lòng điền đầy đủ tất cả các trường mật khẩu.' });
+      return;
+    }
+
     if (formData.newPassword !== formData.confirmPassword) {
       setStatus({ type: 'password-error', message: 'Mật khẩu mới không khớp.' });
+      return;
+    }
+
+    if (formData.newPassword.length < 6) {
+      setStatus({ type: 'password-error', message: 'Mật khẩu mới phải có ít nhất 6 ký tự.' });
       return;
     }
     
@@ -120,41 +183,39 @@ const ProfileSettings = () => {
                 {formData.avatar ? (
                   <img 
                     src={formData.avatar} 
-                    alt={authUser.name} 
+                    alt={formData.name} 
                     className="w-full h-full object-cover"
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.parentNode.innerHTML = authUser.name.charAt(0);
+                      e.target.parentNode.innerHTML = formData.name.charAt(0);
                     }}
                   />
                 ) : (
-                  authUser.name.charAt(0)
+                  formData.name ? formData.name.charAt(0) : <User size={40} />
                 )}
               </div>
-              <button className="absolute bottom-0 right-0 bg-white text-blue-600 p-1.5 rounded-full shadow-lg hover:scale-110 transition-transform cursor-default">
-                <User size={16} />
-              </button>
+              <div className="absolute bottom-0 right-0 bg-white text-blue-600 p-1.5 rounded-full shadow-lg">
+                <Sparkles size={16} className="animate-pulse" />
+              </div>
             </div>
             <div className="text-center md:text-left">
-              <h1 className="text-3xl font-bold">{authUser.name}</h1>
+              <h1 className="text-3xl font-bold">{formData.name}</h1>
               <p className="opacity-90 flex items-center justify-center md:justify-start gap-2 mt-1">
-                <Mail size={16} /> {authUser.email}
+                <Mail size={16} /> {formData.email}
               </p>
-              <span className="inline-block mt-3 px-3 py-1 bg-white/20 rounded-full text-xs font-medium backdrop-blur-sm">
-                Vai trò: {authUser.role === 'student' ? 'Học viên' : 'Giảng viên'}
+              <span className="inline-block mt-3 px-3 py-1 bg-white/20 rounded-full text-xs font-medium backdrop-blur-sm uppercase tracking-wide">
+                {formData.role === 'student' ? 'Học viên' : (formData.role === 'instructor' ? 'Giảng viên' : formData.role)}
               </span>
               
-              {authUser.role === 'student' && (
-                <div className="mt-8">
-                  <Link 
-                    to="/my-courses"
-                    className="inline-flex items-center gap-2 bg-white text-blue-600 px-6 py-2.5 rounded-xl font-bold shadow-lg hover:scale-105 transition-all hover:bg-blue-50"
-                  >
-                    <BookOpen size={20} />
-                    Khóa học của tôi
-                  </Link>
-                </div>
-              )}
+              <div className="mt-8">
+                <Link 
+                  to="/my-courses"
+                  className="inline-flex items-center gap-2 bg-white text-blue-600 px-6 py-2.5 rounded-xl font-bold shadow-lg hover:scale-105 transition-all hover:bg-blue-50"
+                >
+                  <BookOpen size={20} />
+                  Khóa học của tôi
+                </Link>
+              </div>
             </div>
           </div>
         </div>
