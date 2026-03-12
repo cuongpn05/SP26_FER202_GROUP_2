@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, User, LogIn, Menu, X, LogOut, Settings, BookOpen, ChevronDown } from 'lucide-react';
+import { Search, User, Menu, X, LogOut, Settings, BookOpen, ChevronDown } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -51,6 +51,15 @@ const Header = () => {
             <Link to="/explore" className="text-[#5F6368] hover:text-[#1A73E8] font-bold text-sm transition-colors px-3 py-2">
               Khám phá
             </Link>
+
+            {isLoggedIn && (user?.role === 'instructor' || user?.role === 'teacher') && (
+              <Link
+                to="/instructor/courses"
+                className="text-[#5F6368] hover:text-[#1A73E8] font-bold text-sm transition-colors px-3 py-2"
+              >
+                Quản lý khóa học
+              </Link>
+            )}
             
             {isLoggedIn ? (
               <div className="relative">
@@ -86,6 +95,18 @@ const Header = () => {
                       <User size={18} />
                       <span>Hồ sơ</span>
                     </Link>
+                    {(user.role === 'admin' || user.role === 'instructor' || user.role === 'teacher') && (
+                      <Link to="/instructor/courses" className="flex items-center space-x-3 px-4 py-2.5 text-sm text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE] transition-colors">
+                        <Settings size={18} />
+                        <span>Quản lý khóa học</span>
+                      </Link>
+                    )}
+                    {(user.role === 'admin' || user.role === 'instructor' || user.role === 'teacher') && (
+                      <Link to="/lesson-editor" className="flex items-center space-x-3 px-4 py-2.5 text-sm text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE] transition-colors">
+                        <BookOpen size={18} />
+                        <span>Thêm/Xóa video</span>
+                      </Link>
+                    )}
                     {user.role !== 'admin' && (
                       <Link to="/my-courses" className="flex items-center space-x-3 px-4 py-2.5 text-sm text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE] transition-colors">
                         <BookOpen size={18} />
@@ -132,6 +153,11 @@ const Header = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-100 p-4 space-y-4">
           <Link to="/explore" className="block font-bold text-[#202124]">Khám phá</Link>
+          {isLoggedIn && (user?.role === 'instructor' || user?.role === 'teacher') && (
+            <Link to="/instructor/courses" className="block font-bold text-[#202124]">
+              Quản lý khóa học
+            </Link>
+          )}
           {!isLoggedIn ? (
             <div className="grid grid-cols-2 gap-4">
               <button onClick={() => openAuthModal('login')} className="py-2.5 border border-[#1A73E8] text-[#1A73E8] rounded-xl font-bold">Đăng nhập</button>

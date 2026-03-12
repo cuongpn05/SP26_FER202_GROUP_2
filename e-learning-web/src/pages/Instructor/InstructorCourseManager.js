@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { deleteCourse, getCourses } from "../../api/courses";
 import CourseForm from "./CourseForm";
 import { useAuth } from "../../context/AuthContext";
+import ConfirmDeleteModal from "../../components/common/ConfirmDeleteModal";
 
 export default function InstructorCourseManager() {
   const { user } = useAuth();
@@ -13,6 +14,8 @@ export default function InstructorCourseManager() {
   const [courses, setCourses] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingCourse, setEditingCourse] = useState(null);
+  const [courseToDelete, setCourseToDelete] = useState(null);
+  const [deleting, setDeleting] = useState(false);
 
   const loadCourses = useCallback(async () => {
     setLoading(true);
@@ -33,16 +36,18 @@ export default function InstructorCourseManager() {
     loadCourses();
   }, [loadCourses]);
 
-  const handleDelete = async (courseId) => {
-    const confirmed = window.confirm("Bạn có chắc muốn xóa khóa học này?");
-    if (!confirmed) return;
-
+  const handleDelete = async () => {
+    if (!courseToDelete) return;
     setError("");
+    setDeleting(true);
     try {
-      await deleteCourse(courseId);
+      await deleteCourse(courseToDelete.id);
       await loadCourses();
+      setCourseToDelete(null);
     } catch (err) {
       setError("Xóa khóa học thất bại.");
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -159,7 +164,7 @@ export default function InstructorCourseManager() {
                           Sửa
                         </button>
                         <button
-                          onClick={() => handleDelete(course.id)}
+                          onClick={() => setCourseToDelete(course)}
                           className="px-3 py-1.5 rounded-lg bg-red-100 text-red-600 font-semibold hover:bg-red-200 transition-colors"
                         >
                           Xóa
@@ -172,6 +177,18 @@ export default function InstructorCourseManager() {
           </table>
         </div>
       </div>
+
+      <ConfirmDeleteModal
+        isOpen={Boolean(courseToDelete)}
+        title="Xác nhận xóa khóa học"
+        message={`Bạn có chắc muốn xóa khóa học "${courseToDelete?.title || ""}"? Hành động này không thể hoàn tác.`}
+        confirmText="Xóa khóa học"
+        loading={deleting}
+        onCancel={() => {
+          if (!deleting) setCourseToDelete(null);
+        }}
+        onConfirm={handleDelete}
+      />
     </section>
   );
 }

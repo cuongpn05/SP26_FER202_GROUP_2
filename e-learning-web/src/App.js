@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import CourseExplorer from './pages/CourseExplorer/CourseExplorer';
 import EnrollDetail from './pages/EnrollDetail/EnrollDetail';
@@ -8,8 +8,6 @@ import CourseDetail from './pages/CourseDetail/coursedetail';
 import Header from './layouts/Header';
 import Footer from './layouts/Footer';
 import AuthModal from './components/auth/AuthModal';
-import CourseTable from './pages/Admin/CourseTable';
-import CourseForm from './pages/Instructor/CourseForm';
 import CategoryManagement from './pages/Admin/CategoryManagement';
 import MyCourses from './pages/MyCourses/MyCourses';
 import ProfileSettings from './pages/Profile/ProfileSettings';
@@ -43,31 +41,13 @@ function App() {
   const canAccessLessonEditor = isTeacher || (isLoggedIn && user?.role === 'admin');
   const isLearningPage = location.pathname.startsWith('/learning/');
 
-  const [showAddForm, setShowAddForm] = useState(false);
-
   return (
     <div className="App flex flex-col min-h-screen">
       {!isLearningPage && <Header />}
       <main className="flex-grow">
         <Routes>
           <Route path="/explore" element={<CourseExplorer />} />
-          <Route
-            path="/"
-            element={
-              isTeacher ? (
-                showAddForm ? (
-                  <CourseForm
-                    onSuccess={() => setShowAddForm(false)}
-                    onCancel={() => setShowAddForm(false)}
-                  />
-                ) : (
-                  <CourseTable onAddNew={() => setShowAddForm(true)} />
-                )
-              ) : (
-                <HomePage />
-              )
-            }
-          />
+          <Route path="/" element={<HomePage />} />
           <Route
             path="/my-courses"
             element={isLoggedIn ? <MyCourses /> : <Navigate to="/" />}
