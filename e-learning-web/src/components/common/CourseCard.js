@@ -9,14 +9,14 @@ const CourseCard = ({ course }) => {
   };
 
   return (
-    <Link 
-      to={`/course/${course.id}`}
+    <Link
+      to={`/course-detail/${course.id}`}
       className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 overflow-hidden flex flex-col h-full"
     >
       {/* Thumbnail */}
       <div className="relative aspect-[16/10] overflow-hidden">
-        <img 
-          src={course.thumbnail} 
+        <img
+          src={course.thumbnail}
           alt={course.title}
           onError={handleImageError}
           className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
@@ -33,10 +33,10 @@ const CourseCard = ({ course }) => {
       <div className="p-5 flex flex-col flex-1">
         <div className="flex items-center space-x-1 text-[#FABB05] mb-2">
           {[...Array(5)].map((_, i) => (
-            <Star 
-              key={i} 
-              size={12} 
-              fill={i < Math.floor(course.rating) ? "currentColor" : "none"} 
+            <Star
+              key={i}
+              size={12}
+              fill={i < Math.floor(course.rating) ? "currentColor" : "none"}
               className={i < Math.floor(course.rating) ? "" : "text-gray-300"}
             />
           ))}
@@ -56,10 +56,10 @@ const CourseCard = ({ course }) => {
 
         <div className="mt-auto pt-4 border-t border-gray-50 flex items-center justify-between">
           <div className="flex flex-col">
-             <span className="text-[10px] text-[#5F6368] font-bold uppercase tracking-tight">Giá khóa học</span>
-             <span className="text-[#1A73E8] font-black text-xl">
-               {course.price.toLocaleString('vi-VN')}đ
-             </span>
+            <span className="text-[10px] text-[#5F6368] font-bold uppercase tracking-tight">Giá khóa học</span>
+            <span className="text-[#1A73E8] font-black text-xl">
+              {course.price.toLocaleString('vi-VN')}đ
+            </span>
           </div>
           <div className="bg-[#E8F0FE] p-2 rounded-xl text-[#1A73E8] group-hover:bg-[#1A73E8] group-hover:text-white transition-all">
             <ChevronRight size={20} />

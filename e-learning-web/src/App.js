@@ -4,6 +4,7 @@ import CourseExplorer from './pages/CourseExplorer/CourseExplorer';
 import EnrollDetail from './pages/EnrollDetail/EnrollDetail';
 import CourseLearningPage from './pages/Learning/CourseLearningPage';
 import HomePage from './pages/Home/HomePage';
+import CourseDetail from './pages/CourseDetail/coursedetail';
 import Header from './layouts/Header';
 import Footer from './layouts/Footer';
 import AuthModal from './components/auth/AuthModal';
@@ -25,7 +26,7 @@ function App() {
   const isTeacher = isLoggedIn && (user?.role === 'instructor' || user?.role === 'teacher');
   const canAccessLessonEditor = isTeacher || (isLoggedIn && user?.role === 'admin');
   const isLearningPage = location.pathname.startsWith('/learning/');
-  
+
   const [showAddForm, setShowAddForm] = useState(false);
 
   return (
@@ -34,12 +35,12 @@ function App() {
       <main className="flex-grow">
         <Routes>
           <Route path="/explore" element={<CourseExplorer />} />
-          <Route 
-            path="/" 
+          <Route
+            path="/"
             element={
               isTeacher ? (
                 showAddForm ? (
-                  <CourseForm 
+                  <CourseForm
                     onSuccess={() => setShowAddForm(false)}
                     onCancel={() => setShowAddForm(false)}
                   />
@@ -49,7 +50,7 @@ function App() {
               ) : (
                 <HomePage />
               )
-            } 
+            }
           />
           <Route
             path="/my-courses"
@@ -59,6 +60,7 @@ function App() {
             path="/profile"
             element={isLoggedIn ? <ProfileSettings /> : <Navigate to="/" />}
           />
+          <Route path="/course-detail/:courseId" element={<CourseDetail />} />
           <Route path="/enroll-detail/:courseId" element={<EnrollDetail />} />
           <Route path="/learning/:courseId" element={<CourseLearningPage />} />
           <Route

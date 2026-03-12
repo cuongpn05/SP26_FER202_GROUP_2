@@ -511,7 +511,7 @@
           "progress": 50,
           "status": "learning"
         },
-         {
+        {
           "userId": "18",
           "progress": 36,
           "status": "learning"
@@ -584,137 +584,175 @@
   ],
   "lessons": [
     {
-      "id": "1",
       "courseId": 1,
       "title": "React là gì?",
       "videoUrl": "https://www.youtube.com/embed/NclbvXqvnyA",
-      "duration": "10:00"
+      "duration": "10:00",
+      "description": "Tìm hiểu về React và lý do tại sao nó là thư viện UI phổ biến nhất.",
+      "picture": "https://picsum.photos/seed/lesson1/400/225",
+      "id": "1"
     },
     {
       "id": "2",
       "courseId": 1,
       "title": "Cài đặt môi trường",
       "videoUrl": "https://youtu.be/AGWJl3NMGrQ?si=by1-B5bd38LeJ2Hd",
-      "duration": "11:01"
+      "duration": "11:01",
+      "description": "Hướng dẫn cài đặt Node.js, VS Code và khởi tạo dự án React đầu tiên.",
+      "picture": "https://picsum.photos/seed/lesson2/400/225"
     },
     {
       "id": "3",
       "courseId": 1,
       "title": "useState Hook",
       "videoUrl": "https://youtu.be/AFHpF265kbg?si=5vj5dvdxRoEQXL-p",
-      "duration": "21:59"
+      "duration": "21:59",
+      "description": "Làm quen với cách quản lý trạng thái trong Functional Component.",
+      "picture": "https://picsum.photos/seed/lesson3/400/225"
     },
     {
       "id": "4",
       "courseId": 1,
       "title": "useEffect Hook",
       "videoUrl": "https://www.youtube.com/embed/hjIxfXKmkjk",
-      "duration": "24:49"
+      "duration": "24:49",
+      "description": "Xử lý side-effects trong React với useEffect Hook.",
+      "picture": "https://picsum.photos/seed/lesson4/400/225"
     },
     {
       "id": "5",
       "courseId": 2,
       "title": "Tổng quan về GDP",
       "videoUrl": "https://www.youtube.com/embed/d0nERTFo-Sk",
-      "duration": "15:20"
+      "duration": "15:20",
+      "description": "Hiểu về chỉ số GDP và tầm quan trọng của nó trong kinh tế vĩ mô.",
+      "picture": "https://picsum.photos/seed/lesson5/400/225"
     },
     {
       "id": "6",
       "courseId": 3,
       "title": "Tạo Frame đầu tiên",
       "videoUrl": "https://www.youtube.com/embed/jk1T6Y7akBk",
-      "duration": "08:45"
+      "duration": "08:45",
+      "description": "Khởi đầu với Figma bằng cách tạo các Frame cơ bản cho bản thiết kế.",
+      "picture": "https://picsum.photos/seed/lesson6/400/225"
     },
     {
       "id": "7",
       "courseId": 4,
       "title": "Xử lý lỗ hổng SQLi",
       "videoUrl": "https://www.youtube.com/embed/2-vV6Xm0m-0",
-      "duration": "12:30"
+      "duration": "12:30",
+      "description": "Cách nhận diện và phòng chống tấn công SQL Injection.",
+      "picture": "https://picsum.photos/seed/lesson7/400/225"
     },
     {
       "id": "8",
       "courseId": 5,
       "title": "Sử dụng StyleSheet",
       "videoUrl": "https://www.youtube.com/embed/RAnv-nOn-Xk",
-      "duration": "14:15"
+      "duration": "14:15",
+      "description": "Cách tạo kiểu cho ứng dụng Mobile với StyleSheet trong React Native.",
+      "picture": "https://picsum.photos/seed/lesson8/400/225"
     },
     {
       "id": "9",
       "courseId": 6,
       "title": "Hệ điều hành và Phần cứng",
       "videoUrl": "https://www.youtube.com/embed/26QPDBe-NB8",
-      "duration": "18:00"
+      "duration": "18:00",
+      "description": "Nghiên cứu mối quan hệ giữa phần mềm hệ thống và phần cứng máy tính.",
+      "picture": "https://picsum.photos/seed/lesson9/400/225"
     },
     {
       "id": "10",
       "courseId": 7,
       "title": "Bubble Sort và Quick Sort",
       "videoUrl": "https://www.youtube.com/embed/6Gv8vg0ew_g",
-      "duration": "25:30"
+      "duration": "25:30",
+      "description": "Phân tích và triển khai các thuật toán sắp xếp phổ biến.",
+      "picture": "https://picsum.photos/seed/lesson10/400/225"
     },
     {
       "id": "11",
       "courseId": 8,
       "title": "Cơ chế giá thị trường",
       "videoUrl": "https://www.youtube.com/embed/LwLh6ax0zTE",
-      "duration": "12:45"
+      "duration": "12:45",
+      "description": "Cách thức hình thành giá cả dựa trên cung và cầu.",
+      "picture": "https://picsum.photos/seed/lesson11/400/225"
     },
     {
       "id": "12",
       "courseId": 9,
       "title": "Phân tích dữ liệu với Excel",
       "videoUrl": "https://www.youtube.com/embed/0nbkaYsR94c",
-      "duration": "20:00"
+      "duration": "20:00",
+      "description": "Sử dụng các hàm Excel mạnh mẽ để xử lý dữ liệu kinh doanh.",
+      "picture": "https://picsum.photos/seed/lesson12/400/225"
     },
     {
       "id": "13",
       "courseId": 10,
       "title": "Common Greetings",
       "videoUrl": "https://www.youtube.com/embed/fW6fOndVInE",
-      "duration": "09:30"
+      "duration": "09:30",
+      "description": "Học các câu chào hỏi thông dụng trong tiếng Anh hàng ngày.",
+      "picture": "https://picsum.photos/seed/lesson13/400/225"
     },
     {
       "id": "14",
       "courseId": 11,
       "title": "Business Email Etiquette",
       "videoUrl": "https://www.youtube.com/embed/zS9777Y-0H4",
-      "duration": "15:10"
+      "duration": "15:10",
+      "description": "Các quy tắc viết email chuyên nghiệp trong môi trường công sở.",
+      "picture": "https://picsum.photos/seed/lesson14/400/225"
     },
     {
       "id": "15",
       "courseId": 12,
       "title": "Power of Body Language",
       "videoUrl": "https://www.youtube.com/embed/Ks-_Mh1QhMc",
-      "duration": "14:20"
+      "duration": "14:20",
+      "description": "Tận dụng ngôn ngữ cơ thể để tăng hiệu quả thuyết trình.",
+      "picture": "https://picsum.photos/seed/lesson15/400/225"
     },
     {
       "id": "16",
       "courseId": 13,
       "title": "Team Trust Building",
       "videoUrl": "https://www.youtube.com/embed/GArl7v_2O_k",
-      "duration": "11:00"
+      "duration": "11:00",
+      "description": "Các kỹ thuật xây dựng niềm tin và gắn kết trong đội ngũ.",
+      "picture": "https://picsum.photos/seed/lesson16/400/225"
     },
     {
       "id": "17",
       "courseId": 14,
       "title": "Storytelling in Marketing",
       "videoUrl": "https://www.youtube.com/embed/Na79v0-uE_Q",
-      "duration": "13:40"
+      "duration": "13:40",
+      "description": "Cách kể chuyện thu hút để truyền tải thông điệp thương hiệu.",
+      "picture": "https://picsum.photos/seed/lesson17/400/225"
     },
     {
       "id": "18",
       "courseId": 15,
       "title": "Color Correction Basics",
       "videoUrl": "https://www.youtube.com/embed/9XInoBfT5Yc",
-      "duration": "19:50"
+      "duration": "19:50",
+      "description": "Các bước cơ bản để chỉnh sửa màu sắc hình ảnh chuyên nghiệp.",
+      "picture": "https://picsum.photos/seed/lesson18/400/225"
     },
     {
       "id": "19",
       "courseId": 16,
       "title": "Moodboard for Branding",
       "videoUrl": "https://www.youtube.com/embed/Q5mQfB68WpQ",
-      "duration": "10:20"
+      "duration": "10:20",
+      "description": "Tạo Moodboard để thống nhất phong cách thiết kế thương hiệu.",
+      "picture": "https://picsum.photos/seed/lesson19/400/225"
     }
   ],
   "notes": [
