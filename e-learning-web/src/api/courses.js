@@ -41,6 +41,13 @@ export const getCategories = async () => {
 };
 
 /**
+ * Fetch all instructors
+ */
+export const getInstructors = async () => {
+  return api.get('/instructors');
+};
+
+/**
  * Fetch all categories with full details
  */
 export const getAllCategories = async () => {
