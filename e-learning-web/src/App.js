@@ -19,6 +19,22 @@ import { useAuth } from './context/AuthContext';
 import './App.css';
 
 
+function RequireAuth({ children }) {
+  const { isLoggedIn, openAuthModal } = useAuth();
+
+  React.useEffect(() => {
+    if (!isLoggedIn) {
+      openAuthModal('login');
+    }
+  }, [isLoggedIn, openAuthModal]);
+
+  if (!isLoggedIn) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
+}
+
 function App() {
   const { isLoggedIn, user } = useAuth();
   const location = useLocation();
@@ -60,7 +76,14 @@ function App() {
             path="/profile"
             element={isLoggedIn ? <ProfileSettings /> : <Navigate to="/" />}
           />
-          <Route path="/course-detail/:courseId" element={<CourseDetail />} />
+          <Route
+            path="/course-detail/:courseId"
+            element={
+              <RequireAuth>
+                <CourseDetail />
+              </RequireAuth>
+            }
+          />
           <Route path="/enroll-detail/:courseId" element={<EnrollDetail />} />
           <Route path="/learning/:courseId" element={<CourseLearningPage />} />
           <Route
