@@ -1,241 +1,275 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { 
-  ArrowLeft, 
-  BookOpen, 
-  Clock, 
-  BarChart, 
-  Award, 
-  CheckCircle, 
-  Loader2, 
+import {
+  ArrowLeft,
+  Clock,
+  Loader2,
   AlertCircle,
-  PlayCircle
+  Plus,
+  Edit,
+  Trash2
 } from 'lucide-react';
-import ProgressChart from './ProgressChart';
+
 import { useAuth } from '../context/AuthContext';
+import LessonFormModal from './LessonFormModal';
 
 const CourseDetail = () => {
-    const { courseId } = useParams();
-    const { user } = useAuth();
-    const navigate = useNavigate();
-    const [course, setCourse] = useState(null);
-    const [enrollment, setEnrollment] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const { courseId } = useParams();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [course, setCourse] = useState(null);
+  const [lessons, setLessons] = useState([]);
+  const [instructor, setInstructor] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingLesson, setEditingLesson] = useState(null);
 
-    useEffect(() => {
-        const fetchCourseDetail = async () => {
-            if (!user?.id || !courseId) return;
+  const isCourseManager = user && (user.role === 'admin' || (course && String(user.id) === String(course.instructorId)));
 
-            try {
-                setLoading(true);
-                // 1. Fetch course details
-                const courseRes = await axios.get(`http://localhost:3636/courses/${courseId}`);
-                const courseData = courseRes.data;
-
-                // 2. Fetch all enrollments to find the participation of this user in THIS course
-                const enrollmentsRes = await axios.get(`http://localhost:3636/enrollments`);
-                const allEnrollments = enrollmentsRes.data;
-                
-                // Find the enrollment object for this course
-                const courseEnrollment = allEnrollments.find(e => String(e.courseId) === String(courseId));
-                
-                if (!courseEnrollment) {
-                    setError("Dữ liệu khóa học này chưa được khởi tạo.");
-                    setLoading(false);
-                    return;
-                }
-
-                // Find the specific user in the enrolledUsers array
-                const userEnrollment = courseEnrollment.enrolledUsers?.find(eu => String(eu.userId) === String(user.id));
-                
-                if (!userEnrollment) {
-                    setError("Bạn chưa đăng ký khóa học này.");
-                    setLoading(false);
-                    return;
-                }
-
-                setCourse(courseData);
-                setEnrollment(userEnrollment);
-            } catch (err) {
-                console.error("Error fetching course details:", err);
-                setError("Có lỗi xảy ra khi tải thông tin khóa học.");
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchCourseDetail();
-    }, [courseId, user?.id]);
-
-    if (loading) {
-        return (
-            <div className="flex flex-col items-center justify-center min-h-[600px] gap-4">
-                <Loader2 className="animate-spin text-blue-600" size={48} />
-                <p className="text-gray-500 font-bold animate-pulse uppercase tracking-widest text-sm">Đang tải chi tiết khóa học...</p>
-            </div>
-        );
+  const fetchLessons = async () => {
+    try {
+      const lessonsRes = await axios.get(`http://localhost:3636/lessons?courseId=${courseId}`);
+      setLessons(lessonsRes.data);
+    } catch (err) {
+      console.error("Error fetching lessons:", err);
     }
+  };
 
-    if (error || !course) {
-        return (
-            <div className="max-w-xl mx-auto mt-20 p-8 bg-red-50 rounded-3xl border border-red-100 text-center">
-                <AlertCircle className="text-red-500 mx-auto mb-4" size={48} />
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">Lỗi truy cập</h2>
-                <p className="text-red-600 mb-6 font-medium">{error || "Không tìm thấy thông tin khóa học"}</p>
-                <button 
-                  onClick={() => navigate('/my-courses')}
-                  className="bg-gray-800 text-white px-6 py-3 rounded-xl font-bold hover:bg-black transition-all flex items-center justify-center gap-2 mx-auto shadow-lg"
-                >
-                  <ArrowLeft size={18} /> Quay lại danh sách
-                </button>
-            </div>
-        );
+  useEffect(() => {
+    const fetchCourseDetail = async () => {
+      if (!courseId) return;
+
+      try {
+        setLoading(true);
+        // 1. Fetch course details
+        const courseRes = await axios.get(`http://localhost:3636/courses/${courseId}`);
+        const courseData = courseRes.data;
+
+        // 2. Fetch all categories to find the name
+        const categoriesRes = await axios.get(`http://localhost:3636/categories`);
+        const categoryMatch = categoriesRes.data.find(c => String(c.id) === String(courseData.categoryId));
+        courseData.categoryName = categoryMatch ? categoryMatch.name : 'Khác';
+
+        // 3. Fetch lessons for this course
+        await fetchLessons();
+
+        // 4. Fetch instructor details
+        if (courseData.instructorId) {
+          const instructorRes = await axios.get(`http://localhost:3636/users/${courseData.instructorId}`);
+          setInstructor(instructorRes.data);
+        }
+
+        setCourse(courseData);
+      } catch (err) {
+        console.error("Error fetching course details:", err);
+        setError("Có lỗi xảy ra khi tải thông tin khóa học.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourseDetail();
+  }, [courseId, user?.id]);
+
+  const handleDeleteLesson = async (lessonId, lessonTitle) => {
+    if (window.confirm(`Bạn có chắc muốn xóa bài học "${lessonTitle}" không? Hành động này không thể hoàn tác.`)) {
+      try {
+        await axios.delete(`http://localhost:3636/lessons/${lessonId}`);
+        await fetchLessons();
+      } catch (err) {
+        console.error("Error deleting lesson:", err);
+        alert("Có lỗi xảy ra khi xóa bài học.");
+      }
     }
+  };
 
+  if (loading) {
     return (
-        <div className="bg-gray-50/50 min-h-screen pb-20">
-            {/* Header Sticky Bar */}
-            <div className="bg-white border-b border-gray-100 sticky top-0 z-10 py-4 shadow-sm">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-                    <button 
-                        onClick={() => navigate('/my-courses')}
-                        className="flex items-center gap-2 text-gray-500 hover:text-blue-600 font-bold transition-colors py-2 px-3 rounded-xl hover:bg-blue-50"
-                    >
-                        <ArrowLeft size={20} />
-                        <span className="hidden sm:inline">Quay lại</span>
-                    </button>
-                    <h2 className="text-gray-800 font-bold truncate max-w-md hidden md:block">{course.title}</h2>
-                    <Link 
-                        to={`/learning/${course.id}`}
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-xl font-bold transition-all shadow-lg shadow-blue-200 flex items-center gap-2"
-                    >
-                        <PlayCircle size={18} /> Tiếp tục học
-                    </Link>
-                </div>
-            </div>
+      <div className="flex flex-col items-center justify-center min-h-screen gap-4 bg-white">
+        <Loader2 className="animate-spin text-blue-600" size={48} />
+        <p className="text-gray-400 font-bold animate-pulse uppercase tracking-[0.2em] text-[10px]">Đang đồng bộ dữ liệu...</p>
+      </div>
+    );
+  }
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Main Content */}
-                    <div className="lg:col-span-2 space-y-8">
-                        {/* Hero Section */}
-                        <div className="bg-white rounded-3xl overflow-hidden shadow-xl shadow-gray-200/50 border border-gray-100">
-                          <div className="relative h-72 md:h-96">
-                              <img 
-                                  src={course.thumbnail} 
-                                  alt={course.title} 
-                                  className="w-full h-full object-cover"
-                              />
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8">
-                                  <div className="flex flex-wrap gap-2 mb-4">
-                                      <span className="bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg shadow-lg">
-                                          {course.level}
-                                      </span>
-                                      <span className="bg-white/20 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg">
-                                          {course.duration}
-                                      </span>
-                                  </div>
-                                  <h1 className="text-3xl md:text-4xl font-black text-white leading-tight mb-2">
-                                      {course.title}
-                                  </h1>
-                                  <p className="text-white/80 font-medium flex items-center gap-2">
-                                      Giảng viên: <span className="text-white font-bold">{course.instructor}</span>
-                                  </p>
-                              </div>
+  if (error || !course) {
+    return (
+      <div className="max-w-xl mx-auto mt-20 p-8 bg-neutral-50 rounded-[2rem] border border-neutral-100 text-center shadow-2xl">
+        <AlertCircle className="text-red-500 mx-auto mb-6" size={56} />
+        <h2 className="text-2xl font-black text-neutral-800 mb-2 uppercase tracking-tighter">Lỗi truy cập</h2>
+        <p className="text-neutral-500 mb-8 font-medium">{error || "Không tìm thấy thông tin khóa học"}</p>
+        <button
+          onClick={() => navigate('/')}
+          className="w-full bg-neutral-900 text-white px-6 py-4 rounded-2xl font-black hover:bg-black transition-all flex items-center justify-center gap-3 shadow-xl"
+        >
+          <ArrowLeft size={18} /> Quay lại trang chủ
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-[#f8f9fa] min-h-screen pb-20 font-sans">
+      {/* Nav Header */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
+        <button
+          onClick={() => navigate(-1)}
+          className="p-3 bg-white rounded-full shadow-md text-gray-400 hover:text-blue-600 transition-all border border-gray-100"
+        >
+          <ArrowLeft size={20} />
+        </button>
+      </div>
+
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main Content Card */}
+        <div className="bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-gray-100 overflow-hidden mb-8">
+          {/* Banner */}
+          <div className="p-8">
+            <div className="relative h-64 md:h-[400px] rounded-[2rem] overflow-hidden shadow-2xl">
+              <img
+                src={course.thumbnail}
+                alt={course.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/10"></div>
+            </div>
+          </div>
+
+          {/* Course Header Info */}
+          <div className="px-8 pb-8">
+            <div className="flex flex-col lg:flex-row gap-8">
+              <div className="flex-1">
+                <h1 className="text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-3 tracking-tighter">
+                  {course.title}
+                </h1>
+
+                <p className="text-slate-500 font-medium leading-[1.6] text-base mb-6 max-w-2xl">
+                  {course.description || "Chương trình được thiết kế với nội dung chất lượng cao, giúp bạn làm chủ mọi kỹ năng cần thiết trong môi trường làm việc chuyên nghiệp."}
+                </p>
+                <div className="flex items-center gap-6">
+                  <div className="relative">
+                    <img
+                      src={instructor?.avatar || "https://i.pravatar.cc/150?u=instructor"}
+                      alt={instructor?.name || course.instructor}
+                      className="w-14 h-14 rounded-2xl object-cover shadow-lg"
+                    />
+                    <div className="absolute -bottom-2 -right-2 bg-green-500 w-5 h-5 rounded-full border-4 border-white"></div>
+                  </div>
+                  <div>
+                    <p className="text-slate-900 font-black text-lg tracking-tight hover:text-blue-600 cursor-pointer transition-colors">{instructor?.name || course.instructor}</p>
+                    <p className="text-slate-500 text-xs font-medium max-w-sm line-clamp-2">
+                      {instructor?.bio || "Expert instructor dedicated to sharing knowledge and helping students succeed."}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Tabs Container */}
+          <div className="px-8 border-t border-gray-50">
+            <div className="py-6">
+              <div className="flex items-center justify-between mb-8">
+                <div>
+                  <h3 className="text-2xl font-black text-slate-900 tracking-tighter uppercase">Nội dung khóa học</h3>
+                  <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mt-1">{lessons.length} bài đã sẵn sàng</p>
+                </div>
+
+                {isCourseManager && (
+                  <button
+                    onClick={() => {
+                      setEditingLesson(null);
+                      setIsModalOpen(true);
+                    }}
+                    className="flex items-center gap-2 bg-blue-600 text-white px-5 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg shadow-blue-100 hover:scale-105 transition-all"
+                  >
+                    <Plus size={16} /> Thêm bài học mới
+                  </button>
+                )}
+              </div>
+
+              <div className="space-y-4">
+                {/* Lessons Grid */}
+                <div className="space-y-4">
+                  {lessons.map((lesson, idx) => (
+                    <div key={lesson.id} className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm hover:shadow-xl hover:scale-[1.01] transition-all flex flex-col md:flex-row items-center gap-6 group">
+                      <div className="w-full md:w-32 h-20 rounded-2xl overflow-hidden bg-gray-100 shrink-0">
+                        <img
+                          src={lesson.picture || `https://picsum.photos/seed/${lesson.id}/200/150`}
+                          alt={lesson.title}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-all duration-500"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="bg-blue-100 text-blue-600 text-[10px] font-black px-2 py-0.5 rounded-md uppercase">Lesson</span>
+                          <span className="text-gray-400 font-bold text-[10px] uppercase">Part {idx + 1}</span>
+                        </div>
+                        <h4 className="text-lg font-black text-gray-900 group-hover:text-blue-600 transition-colors uppercase tracking-tight mb-1">{lesson.title}</h4>
+                        <p className="text-slate-500 text-xs font-medium mb-3 line-clamp-1">{lesson.description}</p>
+                        <div className="flex flex-wrap items-center gap-4 text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                          <div className="flex items-center gap-2">
+                            <Clock size={14} className="text-blue-600" />
+                            {lesson.duration}
                           </div>
                         </div>
+                      </div>
 
-                        {/* Description */}
-                        <div className="bg-white rounded-3xl p-8 shadow-xl shadow-gray-200/50 border border-gray-100">
-                            <h3 className="text-xl font-black text-gray-800 mb-6 flex items-center gap-3">
-                                <BookOpen className="text-blue-600" size={24} />
-                                Giới thiệu khóa học
-                            </h3>
-                            <p className="text-gray-600 leading-relaxed font-medium whitespace-pre-line">
-                                {course.description || "Chưa có mô tả cho khóa học này."}
-                            </p>
+                      <div className="flex flex-col sm:flex-row items-center gap-3">
 
-                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-10">
-                              <div className="flex flex-col gap-1 p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                                <span className="text-gray-400 text-[11px] font-black uppercase tracking-wider">Thời lượng</span>
-                                <span className="text-gray-800 font-bold flex items-center gap-2"><Clock size={16} className="text-blue-600"/> {course.duration}</span>
-                              </div>
-                              <div className="flex flex-col gap-1 p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                                <span className="text-gray-400 text-[11px] font-black uppercase tracking-wider">Cấp độ</span>
-                                <span className="text-gray-800 font-bold flex items-center gap-2"><BarChart size={16} className="text-blue-600"/> {course.level}</span>
-                              </div>
-                              <div className="flex flex-col gap-1 p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                                <span className="text-gray-400 text-[11px] font-black uppercase tracking-wider">Bài giảng</span>
-                                <span className="text-gray-800 font-bold flex items-center gap-2"><BookOpen size={16} className="text-blue-600"/> {course.lessonsCount || 24}</span>
-                              </div>
-                              <div className="flex flex-col gap-1 p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                                <span className="text-gray-400 text-[11px] font-black uppercase tracking-wider">Chứng chỉ</span>
-                                <span className="text-gray-800 font-bold flex items-center gap-2"><Award size={16} className="text-blue-600"/> Có</span>
-                              </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    {/* Sidebar */}
-                    <div className="space-y-8">
-                        {/* Progress Card */}
-                        <div className="bg-white rounded-3xl p-8 shadow-xl shadow-gray-200/50 border border-gray-100 flex flex-col items-center">
-                            <h3 className="text-lg font-black text-gray-800 mb-6 w-full">Tiến độ của bạn</h3>
-                            <ProgressChart progress={enrollment.progress} />
-                            
-                            <div className="mt-8 w-full space-y-4">
-                                <div className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                                    <div className="flex items-center gap-3">
-                                        <div className="bg-green-100 p-2 rounded-xl">
-                                            <CheckCircle className="text-green-600" size={20} />
-                                        </div>
-                                        <div>
-                                            <p className="text-[11px] text-gray-400 font-black uppercase tracking-wider leading-none">Trạng thái</p>
-                                            <p className="text-sm font-bold text-gray-800 mt-1">
-                                                {enrollment.status === 'completed' ? 'Đã hoàn thành' : 'Đang học'}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                                    <div className="flex items-center gap-3">
-                                        <div className="bg-blue-100 p-2 rounded-xl">
-                                            <PlayCircle className="text-blue-600" size={20} />
-                                        </div>
-                                        <div>
-                                            <p className="text-[11px] text-gray-400 font-black uppercase tracking-wider leading-none">Bài học tiếp theo</p>
-                                            <p className="text-sm font-bold text-gray-800 mt-1">Sơ lược về khóa học</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <Link 
-                                to={`/learning/${course.id}`}
-                                className="w-full mt-8 bg-black text-white py-4 rounded-2xl font-black text-center hover:bg-gray-800 transition-all shadow-xl shadow-gray-200 flex items-center justify-center gap-3 group"
+                        {!isCourseManager && (
+                          <Link
+                            to={`/learning/${course.id}/${lesson.id}`}
+                            className="bg-blue-600 text-white px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest shadow-xl shadow-blue-100 hover:bg-blue-700 transition-all"
+                          >
+                            Học ngay
+                          </Link>
+                        )}
+                        {isCourseManager && (
+                          <>
+                            <button
+                              onClick={() => {
+                                setEditingLesson(lesson);
+                                setIsModalOpen(true);
+                              }}
+                              className="p-3 bg-slate-50 text-slate-400 hover:bg-slate-900 hover:text-white rounded-xl transition-all"
+                              title="Chỉnh sửa bài học"
                             >
-                                {enrollment.status === 'completed' ? 'Xem lại bài học' : 'Vào lớp học ngay'}
-                                <ArrowLeft size={20} className="rotate-180 group-hover:translate-x-1 transition-transform" />
-                            </Link>
-                        </div>
-
-                        {/* Support Card */}
-                        <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-8 text-white shadow-xl shadow-blue-200/50">
-                            <h4 className="font-black text-xl mb-2 italic">Hỗ trợ 24/7</h4>
-                            <p className="text-white/80 text-sm font-medium leading-relaxed italic mb-6">
-                                Bạn gặp khó khăn trong quá trình học tập? Hãy liên hệ ngay với giảng viên hoặc cộng đồng học viên!
-                            </p>
-                            <button className="w-full bg-white/20 backdrop-blur-md hover:bg-white/30 text-white font-black py-3 rounded-2xl transition-all border border-white/20 uppercase tracking-widest text-xs">
-                                Nhắn tin cho giảng viên
+                              <Edit size={18} />
                             </button>
-                        </div>
+
+                            <button
+                              onClick={() => handleDeleteLesson(lesson.id, lesson.title)}
+                              className="p-3 bg-red-50 text-red-500 hover:bg-red-500 hover:text-white rounded-xl transition-all"
+                              title="Xóa bài học"
+                            >
+                              <Trash2 size={18} />
+                            </button>
+
+                          </>
+                        )}
+                      </div>
                     </div>
+                  ))}
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    );
+      </div>
+
+      <LessonFormModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        courseId={courseId}
+        onSuccess={fetchLessons}
+        existingLesson={editingLesson}
+      />
+    </div>
+  );
 };
 
 export default CourseDetail;

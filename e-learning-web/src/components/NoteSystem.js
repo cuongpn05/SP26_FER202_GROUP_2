@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Plus, Trash2, Edit3, Save, X, Clock } from 'lucide-react';
 
@@ -11,11 +11,7 @@ const NoteSystem = ({ lessonId, userId }) => {
   const [editContent, setEditContent] = useState('');
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchNotes();
-  }, [lessonId]);
-
-  const fetchNotes = async () => {
+  const fetchNotes = useCallback(async () => {
     try {
       setLoading(true);
       const res = await axios.get(`${API_URL}/notes?lessonId=${lessonId}&userId=${userId}`);
@@ -25,7 +21,11 @@ const NoteSystem = ({ lessonId, userId }) => {
       console.error('Error fetching notes:', err);
       setLoading(false);
     }
-  };
+  }, [lessonId, userId]);
+
+  useEffect(() => {
+    fetchNotes();
+  }, [fetchNotes]);
 
   const handleAddNote = async (e) => {
     e.preventDefault();
@@ -83,16 +83,16 @@ const NoteSystem = ({ lessonId, userId }) => {
   };
 
   return (
-    <div className="bg-neutral-800/40 rounded-2xl p-6 border border-neutral-700/50 backdrop-blur-sm animate-in fade-in slide-in-from-bottom-2 duration-700">
+    <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-700">
       <div className="flex items-center gap-2 mb-8">
-        <Edit3 className="text-indigo-400" size={20} />
-        <h3 className="text-xl font-bold">Ghi chú của tôi</h3>
+        <Edit3 className="text-blue-600" size={20} />
+        <h3 className="text-xl font-black text-slate-900 tracking-tight">Ghi chú của tôi</h3>
       </div>
 
       <form onSubmit={handleAddNote} className="mb-8">
         <div className="relative group">
           <textarea 
-            className="w-full bg-neutral-950/50 border border-neutral-700/80 rounded-xl px-4 py-3 min-h-[120px] focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 transition-all resize-none text-neutral-200 placeholder:text-neutral-600"
+            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 min-h-[120px] focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all resize-none text-slate-700 placeholder:text-slate-400 font-medium"
             placeholder="Bạn đang nghĩ gì về bài học này?"
             value={newNote}
             onChange={(e) => setNewNote(e.target.value)}
@@ -101,7 +101,7 @@ const NoteSystem = ({ lessonId, userId }) => {
              <button 
               type="submit"
               disabled={!newNote.trim()}
-              className="bg-indigo-300 hover:bg-indigo-400 disabled:opacity-50 disabled:cursor-not-allowed text-white px-5 py-2 rounded-lg font-medium transition-all shadow-lg active:scale-95 flex items-center gap-2"
+              className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-5 py-2.5 rounded-xl font-black text-xs uppercase tracking-widest transition-all shadow-lg shadow-blue-100 active:scale-95 flex items-center gap-2"
             >
               <Plus size={18} />
               Lưu ghi chú
@@ -113,32 +113,32 @@ const NoteSystem = ({ lessonId, userId }) => {
       <div className="space-y-4">
         {loading ? (
           <div className="space-y-3">
-            {[1, 2].map(i => <div key={i} className="h-24 bg-neutral-700/20 animate-pulse rounded-xl"></div>)}
+            {[1, 2].map(i => <div key={i} className="h-24 bg-slate-50 animate-pulse rounded-xl border border-slate-100"></div>)}
           </div>
         ) : notes.length > 0 ? (
           notes.map(note => (
             <div 
               key={note.id} 
-              className="bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700/50 p-5 rounded-xl transition-all duration-300 group"
+              className="bg-white border border-slate-100 hover:border-blue-100 hover:shadow-md p-5 rounded-xl transition-all duration-300 group"
             >
               {editingNote === note.id ? (
                 <div className="space-y-3 scale-up-sm">
                   <textarea 
                     autoFocus
-                    className="w-full bg-neutral-950 border border-indigo-500/30 rounded-lg p-3 min-h-[100px] focus:outline-none focus:ring-1 focus:ring-indigo-500/20 transition-all resize-none text-neutral-200"
+                    className="w-full bg-slate-50 border border-blue-200 rounded-lg p-3 min-h-[100px] focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all resize-none text-slate-700 font-medium"
                     value={editContent}
                     onChange={(e) => setEditContent(e.target.value)}
                   />
                   <div className="flex justify-end gap-2">
                     <button 
                       onClick={() => setEditingNote(null)}
-                      className="p-2 text-neutral-400 hover:text-white transition-colors flex items-center gap-1.5 text-sm"
+                      className="p-2 text-slate-400 hover:text-slate-600 transition-colors flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest"
                     >
                       <X size={16} /> Hủy
                     </button>
                     <button 
                       onClick={() => handleEditSave(note.id)}
-                      className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5"
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all shadow-lg shadow-blue-100 flex items-center gap-1.5"
                     >
                       <Save size={16} /> Lưu lại
                     </button>
@@ -147,28 +147,28 @@ const NoteSystem = ({ lessonId, userId }) => {
               ) : (
                 <div className="animate-in fade-in duration-300">
                   <div className="flex justify-between items-start gap-4 mb-3">
-                    <div className="flex items-center gap-2 text-neutral-500 text-xs font-mono uppercase tracking-widest">
+                    <div className="flex items-center gap-2 text-slate-400 text-[10px] font-black uppercase tracking-widest">
                       <Clock size={12} />
                       {formatTime(note.timestamp)}
                     </div>
                     <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button 
                         onClick={() => handleEditStart(note)}
-                        className="p-1.5 hover:bg-neutral-800 rounded-md text-neutral-400 hover:text-indigo-400 transition-colors"
+                        className="p-1.5 hover:bg-slate-50 rounded-md text-slate-400 hover:text-blue-600 transition-colors"
                         title="Chỉnh sửa"
                       >
                         <Edit3 size={16} />
                       </button>
                       <button 
                         onClick={() => handleDeleteNote(note.id)}
-                        className="p-1.5 hover:bg-neutral-800 rounded-md text-neutral-400 hover:text-rose-400 transition-colors"
+                        className="p-1.5 hover:bg-slate-50 rounded-md text-slate-400 hover:text-rose-600 transition-colors"
                         title="Xóa"
                       >
                         <Trash2 size={16} />
                       </button>
                     </div>
                   </div>
-                  <p className="text-neutral-200 whitespace-pre-wrap leading-relaxed selection:bg-indigo-500/40">
+                  <p className="text-slate-600 text-sm whitespace-pre-wrap leading-relaxed font-medium">
                     {note.content}
                   </p>
                 </div>
@@ -176,12 +176,12 @@ const NoteSystem = ({ lessonId, userId }) => {
             </div>
           ))
         ) : (
-          <div className="text-center py-12 px-6 bg-neutral-900/30 border-2 border-dashed border-neutral-800/80 rounded-2xl">
-            <div className="w-16 h-16 bg-neutral-800/80 rounded-full flex items-center justify-center mx-auto mb-4 text-neutral-500">
+          <div className="text-center py-12 px-6 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl">
+            <div className="w-16 h-16 bg-white rounded-full border border-slate-100 flex items-center justify-center mx-auto mb-4 text-slate-300 shadow-sm">
                <Edit3 size={24} />
             </div>
-            <p className="text-neutral-400 font-medium">Bạn chưa có ghi chú nào cho bài tập này.</p>
-            <p className="text-neutral-600 text-sm mt-1">Ghi lại những ý chính để ôn tập dễ dàng hơn!</p>
+            <p className="text-slate-900 font-black text-sm uppercase tracking-tighter">Bạn chưa có ghi chú nào</p>
+            <p className="text-slate-400 text-xs mt-1 font-medium italic">Ghi lại những ý chính để ôn tập dễ dàng hơn!</p>
           </div>
         )}
       </div>

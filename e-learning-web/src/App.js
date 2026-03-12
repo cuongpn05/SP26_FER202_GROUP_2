@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import CourseExplorer from './components/CourseExplorer';
 import CourseDetail from './components/CourseDetail';
@@ -19,14 +19,24 @@ import './App.css';
 
 
 function App() {
-  const { isLoggedIn, user } = useAuth();
+  const { isLoggedIn, user, openAuthModal } = useAuth();
   const location = useLocation();
 
   const isTeacher = isLoggedIn && (user?.role === 'instructor' || user?.role === 'teacher');
   const canAccessLessonEditor = isTeacher || (isLoggedIn && user?.role === 'admin');
   const isLearningPage = location.pathname.startsWith('/learning/');
-  
+
   const [showAddForm, setShowAddForm] = useState(false);
+
+  // Auto-trigger login modal if user hits a protected route while logged out
+  useEffect(() => {
+    const protectedRoutes = ['/course-detail', '/learning', '/my-courses', '/profile', '/lesson-editor', '/instructor', '/admin'];
+    const isProtected = protectedRoutes.some(route => location.pathname.startsWith(route));
+
+    if (isProtected && !isLoggedIn) {
+      openAuthModal('login');
+    }
+  }, [location.pathname, isLoggedIn, openAuthModal]);
 
   return (
     <div className="App flex flex-col min-h-screen">
@@ -34,12 +44,12 @@ function App() {
       <main className="flex-grow">
         <Routes>
           <Route path="/explore" element={<CourseExplorer />} />
-          <Route 
-            path="/" 
+          <Route
+            path="/"
             element={
               isTeacher ? (
                 showAddForm ? (
-                  <CourseForm 
+                  <CourseForm
                     onSuccess={() => setShowAddForm(false)}
                     onCancel={() => setShowAddForm(false)}
                   />
@@ -49,7 +59,7 @@ function App() {
               ) : (
                 <HomePage />
               )
-            } 
+            }
           />
           <Route
             path="/my-courses"
@@ -59,8 +69,14 @@ function App() {
             path="/profile"
             element={isLoggedIn ? <ProfileSettings /> : <Navigate to="/" />}
           />
-          <Route path="/course-detail/:courseId" element={<CourseDetail />} />
-          <Route path="/learning/:courseId" element={<CourseLearningPage />} />
+          <Route
+            path="/course-detail/:courseId"
+            element={isLoggedIn ? <CourseDetail /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/learning/:courseId/:lessonId?"
+            element={isLoggedIn ? <CourseLearningPage /> : <Navigate to="/" />}
+          />
           <Route
             path="/lesson-editor/:courseId"
             element={canAccessLessonEditor ? <LessonListEditor /> : <Navigate to="/" />}

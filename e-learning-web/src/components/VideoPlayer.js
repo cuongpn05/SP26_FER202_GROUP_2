@@ -29,7 +29,7 @@ const VideoPlayer = ({ videoUrl, title }) => {
   const embedUrl = getEmbedUrl(videoUrl);
 
   return (
-    <div className="relative w-full aspect-video bg-black/95 rounded-xl overflow-hidden shadow-2xl border border-neutral-800 transition-all duration-300 transform hover:scale-[1.005]">
+    <div className="relative w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] border border-slate-200 transition-all duration-300 transform hover:scale-[1.002]">
       {embedUrl ? (
         <iframe
           src={embedUrl}
@@ -40,14 +40,14 @@ const VideoPlayer = ({ videoUrl, title }) => {
           className="w-full h-full border-0"
         />
       ) : (
-        <div className="flex flex-col items-center justify-center p-8 text-center h-full">
-          <div className="mb-4 text-indigo-500 animate-pulse">
+        <div className="flex flex-col items-center justify-center p-8 text-center h-full bg-slate-50">
+          <div className="mb-4 text-blue-600 animate-pulse">
             <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
-          <h3 className="text-xl font-medium text-neutral-300">Đang chuẩn bị video bài học...</h3>
+          <h3 className="text-xl font-black text-slate-900 uppercase tracking-tighter">Đang chuẩn bị video...</h3>
         </div>
       )}
     </div>

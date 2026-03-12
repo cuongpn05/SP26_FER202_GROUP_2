@@ -35,7 +35,8 @@
       "price": 620000,
       "categoryId": 1,
       "level": "Intermediate",
-      "thumbnail": "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=500&h=300&fit=crop"
+      "thumbnail": "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=500&h=300&fit=crop",
+      "description": "Khóa học ReactJS toàn diện giúp bạn làm chủ thư viện UI phổ biến nhất thế giới. Từ Hooks, Router đến Redux và quản lý state phức tạp."
     },
     {
       "id": "2",
@@ -46,7 +47,8 @@
       "price": 420000,
       "categoryId": 2,
       "level": "Beginner",
-      "thumbnail": "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=500&h=300&fit=crop"
+      "thumbnail": "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=500&h=300&fit=crop",
+      "description": "Tìm hiểu nền tảng kinh tế vĩ mô, GDP, lạm phát và các chính sách tiền tệ ảnh hưởng đến nền kinh tế toàn cầu."
     },
     {
       "id": "3",
@@ -57,7 +59,8 @@
       "price": 199000,
       "categoryId": 5,
       "level": "Beginner",
-      "thumbnail": "https://s3.cloudfly.vn/colorme/images/1629425608mqjEJpY7cmBdGlB.jpg"
+      "thumbnail": "https://s3.cloudfly.vn/colorme/images/1629425608mqjEJpY7cmBdGlB.jpg",
+      "description": "Thực hành thiết kế giao diện hiện đại với Figma. Tìm hiểu về Layout, Color Theory và Auto Layout chuyên nghiệp."
     },
     {
       "id": "4",
@@ -68,7 +71,8 @@
       "price": 750000,
       "categoryId": 1,
       "level": "Advanced",
-      "thumbnail": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500&h=300&fit=crop"
+      "thumbnail": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500&h=300&fit=crop",
+      "description": "Học cách bảo vệ ứng dụng Web khỏi các cuộc tấn công SQL Injection, XSS và hiểu về mã hóa dữ liệu an toàn."
     },
     {
       "id": "5",
@@ -79,7 +83,8 @@
       "price": 680000,
       "categoryId": 1,
       "level": "Intermediate",
-      "thumbnail": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500&h=300&fit=crop"
+      "thumbnail": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500&h=300&fit=crop",
+      "description": "Phát triển ứng dụng di động đa nền tảng iOS & Android chỉ với một codebase React duy nhất."
     },
     {
       "id": "6",
@@ -90,7 +95,8 @@
       "price": 350000,
       "categoryId": 1,
       "level": "Beginner",
-      "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&h=300&fit=crop"
+      "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&h=300&fit=crop",
+      "description": "Nền tảng vững chắc về khoa học máy tính, tư duy lập trình và giải quyết vấn đề bằng code."
     },
     {
       "id": "7",
@@ -101,7 +107,8 @@
       "price": 820000,
       "categoryId": 1,
       "level": "Advanced",
-      "thumbnail": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500&h=300&fit=crop"
+      "thumbnail": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500&h=300&fit=crop",
+      "description": "Tối ưu hóa mã nguồn với các cấu trúc dữ liệu tiên tiến và thuật toán giải quyết các bài toán phức tạp."
     },
     {
       "id": "8",
@@ -112,7 +119,8 @@
       "price": 390000,
       "categoryId": 2,
       "level": "Beginner",
-      "thumbnail": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&h=300&fit=crop"
+      "thumbnail": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&h=300&fit=crop",
+      "description": "Học về các nguyên lý kinh tế cơ bản, quy luật cung cầu và thị trường trong thế giới hiện đại."
     },
     {
       "id": "9",
@@ -123,7 +131,8 @@
       "price": 650000,
       "categoryId": 2,
       "level": "Intermediate",
-      "thumbnail": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&h=300&fit=crop"
+      "thumbnail": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&h=300&fit=crop",
+      "description": "Sử dụng dữ liệu để đưa ra các quyết định kinh doanh thông minh và phân tích xu hướng thị trường."
     },
     {
       "id": "10",
@@ -134,7 +143,8 @@
       "price": 280000,
       "categoryId": 3,
       "level": "Beginner",
-      "thumbnail": "https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=500&h=300&fit=crop"
+      "thumbnail": "https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=500&h=300&fit=crop",
+      "description": "Tự tin giao tiếp tiếng Anh cơ bản trong các tình huống thực tế thường gặp hàng ngày."
     },
     {
       "id": "11",
@@ -145,7 +155,8 @@
       "price": 520000,
       "categoryId": 3,
       "level": "Intermediate",
-      "thumbnail": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=500&h=300&fit=crop"
+      "thumbnail": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=500&h=300&fit=crop",
+      "description": "Nâng cao kỹ năng tiếng Anh chuyên ngành Marketing và đàm phán kinh doanh chuyên nghiệp."
     },
     {
       "id": "12",
@@ -156,7 +167,8 @@
       "price": 320000,
       "categoryId": 4,
       "level": "Beginner",
-      "thumbnail": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop"
+      "thumbnail": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop",
+      "description": "Làm chủ nghệ thuật thuyết trình trước đám đông và kỹ năng giao tiếp thu phục lòng người."
     },
     {
       "id": "13",
@@ -167,7 +179,8 @@
       "price": 610000,
       "categoryId": 4,
       "level": "Advanced",
-      "thumbnail": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=500&h=300&fit=crop"
+      "thumbnail": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=500&h=300&fit=crop",
+      "description": "Trở thành nhà lãnh đạo xuất sắc, xây dựng và phát triển đội ngũ làm việc hiệu quả."
     },
     {
       "id": "14",
@@ -178,7 +191,8 @@
       "price": 540000,
       "categoryId": 6,
       "level": "Intermediate",
-      "thumbnail": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop"
+      "thumbnail": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop",
+      "description": "Toàn bộ kiến thức về SEO, Facebook Ads, Google Ads để bứt phá doanh số trong kỷ nguyên số."
     },
     {
       "id": "15",
@@ -189,7 +203,8 @@
       "price": 470000,
       "categoryId": 5,
       "level": "Intermediate",
-      "thumbnail": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=500&h=300&fit=crop"
+      "thumbnail": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=500&h=300&fit=crop",
+      "description": "Làm chủ Adobe Photoshop để tạo ra những tác phẩm đồ họa ấn tượng và chuyên nghiệp."
     },
     {
       "id": "16",
@@ -200,7 +215,19 @@
       "price": 720000,
       "categoryId": 5,
       "level": "Advanced",
-      "thumbnail": "https://images.unsplash.com/photo-1558655146-d09347e92766?w=500&h=300&fit=crop"
+      "thumbnail": "https://images.unsplash.com/photo-1558655146-d09347e92766?w=500&h=300&fit=crop",
+      "description": "Quy trình thiết kế bộ nhận diện thương hiệu chuyên sâu, từ logo đến brand guidelines."
+    },
+    {
+      "title": "bai moi 1",
+      "instructor": "Phạm Gia Bảo",
+      "description": "Chương trình mới nhất về thiết kế và phát triển ứng dụng thực chiến.",
+      "thumbnail": "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=500&h=300&fit=crop",
+      "price": 100000,
+      "level": "Beginner",
+      "categoryId": "1",
+      "rating": 5,
+      "id": "b71a"
     }
   ],
   "users": [
@@ -239,9 +266,9 @@
       "name": "Phạm Gia Bảo",
       "email": "bao@gmail.com",
       "password": "123456",
-      "birthDate": "1998-05-14",
+      "birthDate": "2040-01-12",
       "role": "instructor",
-      "bio": "UI/UX Designer và giảng viên thiết kế",
+      "bio": "UI/UX Designer và giảng viên thiết kế.",
       "avatar": "https://i.pravatar.cc/150?img=4"
     },
     {
@@ -404,7 +431,8 @@
           "progress": 40,
           "status": "learning"
         }
-      ]
+      ],
+      "id": "1f54"
     },
     {
       "courseId": "2",
@@ -414,7 +442,8 @@
           "progress": 100,
           "status": "completed"
         }
-      ]
+      ],
+      "id": "59df"
     },
     {
       "courseId": "3",
@@ -424,7 +453,8 @@
           "progress": 45,
           "status": "learning"
         }
-      ]
+      ],
+      "id": "52dd"
     },
     {
       "courseId": "4",
@@ -439,7 +469,8 @@
           "progress": 65,
           "status": "learning"
         }
-      ]
+      ],
+      "id": "06ed"
     },
     {
       "courseId": "5",
@@ -454,7 +485,8 @@
           "progress": 25,
           "status": "learning"
         }
-      ]
+      ],
+      "id": "ac9b"
     },
     {
       "courseId": "6",
@@ -469,7 +501,8 @@
           "progress": 90,
           "status": "learning"
         }
-      ]
+      ],
+      "id": "b7e0"
     },
     {
       "courseId": "7",
@@ -484,7 +517,8 @@
           "progress": 100,
           "status": "completed"
         }
-      ]
+      ],
+      "id": "6b21"
     },
     {
       "courseId": "8",
@@ -494,7 +528,8 @@
           "progress": 50,
           "status": "learning"
         }
-      ]
+      ],
+      "id": "4556"
     },
     {
       "courseId": "9",
@@ -509,7 +544,8 @@
           "progress": 70,
           "status": "learning"
         }
-      ]
+      ],
+      "id": "fd52"
     },
     {
       "courseId": "10",
@@ -524,166 +560,220 @@
           "progress": 40,
           "status": "learning"
         }
-      ]
+      ],
+      "id": "69c4"
     },
     {
       "courseId": "11",
-      "enrolledUsers": []
+      "enrolledUsers": [],
+      "id": "a0be"
     },
     {
       "courseId": "12",
-      "enrolledUsers": []
+      "enrolledUsers": [],
+      "id": "de06"
     },
     {
       "courseId": "13",
-      "enrolledUsers": []
+      "enrolledUsers": [],
+      "id": "e7b3"
     },
     {
       "courseId": "14",
-      "enrolledUsers": []
+      "enrolledUsers": [],
+      "id": "a3aa"
     },
     {
       "courseId": "15",
-      "enrolledUsers": []
+      "enrolledUsers": [],
+      "id": "6e0f"
     },
     {
       "courseId": "16",
-      "enrolledUsers": []
+      "enrolledUsers": [],
+      "id": "8dbd"
     }
   ],
   "lessons": [
     {
-      "id": "1",
       "courseId": 1,
       "title": "React là gì?",
       "videoUrl": "https://www.youtube.com/embed/NclbvXqvnyA",
-      "duration": "10:00"
+      "duration": "10:00",
+      "description": "Tìm hiểu về React và lý do tại sao nó là thư viện UI phổ biến nhất.",
+      "picture": "https://picsum.photos/seed/lesson1/400/225",
+      "id": "1"
     },
     {
       "id": "2",
       "courseId": 1,
       "title": "Cài đặt môi trường",
       "videoUrl": "https://youtu.be/AGWJl3NMGrQ?si=by1-B5bd38LeJ2Hd",
-      "duration": "11:01"
+      "duration": "11:01",
+      "description": "Hướng dẫn cài đặt Node.js, VS Code và khởi tạo dự án React đầu tiên.",
+      "picture": "https://picsum.photos/seed/lesson2/400/225"
     },
     {
       "id": "3",
       "courseId": 1,
       "title": "useState Hook",
       "videoUrl": "https://youtu.be/AFHpF265kbg?si=5vj5dvdxRoEQXL-p",
-      "duration": "21:59"
+      "duration": "21:59",
+      "description": "Làm quen với cách quản lý trạng thái trong Functional Component.",
+      "picture": "https://picsum.photos/seed/lesson3/400/225"
     },
     {
       "id": "4",
       "courseId": 1,
       "title": "useEffect Hook",
       "videoUrl": "https://www.youtube.com/embed/hjIxfXKmkjk",
-      "duration": "24:49"
+      "duration": "24:49",
+      "description": "Xử lý side-effects trong React với useEffect Hook.",
+      "picture": "https://picsum.photos/seed/lesson4/400/225"
     },
     {
       "id": "5",
       "courseId": 2,
       "title": "Tổng quan về GDP",
       "videoUrl": "https://www.youtube.com/embed/d0nERTFo-Sk",
-      "duration": "15:20"
+      "duration": "15:20",
+      "description": "Hiểu về chỉ số GDP và tầm quan trọng của nó trong kinh tế vĩ mô.",
+      "picture": "https://picsum.photos/seed/lesson5/400/225"
     },
     {
       "id": "6",
       "courseId": 3,
       "title": "Tạo Frame đầu tiên",
       "videoUrl": "https://www.youtube.com/embed/jk1T6Y7akBk",
-      "duration": "08:45"
+      "duration": "08:45",
+      "description": "Khởi đầu với Figma bằng cách tạo các Frame cơ bản cho bản thiết kế.",
+      "picture": "https://picsum.photos/seed/lesson6/400/225"
     },
     {
       "id": "7",
       "courseId": 4,
       "title": "Xử lý lỗ hổng SQLi",
       "videoUrl": "https://www.youtube.com/embed/2-vV6Xm0m-0",
-      "duration": "12:30"
+      "duration": "12:30",
+      "description": "Cách nhận diện và phòng chống tấn công SQL Injection.",
+      "picture": "https://picsum.photos/seed/lesson7/400/225"
     },
     {
       "id": "8",
       "courseId": 5,
       "title": "Sử dụng StyleSheet",
       "videoUrl": "https://www.youtube.com/embed/RAnv-nOn-Xk",
-      "duration": "14:15"
+      "duration": "14:15",
+      "description": "Cách tạo kiểu cho ứng dụng Mobile với StyleSheet trong React Native.",
+      "picture": "https://picsum.photos/seed/lesson8/400/225"
     },
     {
       "id": "9",
       "courseId": 6,
       "title": "Hệ điều hành và Phần cứng",
       "videoUrl": "https://www.youtube.com/embed/26QPDBe-NB8",
-      "duration": "18:00"
+      "duration": "18:00",
+      "description": "Nghiên cứu mối quan hệ giữa phần mềm hệ thống và phần cứng máy tính.",
+      "picture": "https://picsum.photos/seed/lesson9/400/225"
     },
     {
       "id": "10",
       "courseId": 7,
       "title": "Bubble Sort và Quick Sort",
       "videoUrl": "https://www.youtube.com/embed/6Gv8vg0ew_g",
-      "duration": "25:30"
+      "duration": "25:30",
+      "description": "Phân tích và triển khai các thuật toán sắp xếp phổ biến.",
+      "picture": "https://picsum.photos/seed/lesson10/400/225"
     },
     {
       "id": "11",
       "courseId": 8,
       "title": "Cơ chế giá thị trường",
       "videoUrl": "https://www.youtube.com/embed/LwLh6ax0zTE",
-      "duration": "12:45"
+      "duration": "12:45",
+      "description": "Cách thức hình thành giá cả dựa trên cung và cầu.",
+      "picture": "https://picsum.photos/seed/lesson11/400/225"
     },
     {
       "id": "12",
       "courseId": 9,
       "title": "Phân tích dữ liệu với Excel",
       "videoUrl": "https://www.youtube.com/embed/0nbkaYsR94c",
-      "duration": "20:00"
+      "duration": "20:00",
+      "description": "Sử dụng các hàm Excel mạnh mẽ để xử lý dữ liệu kinh doanh.",
+      "picture": "https://picsum.photos/seed/lesson12/400/225"
     },
     {
       "id": "13",
       "courseId": 10,
       "title": "Common Greetings",
       "videoUrl": "https://www.youtube.com/embed/fW6fOndVInE",
-      "duration": "09:30"
+      "duration": "09:30",
+      "description": "Học các câu chào hỏi thông dụng trong tiếng Anh hàng ngày.",
+      "picture": "https://picsum.photos/seed/lesson13/400/225"
     },
     {
       "id": "14",
       "courseId": 11,
       "title": "Business Email Etiquette",
       "videoUrl": "https://www.youtube.com/embed/zS9777Y-0H4",
-      "duration": "15:10"
+      "duration": "15:10",
+      "description": "Các quy tắc viết email chuyên nghiệp trong môi trường công sở.",
+      "picture": "https://picsum.photos/seed/lesson14/400/225"
     },
     {
       "id": "15",
       "courseId": 12,
       "title": "Power of Body Language",
       "videoUrl": "https://www.youtube.com/embed/Ks-_Mh1QhMc",
-      "duration": "14:20"
+      "duration": "14:20",
+      "description": "Tận dụng ngôn ngữ cơ thể để tăng hiệu quả thuyết trình.",
+      "picture": "https://picsum.photos/seed/lesson15/400/225"
     },
     {
       "id": "16",
       "courseId": 13,
       "title": "Team Trust Building",
       "videoUrl": "https://www.youtube.com/embed/GArl7v_2O_k",
-      "duration": "11:00"
+      "duration": "11:00",
+      "description": "Các kỹ thuật xây dựng niềm tin và gắn kết trong đội ngũ.",
+      "picture": "https://picsum.photos/seed/lesson16/400/225"
     },
     {
       "id": "17",
       "courseId": 14,
       "title": "Storytelling in Marketing",
       "videoUrl": "https://www.youtube.com/embed/Na79v0-uE_Q",
-      "duration": "13:40"
+      "duration": "13:40",
+      "description": "Cách kể chuyện thu hút để truyền tải thông điệp thương hiệu.",
+      "picture": "https://picsum.photos/seed/lesson17/400/225"
     },
     {
       "id": "18",
       "courseId": 15,
       "title": "Color Correction Basics",
       "videoUrl": "https://www.youtube.com/embed/9XInoBfT5Yc",
-      "duration": "19:50"
+      "duration": "19:50",
+      "description": "Các bước cơ bản để chỉnh sửa màu sắc hình ảnh chuyên nghiệp.",
+      "picture": "https://picsum.photos/seed/lesson18/400/225"
     },
     {
       "id": "19",
       "courseId": 16,
       "title": "Moodboard for Branding",
       "videoUrl": "https://www.youtube.com/embed/Q5mQfB68WpQ",
-      "duration": "10:20"
+      "duration": "10:20",
+      "description": "Tạo Moodboard để thống nhất phong cách thiết kế thương hiệu.",
+      "picture": "https://picsum.photos/seed/lesson19/400/225"
+    },
+    {
+      "id": "76fc",
+      "courseId": 1,
+      "title": "bài mới",
+      "videoUrl": "https://www.youtube.com/embed/NclbvXqvnyA",
+      "duration": "21:53",
+      "description": "bài mới",
+      "picture": "https://picsum.photos/seed/lesson1/400/225"
     }
   ],
   "notes": [

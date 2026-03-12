@@ -166,22 +166,24 @@ export const createCourse = async (courseData) => {
 };
 
 /**
- * Get chapters in a course
+ * Get lessons in a course
  */
-export const getChaptersByCourse = async (courseId) => {
-  return api.get('/chapters', { params: { courseId: Number(courseId) } });
+export const getLessonsByCourse = async (courseId) => {
+  return api.get('/lessons', { params: { courseId: Number(courseId) } });
 };
 
 /**
- * Get lessons by chapter list
+ * Get chapters in a course (Deprecated: chapters removed from db.json)
+ */
+export const getChaptersByCourse = async (courseId) => {
+  return { data: [] };
+};
+
+/**
+ * Get lessons by chapter list (Deprecated: chapters removed from db.json)
  */
 export const getLessonsByChapterIds = async (chapterIds = []) => {
-  const response = await api.get('/lessons');
-  const targetIds = chapterIds.map((id) => Number(id));
-  const data = response.data.filter((lesson) =>
-    targetIds.includes(Number(lesson.chapterId))
-  );
-  return { data };
+  return { data: [] };
 };
 
 /**
