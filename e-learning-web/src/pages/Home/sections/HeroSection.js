@@ -39,7 +39,7 @@ const HeroSection = ({ searchQuery, setSearchQuery, onSearch }) => {
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
               <button 
                 onClick={onSearch}
-                className="w-full sm:w-auto bg-[#1A73E8] text-white px-10 py-5 rounded-2xl font-black text-xl hover:bg-[#1557B0] transition-all shadow-xl shadow-[#1A73E8]/20 flex items-center justify-center space-x-3 group"
+                className="w-full sm:w-auto bg-[#1A73E8] text-white px-10 py-5 rounded-2xl font-black text-xl hover:bg-[#1557B0] transition-all shadow-xl shadow-[#1A73E8]/20 flex items-center justify-center space-x-3 group whitespace-nowrap"
               >
                 <span>Khám phá ngay</span>
                 <ArrowRight className="group-hover:translate-x-2 transition-transform" />
@@ -80,7 +80,7 @@ const HeroSection = ({ searchQuery, setSearchQuery, onSearch }) => {
             <div className="relative z-10">
                <div className="bg-white/40 backdrop-blur-xl border border-white/60 p-4 rounded-[4rem] shadow-2xl overflow-hidden aspect-square">
                   <img 
-                    src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80" 
+                    src="https://images.pexels.com/photos/1181216/pexels-photo-1181216.jpeg?_gl=1*e12srx*_ga*MTY0NjAyMjI2Ny4xNzczMzI1MDQy*_ga_8JE65Q40S6*czE3NzMzMjUwNDEkbzEkZzEkdDE3NzMzMjUzNDgkajI4JGwwJGgw" 
                     alt="Student with laptop" 
                     onError={handleImageError}
                     className="w-full h-full object-cover rounded-[3.5rem]"
