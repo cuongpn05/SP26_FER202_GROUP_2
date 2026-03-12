@@ -1,47 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Star, Award, Users, BookOpen } from 'lucide-react';
-
-const instructors = [
-  {
-    name: "Trần Anh Quân",
-    role: "Senior Fullstack Developer",
-    courses: 12,
-    students: "4,500+",
-    rating: 4.9,
-    image: "https://i.pravatar.cc/150?img=11",
-    bio: "Chuyên gia với 10 năm kinh nghiệm tại các tập đoàn công nghệ lớn."
-  },
-  {
-    name: "Nguyễn Minh Hằng",
-    role: "Economics Expert",
-    courses: 8,
-    students: "3,200+",
-    rating: 4.8,
-    image: "https://i.pravatar.cc/150?img=5",
-    bio: "Giảng viên tâm huyết với cách tiếp cận kiến thức kinh tế đầy thú vị."
-  },
-  {
-    name: "Phạm Gia Bảo",
-    role: "Creative Director",
-    courses: 15,
-    students: "6,000+",
-    rating: 4.9,
-    image: "https://i.pravatar.cc/150?img=12",
-    bio: "Phù thủy thiết kế với những sản phẩm đạt giải thưởng quốc tế."
-  },
-  {
-    name: "Vương Thế Hải",
-    role: "Cyber Security Specialist",
-    courses: 10,
-    students: "2,800+",
-    rating: 4.8,
-    image: "https://i.pravatar.cc/150?img=13",
-    bio: "Chuyên gia bảo mật hàng đầu, luôn cập nhật các xu hướng phòng thủ mới nhất."
-  }
-];
+import { Star, Award, Users, BookOpen, Loader2 } from 'lucide-react';
+import { getInstructors } from '../../../api/courses';
 
 const InstructorsSection = () => {
+  const [instructors, setInstructors] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchInstructors = async () => {
+      try {
+        setLoading(true);
+        const response = await getInstructors();
+        setInstructors(response.data);
+      } catch (error) {
+        console.error("Lỗi khi tải danh sách giảng viên:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchInstructors();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="py-24 flex flex-col items-center justify-center gap-4">
+        <Loader2 className="animate-spin text-[#1A73E8]" size={40} />
+        <p className="text-[#5F6368] font-medium italic">Đang tải đội ngũ chuyên gia...</p>
+      </div>
+    );
+  }
+
   return (
     <section className="py-24 bg-white relative overflow-hidden">
       {/* Decorative Blur */}

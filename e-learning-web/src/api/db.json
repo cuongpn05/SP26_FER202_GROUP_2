@@ -761,5 +761,47 @@
       "timestamp": 1773127921581
     }
   ],
+  "instructors": [
+    {
+      "id": "1",
+      "name": "Trần Anh Quân",
+      "role": "Senior Fullstack Developer",
+      "courses": 12,
+      "students": "4,500+",
+      "rating": 4.9,
+      "image": "https://i.pravatar.cc/150?img=11",
+      "bio": "Chuyên gia với 10 năm kinh nghiệm tại các tập đoàn công nghệ lớn."
+    },
+    {
+      "id": "2",
+      "name": "Nguyên Minh Hằng",
+      "role": "Economics Expert",
+      "courses": 8,
+      "students": "3,200+",
+      "rating": 4.8,
+      "image": "https://i.pravatar.cc/150?img=5",
+      "bio": "Giảng viên tâm huyết với cách tiếp cận kiến thức kinh tế đầy thú vị."
+    },
+    {
+      "id": "3",
+      "name": "Phạm Gia Bảo",
+      "role": "Creative Director",
+      "courses": 15,
+      "students": "6,000+",
+      "rating": 4.9,
+      "image": "https://i.pravatar.cc/150?img=12",
+      "bio": "Phù thủy thiết kế với những sản phẩm đạt giải thưởng quốc tế."
+    },
+    {
+      "id": "4",
+      "name": "Vương Thế Hải",
+      "role": "Cyber Security Specialist",
+      "courses": 10,
+      "students": "2,800+",
+      "rating": 4.8,
+      "image": "https://i.pravatar.cc/150?img=13",
+      "bio": "Chuyên gia bảo mật hàng đầu, luôn cập nhật các xu hướng phòng thủ mới nhất."
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }
