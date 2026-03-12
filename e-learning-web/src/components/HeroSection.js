@@ -44,7 +44,7 @@ const HeroSection = ({ searchQuery, setSearchQuery }) => {
 
         {/* Title */}
         <h1 className="text-3xl sm:text-4xl lg:text-6xl font-black text-center mb-6 leading-tight max-w-4xl tracking-tight drop-shadow-lg font-sans">
-          F-Academy: <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">Kiến tạo tương lai số</span>
+          F-Academy: <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">Kiến tạo tương lai</span>
         </h1>
         
         <p className="text-lg sm:text-xl text-blue-50 font-medium mb-12 text-center max-w-2xl opacity-90 leading-relaxed font-sans">
