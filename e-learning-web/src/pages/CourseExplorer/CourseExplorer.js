@@ -50,9 +50,7 @@ const CourseExplorer = () => {
 
   const SORT_OPTIONS = [
     { id: 'featured', label: 'Mặc định (Featured)' },
-    { id: 'popular', label: 'Bán chạy nhất' },
     { id: 'highest-rated', label: 'Đánh giá cao nhất' },
-    { id: 'newest', label: 'Mới nhất' },
     { id: 'price-asc', label: 'Giá: Thấp đến Cao' },
     { id: 'price-desc', label: 'Giá: Cao đến Thấp' },
   ];
@@ -109,20 +107,13 @@ const CourseExplorer = () => {
       case 'highest-rated':
         sorted.sort((a, b) => b.rating - a.rating);
         break;
-      case 'newest':
-        sorted.sort((a, b) => {
-          const idA = parseInt(a.id, 10);
-          const idB = parseInt(b.id, 10);
-          return (!isNaN(idA) && !isNaN(idB)) ? idB - idA : String(b.id).localeCompare(String(a.id));
-        });
-        break;
+
       case 'price-asc':
         sorted.sort((a, b) => a.price - b.price);
         break;
       case 'price-desc':
         sorted.sort((a, b) => b.price - a.price);
         break;
-      case 'popular':
       case 'featured':
       default:
         break;
