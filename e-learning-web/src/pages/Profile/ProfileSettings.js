@@ -204,17 +204,19 @@ const ProfileSettings = () => {
                 <Mail size={16} /> {formData.email}
               </p>
               <span className="inline-block mt-3 px-3 py-1 bg-white/20 rounded-full text-xs font-medium backdrop-blur-sm uppercase tracking-wide">
-                {formData.role === 'student' ? 'Học viên' : (formData.role === 'instructor' ? 'Giảng viên' : formData.role)}
+                {formData.role === 'student' ? 'Học viên' : (formData.role === 'instructor' ? 'Giảng viên' : (formData.role === 'admin' ? 'Quản trị viên' : formData.role))}
               </span>
               
               <div className="mt-8">
-                <Link 
-                  to="/my-courses"
-                  className="inline-flex items-center gap-2 bg-white text-blue-600 px-6 py-2.5 rounded-xl font-bold shadow-lg hover:scale-105 transition-all hover:bg-blue-50"
-                >
-                  <BookOpen size={20} />
-                  Khóa học của tôi
-                </Link>
+                {formData.role !== 'admin' && (
+                  <Link 
+                    to="/my-courses"
+                    className="inline-flex items-center gap-2 bg-white text-blue-600 px-6 py-2.5 rounded-xl font-bold shadow-lg hover:scale-105 transition-all hover:bg-blue-50"
+                  >
+                    <BookOpen size={20} />
+                    Khóa học của tôi
+                  </Link>
+                )}
               </div>
             </div>
           </div>
