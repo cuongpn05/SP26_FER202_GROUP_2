@@ -58,7 +58,7 @@ const CourseCard = ({ course }) => {
           <div className="flex flex-col">
             <span className="text-[10px] text-[#5F6368] font-bold uppercase tracking-tight">Giá khóa học</span>
             <span className="text-[#1A73E8] font-black text-xl">
-              {course.price.toLocaleString('vi-VN')}đ
+              {course.price === 0 ? 'Miễn phí' : `${course.price.toLocaleString('vi-VN')}đ`}
             </span>
           </div>
           <div className="bg-[#E8F0FE] p-2 rounded-xl text-[#1A73E8] group-hover:bg-[#1A73E8] group-hover:text-white transition-all">
