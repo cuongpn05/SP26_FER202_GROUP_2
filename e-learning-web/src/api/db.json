@@ -27,12 +27,14 @@
   ],
   "courses": [
     {
+      "id": "1",
       "title": "Lập trình ReactJS từ cơ bản đến nâng cao",
       "instructor": "Trần Anh Quân",
-      "level": "Intermediate",
+      "intructorID": "1",
       "price": 0,
       "categoryId": 1,
-      "id": "1"
+      "level": "Intermediate",
+      "thumbnail": "https://amela.vn/wp-content/uploads/2021/08/reactjs-app-development-500x500-1.jpg"
     },
     {
       "id": "2",

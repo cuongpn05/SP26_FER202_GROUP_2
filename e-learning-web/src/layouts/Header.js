@@ -118,7 +118,11 @@ const Header = () => {
                       </Link>
                     )}
                     {user.role !== 'admin' && (
-                      <Link to="/my-courses" className="flex items-center space-x-3 px-4 py-2.5 text-sm text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE] transition-colors">
+                      <Link 
+                        to="/my-courses" 
+                        onClick={() => setIsProfileOpen(false)}
+                        className="flex items-center space-x-3 px-4 py-2.5 text-sm text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE] transition-colors"
+                      >
                         <BookOpen size={18} />
                         <span>Khóa học của tôi</span>
                       </Link>
@@ -166,6 +170,11 @@ const Header = () => {
           {isLoggedIn && (user?.role === 'instructor' || user?.role === 'teacher') && (
             <Link to="/instructor/courses" className="block font-bold text-[#202124]">
               Quản lý khóa học
+            </Link>
+          )}
+          {isLoggedIn && user?.role !== 'admin' && (
+            <Link to="/my-courses" className="block font-bold text-[#202124]" onClick={() => setIsMenuOpen(false)}>
+              Khóa học của tôi
             </Link>
           )}
           {!isLoggedIn ? (
