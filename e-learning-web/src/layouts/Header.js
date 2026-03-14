@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, User, Menu, X, LogOut, Settings, BookOpen, ChevronDown } from 'lucide-react';
+import { Search, User, Menu, X, LogOut, Settings, BookOpen, ChevronDown, FolderPlus } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -105,6 +105,16 @@ const Header = () => {
                       <Link to="/lesson-editor" className="flex items-center space-x-3 px-4 py-2.5 text-sm text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE] transition-colors">
                         <BookOpen size={18} />
                         <span>Thêm/Xóa video</span>
+                      </Link>
+                    )}
+                    {user.role === 'admin' && (
+                      <Link 
+                        to="/admin/categories" 
+                        onClick={() => setIsProfileOpen(false)}
+                        className="flex items-center space-x-3 px-4 py-2.5 text-sm text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE] transition-colors"
+                      >
+                        <FolderPlus size={18} />
+                        <span>Quản lý danh mục</span>
                       </Link>
                     )}
                     {user.role !== 'admin' && (
