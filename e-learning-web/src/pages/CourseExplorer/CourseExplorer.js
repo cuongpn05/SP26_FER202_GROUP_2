@@ -202,7 +202,12 @@ const CourseExplorer = () => {
               </div>
             </div>
 
-            <CourseGrid courses={currentCourses} loading={loading} />
+            <CourseGrid 
+              courses={currentCourses} 
+              loading={loading} 
+              columns="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+              skeletonCount={6}
+            />
 
             {/* Pagination Controls */}
             {!loading && totalPages > 1 && (

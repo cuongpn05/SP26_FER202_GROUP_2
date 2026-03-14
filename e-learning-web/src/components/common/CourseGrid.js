@@ -4,11 +4,16 @@ import SkeletonCard from './SkeletonCard';
 // Lazy load the CourseCard component
 const CourseCard = React.lazy(() => import('./CourseCard'));
 
-const CourseGrid = ({ courses, loading }) => {
+const CourseGrid = ({ 
+  courses, 
+  loading, 
+  columns = "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5",
+  skeletonCount = 10
+}) => {
   if (loading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-        {[...Array(10)].map((_, i) => (
+      <div className={`grid ${columns} gap-6`}>
+        {[...Array(skeletonCount)].map((_, i) => (
           <SkeletonCard key={i} />
         ))}
       </div>
@@ -30,9 +35,9 @@ const CourseGrid = ({ courses, loading }) => {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+    <div className={`grid ${columns} gap-6`}>
       <Suspense fallback={
-        <>{[...Array(10)].map((_, i) => <SkeletonCard key={i} />)}</>
+        <>{[...Array(skeletonCount)].map((_, i) => <SkeletonCard key={i} />)}</>
       }>
         {courses.map((course) => (
           <CourseCard key={course.id} course={course} />

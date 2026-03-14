@@ -38,7 +38,7 @@ const HomePage = () => {
   const featuredCourses = useMemo(() => {
     return [...courses]
       .sort((a, b) => b.rating - a.rating)
-      .slice(0, 5);
+      .slice(0, 6);
   }, [courses]);
 
   const handleSearch = () => {
@@ -90,7 +90,12 @@ const HomePage = () => {
                 </div>
              </motion.div>
              
-             <CourseGrid courses={featuredCourses} loading={loading} />
+             <CourseGrid 
+               courses={featuredCourses} 
+               loading={loading} 
+               columns="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+               skeletonCount={6}
+             />
           </div>
         </section>
 
