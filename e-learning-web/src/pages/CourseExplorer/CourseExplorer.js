@@ -92,7 +92,8 @@ const CourseExplorer = () => {
 
       // Price range logic
       const matchesPrice = selectedPriceRange === 'all' || (() => {
-        if (selectedPriceRange === 'under-400') return course.price < 400000;
+        if (selectedPriceRange === 'free') return course.price === 0;
+        if (selectedPriceRange === 'under-400') return course.price > 0 && course.price < 400000;
         if (selectedPriceRange === '400-600') return course.price >= 400000 && course.price <= 600000;
         if (selectedPriceRange === 'above-600') return course.price > 600000;
         return true;

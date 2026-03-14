@@ -13,6 +13,7 @@ const FilterSidebar = ({
   const levels = ["Beginner", "Intermediate", "Advanced"];
   const priceRanges = [
     { label: "Tất cả", value: "all" },
+    { label: "Miễn phí", value: "free" },
     { label: "Dưới 400.000đ", value: "under-400" },
     { label: "400.000đ - 600.000đ", value: "400-600" },
     { label: "Trên 600.000đ", value: "above-600" }

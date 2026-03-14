@@ -30,7 +30,7 @@
       "title": "Lập trình ReactJS từ cơ bản đến nâng cao",
       "instructor": "Trần Anh Quân",
       "level": "Intermediate",
-      "price": 620000,
+      "price": 0,
       "categoryId": 1,
       "id": "1"
     },
@@ -40,7 +40,7 @@
       "instructor": "Nguyễn Minh Hằng",
       "instructorId": "7",
       "rating": 4.5,
-      "price": 420000,
+      "price": 0,
       "categoryId": 2,
       "level": "Beginner",
       "thumbnail": "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=500&h=300&fit=crop"
@@ -51,7 +51,7 @@
       "instructor": "Phạm Gia Bảo",
       "instructorId": "4",
       "rating": 4.7,
-      "price": 199000,
+      "price": 0,
       "categoryId": 5,
       "level": "Beginner",
       "thumbnail": "https://s3.cloudfly.vn/colorme/images/1629425608mqjEJpY7cmBdGlB.jpg"
@@ -62,7 +62,7 @@
       "instructor": "Vương Thế Hải",
       "instructorId": "10",
       "rating": 4.8,
-      "price": 750000,
+      "price": 0,
       "categoryId": 1,
       "level": "Advanced",
       "thumbnail": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500&h=300&fit=crop"
@@ -73,7 +73,7 @@
       "instructor": "Nguyễn Minh Hiếu",
       "instructorId": "11",
       "rating": 4.7,
-      "price": 680000,
+      "price": 0,
       "categoryId": 1,
       "level": "Intermediate",
       "thumbnail": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500&h=300&fit=crop"
@@ -84,7 +84,7 @@
       "instructor": "Lê Hoàng Nam",
       "instructorId": "12",
       "rating": 4.6,
-      "price": 350000,
+      "price": 0,
       "categoryId": 1,
       "level": "Beginner",
       "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&h=300&fit=crop"
