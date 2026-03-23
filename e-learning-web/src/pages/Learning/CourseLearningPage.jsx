@@ -130,7 +130,7 @@ const CourseLearningPage = () => {
                 </div>
               )}
             </Suspense>
-          </div>       
+          </div>
         </div>
 
         {/* Right Side - Intelligence Panel (4/12) */}
@@ -184,7 +184,7 @@ const CourseLearningPage = () => {
               <Suspense fallback={
                 <div className="p-20 text-center">
                   <div className="w-10 h-10 rounded-full border-t-2 border-primary animate-spin mx-auto mb-6"></div>
-                  <span className="text-neutral-700 text-[9px] font-black uppercase tracking-[5px] animate-pulse">Syncing...</span>
+                  <span className="text-neutral-700 text-[9px] font-black uppercase tracking-[5px] animate-pulse">Đang tải...</span>
                 </div>
               }>
                 {activeTab === 'curriculum' && (
@@ -221,16 +221,6 @@ const CourseLearningPage = () => {
                         <p className="text-[9px] font-black text-neutral-600 uppercase tracking-widest mb-2">Đánh giá</p>
                         <p className="font-black text-white text-sm">{course.rating} / 5.0</p>
                       </div>
-                    </div>
-
-                    <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 group cursor-default">
-                      <h4 className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-3">Tài liệu học tập</h4>
-                      <p className="text-neutral-400 text-xs font-medium leading-relaxed group-hover:text-neutral-200 transition-colors">
-                        Sử dụng mã nguồn và tài liệu đính kèm để thực hành song song với video bài giảng.
-                      </p>
-                      <button className="mt-5 w-full py-3 bg-white/[0.03] hover:bg-white/10 rounded-xl text-[10px] font-black text-white border border-white/5 transition-all uppercase tracking-widest">
-                        Tải xuống Resources
-                      </button>
                     </div>
                   </div>
                 )}
