@@ -58,12 +58,11 @@ export default function LessonFormModal({ isOpen, onClose, courseId, onSuccess, 
         try {
             if (existingLesson?.id) {
                 await updateLesson(existingLesson.id, payload);
-                alert("Cập nhật bài học thành công!");
+                onSuccess("Cập nhật bài học thành công!");
             } else {
                 await createLesson(payload);
-                alert("Thêm bài học mới thành công!");
+                onSuccess("Thêm bài học mới thành công!");
             }
-            onSuccess();
             onClose();
         } catch (err) {
             setError(existingLesson?.id ? "Cập nhật bài học thất bại." : "Thêm bài học thất bại.");

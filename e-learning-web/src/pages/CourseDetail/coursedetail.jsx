@@ -8,11 +8,37 @@ import {
   AlertCircle,
   Plus,
   Edit,
-  Trash2
+  Trash2,
+  CheckCircle,
+  XCircle
 } from 'lucide-react';
 
 import { useAuth } from '../../context/AuthContext';
 import LessonFormModal from '../Instructor/LessonFormModal';
+import ConfirmDeleteModal from '../../components/common/ConfirmDeleteModal';
+
+// Simple Alert Notification Component
+const SimpleAlert = ({ message, type, show, onClose }) => {
+  useEffect(() => {
+    if (show) {
+      const timer = setTimeout(onClose, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [show, onClose]);
+
+  if (!show) return null;
+
+  return (
+    <div className={`fixed top-8 left-1/2 -translate-x-1/2 z-[150] px-8 py-4 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] border backdrop-blur-xl flex items-center gap-4 animate-in slide-in-from-top-8 duration-500 ease-out ${type === 'success' ? 'bg-white/80 border-green-500 text-green-700' : 'bg-white/80 border-red-500 text-red-700'
+      }`}>
+      <div className={`w-8 h-8 rounded-2xl flex items-center justify-center text-white shrink-0 shadow-lg ${type === 'success' ? 'bg-green-500 shadow-green-200' : 'bg-red-500 shadow-red-200'
+        }`}>
+        {type === 'success' ? <CheckCircle size={18} strokeWidth={3} /> : <XCircle size={18} strokeWidth={3} />}
+      </div>
+      <p className="text-sm font-black uppercase tracking-widest whitespace-nowrap">{message}</p>
+    </div>
+  );
+};
 
 const CourseDetail = () => {
   const { courseId } = useParams();
@@ -25,6 +51,12 @@ const CourseDetail = () => {
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingLesson, setEditingLesson] = useState(null);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastType, setToastType] = useState('success');
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [lessonToDelete, setLessonToDelete] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const isCourseManager = user && (user.role === 'admin' || (course && String(user.id) === String(course.instructorId)));
 
@@ -74,15 +106,36 @@ const CourseDetail = () => {
   }, [courseId, user?.id]);
 
   const handleDeleteLesson = async (lessonId, lessonTitle) => {
-    if (window.confirm(`Bạn có chắc muốn xóa bài học "${lessonTitle}" không? Hành động này không thể hoàn tác.`)) {
-      try {
-        await axios.delete(`http://localhost:3636/lessons/${lessonId}`);
-        await fetchLessons();
-      } catch (err) {
-        console.error("Error deleting lesson:", err);
-        alert("Có lỗi xảy ra khi xóa bài học.");
-      }
+    setLessonToDelete({ id: lessonId, title: lessonTitle });
+    setDeleteConfirmOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!lessonToDelete) return;
+    try {
+      setIsDeleting(true);
+      await axios.delete(`http://localhost:3636/lessons/${lessonToDelete.id}`);
+      await fetchLessons();
+      setToastMessage(`Xóa bài học "${lessonToDelete.title}" thành công!`);
+      setToastType('success');
+      setShowToast(true);
+    } catch (err) {
+      console.error("Error deleting lesson:", err);
+      setToastMessage("Có lỗi xảy ra khi xóa bài học.");
+      setToastType('error');
+      setShowToast(true);
+    } finally {
+      setIsDeleting(false);
+      setDeleteConfirmOpen(false);
+      setLessonToDelete(null);
     }
+  };
+
+  const handleActionSuccess = (msg) => {
+    setToastMessage(msg);
+    setToastType('success');
+    setShowToast(true);
+    fetchLessons();
   };
 
   if (loading) {
@@ -265,8 +318,25 @@ const CourseDetail = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         courseId={courseId}
-        onSuccess={fetchLessons}
+        onSuccess={handleActionSuccess}
         existingLesson={editingLesson}
+      />
+
+      <ConfirmDeleteModal
+        isOpen={deleteConfirmOpen}
+        title="Xác nhận"
+        message={`Xóa bài học "${lessonToDelete?.title}"?`}
+        confirmText="Xóa ngay"
+        loading={isDeleting}
+        onConfirm={confirmDelete}
+        onCancel={() => setDeleteConfirmOpen(false)}
+      />
+
+      <SimpleAlert
+        show={showToast}
+        message={toastMessage}
+        type={toastType}
+        onClose={() => setShowToast(false)}
       />
     </div>
   );

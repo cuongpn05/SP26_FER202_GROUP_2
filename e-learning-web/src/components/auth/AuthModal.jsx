@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Mail, Lock, User, Eye, EyeOff, Loader2 } from 'lucide-react';
+import { X, Mail, Lock, User, Eye, EyeOff, Loader2, CheckCircle } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { loginUser, registerUser } from '../../api/courses';
 
@@ -8,6 +8,7 @@ const AuthModal = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [authError, setAuthError] = useState('');
+  const [authSuccess, setAuthSuccess] = useState('');
 
   const [formData, setFormData] = useState({
     email: '',
@@ -22,6 +23,7 @@ const AuthModal = () => {
       fullName: ''
     });
     setAuthError('');
+    setAuthSuccess('');
   }, [mode, isOpen]);
 
   if (!isOpen) return null;
@@ -30,6 +32,7 @@ const AuthModal = () => {
     e.preventDefault();
     setIsLoading(true);
     setAuthError('');
+    setAuthSuccess('');
 
     try {
       if (mode === 'login') {
@@ -66,15 +69,30 @@ const AuthModal = () => {
         return;
       }
 
-      login({
-        id: Date.now().toString(),
+      // Handle Signup Mode
+      const newUserData = {
+        name: formData.fullName || 'Học viên mới',
         email: formData.email,
-        name: formData.fullName || 'Hoc vien moi',
-        role: 'student',
-        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=NewUser',
+        password: formData.password
+      };
+
+      await registerUser(newUserData);
+      
+      setAuthSuccess('');
+      setMode('success');
+      // Xóa form cũ để họ chuẩn bị đăng nhập
+      setFormData({
+        email: formData.email,
+        password: '',
+        fullName: ''
       });
+
     } catch (error) {
-      setAuthError('Khong the ket noi den may chu.');
+      if (error.message && error.message.includes('Email đã được sử dụng')) {
+        setAuthError(error.message);
+      } else {
+        setAuthError('Không thể kết nối đến máy chủ.');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -82,6 +100,7 @@ const AuthModal = () => {
 
   const handleChange = (e) => {
     if (authError) setAuthError('');
+    if (authSuccess) setAuthSuccess('');
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -95,167 +114,204 @@ const AuthModal = () => {
       
       {/* Modal Container */}
       <div className="relative bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden animate-slide-up">
-        {/* Header */}
-        <div className="p-6 pb-0 flex justify-between items-start">
-          <div className="space-y-1">
-            <h2 className="text-2xl font-bold text-text-main">
-              {mode === 'login' ? 'Chào mừng trở lại' : 'Tham gia cùng chúng tôi'}
-            </h2>
-            <p className="text-sm text-text-muted">
-              {mode === 'login' 
-                ? 'Đăng nhập để tiếp tục hành trình học tập.' 
-                : 'Bắt đầu hành trình chinh phục kiến thức ngay hôm nay.'}
+        {mode === 'success' ? (
+          <div className="p-8 text-center flex flex-col items-center">
+            <button 
+              onClick={onClose}
+              className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer outline-none"
+            >
+              <X size={20} className="text-text-muted" />
+            </button>
+            <div className="w-20 h-20 bg-green-50 text-green-500 rounded-full flex flex-shrink-0 items-center justify-center mb-6 mt-4 shadow-sm border border-green-100">
+              <CheckCircle size={40} className="animate-bounce" style={{ animationIterationCount: 1 }} />
+            </div>
+            <h2 className="text-2xl font-bold text-text-main mb-3">Đăng ký thành công!</h2>
+            <p className="text-text-muted mb-8 text-sm leading-relaxed px-2">
+               Tài khoản của bạn đã được thiết lập thành công. Bây giờ bạn có thể đăng nhập bằng email <b className="text-text-main">{formData.email}</b> để bắt đầu khóa học.
             </p>
+            <button
+               type="button"
+               onClick={() => {
+                 setAuthSuccess('');
+                 setMode('login');
+               }}
+               className="w-full py-3.5 bg-primary hover:bg-primary-dark text-white rounded-xl font-bold shadow-lg shadow-primary/25 transition-all transform hover:-translate-y-0.5 active:scale-[0.98] outline-none cursor-pointer"
+            >
+               Quay về trang đăng nhập
+            </button>
           </div>
-          <button 
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
-          >
-            <X size={20} className="text-text-muted" />
-          </button>
-        </div>
-
-        {/* Tabs */}
-        <div className="flex px-6 mt-6 border-b border-gray-100">
-          <button
-            className={`pb-3 px-4 text-sm font-semibold transition-all cursor-pointer border-b-2 ${
-              mode === 'login' 
-                ? 'text-primary border-primary' 
-                : 'text-text-muted border-transparent hover:text-text-main'
-            }`}
-            onClick={() => setMode('login')}
-          >
-            Đăng nhập
-          </button>
-          <button
-            className={`pb-3 px-4 text-sm font-semibold transition-all cursor-pointer border-b-2 ${
-              mode === 'signup' 
-                ? 'text-primary border-primary' 
-                : 'text-text-muted border-transparent hover:text-text-main'
-            }`}
-            onClick={() => setMode('signup')}
-          >
-            Đăng ký
-          </button>
-        </div>
-
-        {/* Form Body */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          {authError && (
-            <div className="bg-red-50 text-red-600 p-3 rounded-xl text-xs font-bold animate-pulse text-center">
-              {authError}
-            </div>
-          )}
-
-          {mode === 'signup' && (
-            <div className="space-y-1">
-              <label className="text-xs font-bold text-text-muted uppercase tracking-wider px-1">
-                Họ và Tên
-              </label>
-              <div className="relative group">
-                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-primary transition-colors">
-                  <User size={18} />
-                </div>
-                <input
-                  name="fullName"
-                  type="text"
-                  required
-                  placeholder="Nguyễn Văn A"
-                  className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-text-main"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                />
+        ) : (
+          <>
+            {/* Header */}
+            <div className="p-6 pb-0 flex justify-between items-start">
+              <div className="space-y-1">
+                <h2 className="text-2xl font-bold text-text-main">
+                  {mode === 'login' ? 'Chào mừng trở lại' : 'Tham gia cùng chúng tôi'}
+                </h2>
+                <p className="text-sm text-text-muted">
+                  {mode === 'login' 
+                    ? 'Đăng nhập để tiếp tục hành trình học tập.' 
+                    : 'Bắt đầu hành trình chinh phục kiến thức ngay hôm nay.'}
+                </p>
               </div>
-            </div>
-          )}
-
-          <div className="space-y-1">
-            <label className="text-xs font-bold text-text-muted uppercase tracking-wider px-1">
-              Email
-            </label>
-            <div className="relative group">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-primary transition-colors">
-                <Mail size={18} />
-              </div>
-              <input
-                name="email"
-                type="email"
-                required
-                placeholder="example@f-academy.edu"
-                className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-text-main"
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-
-          <div className="space-y-1">
-            <div className="flex justify-between items-center px-1">
-              <label className="text-xs font-bold text-text-muted uppercase tracking-wider">
-                Mật khẩu
-              </label>
-              {mode === 'login' && (
-                <button type="button" className="text-[10px] font-bold text-primary hover:underline cursor-pointer">
-                  Quên mật khẩu?
-                </button>
-              )}
-            </div>
-            <div className="relative group">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-primary transition-colors">
-                <Lock size={18} />
-              </div>
-              <input
-                name="password"
-                type={showPassword ? 'text' : 'password'}
-                required
-                placeholder="••••••••"
-                className="w-full pl-10 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-text-main"
-                value={formData.password}
-                onChange={handleChange}
-              />
-              <button
-                type="button"
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main transition-colors p-1 rounded-lg cursor-pointer"
-                onClick={() => setShowPassword(!showPassword)}
+              <button 
+                onClick={onClose}
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
               >
-                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                <X size={20} className="text-text-muted" />
               </button>
             </div>
-          </div>
 
-          {/* Submit Button */}
-          {authError && (
-            <p className="text-sm font-semibold text-red-500 px-1">{authError}</p>
-          )}
+            {/* Tabs */}
+            <div className="flex px-6 mt-6 border-b border-gray-100">
+              <button
+                className={`pb-3 px-4 text-sm font-semibold transition-all cursor-pointer border-b-2 ${
+                  mode === 'login' 
+                    ? 'text-primary border-primary' 
+                    : 'text-text-muted border-transparent hover:text-text-main'
+                }`}
+                onClick={() => setMode('login')}
+              >
+                Đăng nhập
+              </button>
+              <button
+                className={`pb-3 px-4 text-sm font-semibold transition-all cursor-pointer border-b-2 ${
+                  mode === 'signup' 
+                    ? 'text-primary border-primary' 
+                    : 'text-text-muted border-transparent hover:text-text-main'
+                }`}
+                onClick={() => setMode('signup')}
+              >
+                Đăng ký
+              </button>
+            </div>
 
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full mt-6 py-3.5 bg-primary hover:bg-primary-dark text-white rounded-xl font-bold shadow-lg shadow-primary/25 transition-all transform hover:-translate-y-0.5 active:scale-[0.98] disabled:opacity-70 disabled:hover:translate-y-0 flex items-center justify-center space-x-2 cursor-pointer"
-          >
-            {isLoading ? (
-              <>
-                <Loader2 className="animate-spin" size={20} />
-                <span>Đang xử lý...</span>
-              </>
-            ) : (
-              <span>{mode === 'login' ? 'Đăng nhập ngay' : 'Tạo tài khoản'}</span>
-            )}
-          </button>
-        </form>
+            {/* Form Body */}
+            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+              {authError && (
+                <div className="bg-red-50 text-red-600 p-3 rounded-xl text-xs font-bold animate-pulse text-center">
+                  {authError}
+                </div>
+              )}
+              
+              {authSuccess && (
+                <div className="bg-green-50 text-green-600 p-3 rounded-xl text-xs font-bold animate-pulse text-center">
+                  {authSuccess}
+                </div>
+              )}
 
-        {/* Footer */}
-        <div className="p-6 pt-0 text-center">
-          <p className="text-sm text-text-muted">
-            {mode === 'login' ? 'Chưa có tài khoản?' : 'Đã có tài khoản?'}
-            <button
-              onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}
-              className="ml-1.5 text-primary font-bold hover:underline cursor-pointer"
-            >
-              {mode === 'login' ? 'Đăng ký miễn phí' : 'Đăng nhập'}
-            </button>
-          </p>
-        </div>
+              {mode === 'signup' && (
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-text-muted uppercase tracking-wider px-1">
+                    Họ và Tên
+                  </label>
+                  <div className="relative group">
+                    <div className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-primary transition-colors">
+                      <User size={18} />
+                    </div>
+                    <input
+                      name="fullName"
+                      type="text"
+                      required
+                      placeholder="Nguyễn Văn A"
+                      className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-text-main"
+                      value={formData.fullName}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+              )}
+
+              <div className="space-y-1">
+                <label className="text-xs font-bold text-text-muted uppercase tracking-wider px-1">
+                  Email
+                </label>
+                <div className="relative group">
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-primary transition-colors">
+                    <Mail size={18} />
+                  </div>
+                  <input
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="example@f-academy.edu"
+                    className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-text-main"
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <div className="flex justify-between items-center px-1">
+                  <label className="text-xs font-bold text-text-muted uppercase tracking-wider">
+                    Mật khẩu
+                  </label>
+                  {mode === 'login' && (
+                    <button type="button" className="text-[10px] font-bold text-primary hover:underline cursor-pointer">
+                      Quên mật khẩu?
+                    </button>
+                  )}
+                </div>
+                <div className="relative group">
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-primary transition-colors">
+                    <Lock size={18} />
+                  </div>
+                  <input
+                    name="password"
+                    type={showPassword ? 'text' : 'password'}
+                    required
+                    placeholder="••••••••"
+                    className="w-full pl-10 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-text-main"
+                    value={formData.password}
+                    onChange={handleChange}
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-main transition-colors p-1 rounded-lg cursor-pointer"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              {authError && (
+                <p className="text-sm font-semibold text-red-500 px-1">{authError}</p>
+              )}
+
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full mt-6 py-3.5 bg-primary hover:bg-primary-dark text-white rounded-xl font-bold shadow-lg shadow-primary/25 transition-all transform hover:-translate-y-0.5 active:scale-[0.98] disabled:opacity-70 disabled:hover:translate-y-0 flex items-center justify-center space-x-2 cursor-pointer"
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="animate-spin" size={20} />
+                    <span>Đang xử lý...</span>
+                  </>
+                ) : (
+                  <span>{mode === 'login' ? 'Đăng nhập ngay' : 'Tạo tài khoản'}</span>
+                )}
+              </button>
+            </form>
+
+            {/* Footer */}
+            <div className="p-6 pt-0 text-center">
+              <p className="text-sm text-text-muted">
+                {mode === 'login' ? 'Chưa có tài khoản?' : 'Đã có tài khoản?'}
+                <button
+                  type="button"
+                  onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}
+                  className="ml-1.5 text-primary font-bold hover:underline cursor-pointer"
+                >
+                  {mode === 'login' ? 'Đăng ký miễn phí' : 'Đăng nhập'}
+                </button>
+              </p>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

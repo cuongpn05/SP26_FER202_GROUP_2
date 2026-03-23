@@ -119,7 +119,7 @@ const ProfileSettings = () => {
       if (response.status === 200) {
         // Cập nhật state local và context
         const updatedUser = { ...authUser, ...updateData };
-        localStorage.setItem('user', JSON.stringify(updatedUser));
+        sessionStorage.setItem('user', JSON.stringify(updatedUser));
         login(updatedUser); 
         setStatus({ type: 'success', message: 'Cập nhật thông tin lên API thành công!' });
       }
