@@ -6,18 +6,9 @@ const FilterSidebar = ({
   selectedCategory, 
   setSelectedCategory,
   selectedLevel,
-  setSelectedLevel,
-  selectedPriceRange,
-  setSelectedPriceRange
+  setSelectedLevel
 }) => {
   const levels = ["Beginner", "Intermediate", "Advanced"];
-  const priceRanges = [
-    { label: "Tất cả", value: "all" },
-    { label: "Miễn phí", value: "free" },
-    { label: "Dưới 400.000đ", value: "under-400" },
-    { label: "400.000đ - 600.000đ", value: "400-600" },
-    { label: "Trên 600.000đ", value: "above-600" }
-  ];
 
   return (
     <aside className="sticky top-24 animate-fade-in lg:pr-4">
@@ -88,40 +79,11 @@ const FilterSidebar = ({
             </div>
           </section>
 
-          <hr className="border-gray-100" />
-
-          {/* Price Section */}
-          <section>
-            <h4 className="text-xs font-black uppercase tracking-widest text-text-muted mb-4">Học phí</h4>
-            <div className="space-y-3.5">
-              {priceRanges.map((range) => (
-                <label key={range.value} className="flex items-center space-x-3 cursor-pointer group">
-                  <div className="relative flex items-center justify-center">
-                    <input 
-                      type="radio" 
-                      name="price" 
-                      className="peer appearance-none w-5 h-5 rounded-full border-2 border-gray-200 checked:border-primary checked:bg-white transition-all outline-none"
-                      checked={selectedPriceRange === range.value}
-                      onChange={() => setSelectedPriceRange(range.value)}
-                    />
-                    <div className="absolute w-2.5 h-2.5 rounded-full bg-primary transform scale-0 peer-checked:scale-100 transition-transform"></div>
-                  </div>
-                  <span className={`text-sm font-bold transition-colors ${
-                    selectedPriceRange === range.value ? 'text-primary' : 'text-text-muted group-hover:text-text-main'
-                  }`}>
-                    {range.label}
-                  </span>
-                </label>
-              ))}
-            </div>
-          </section>
-
           <div className="pt-4">
             <button 
               onClick={() => {
                 setSelectedCategory('all');
                 setSelectedLevel('all');
-                setSelectedPriceRange('all');
               }}
               className="w-full py-4 rounded-xl text-xs font-black uppercase tracking-widest text-primary bg-primary/5 hover:bg-primary/10 transition-all active:scale-95 border border-primary/10"
             >
