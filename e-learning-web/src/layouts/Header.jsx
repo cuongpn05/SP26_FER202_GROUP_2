@@ -86,23 +86,28 @@ const Header = () => {
                 </button>
 
                 {isProfileOpen && (
-                  <div className="absolute right-0 mt-3 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 py-2 animate-fade-in overflow-hidden">
+                  <>
+                    <div 
+                      className="fixed inset-0 z-40" 
+                      onClick={() => setIsProfileOpen(false)} 
+                    />
+                    <div className="absolute right-0 mt-3 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 py-2 animate-fade-in overflow-hidden z-50">
                     <div className="px-4 py-3 border-b border-gray-50 mb-1">
                       <p className="text-xs font-bold text-[#5F6368] uppercase">Tài khoản</p>
                       <p className="text-sm font-bold text-[#202124] truncate">{user.name}</p>
                     </div>
-                    <Link to="/profile" className="flex items-center space-x-3 px-4 py-2.5 text-sm text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE] transition-colors">
+                    <Link to="/profile" onClick={() => setIsProfileOpen(false)} className="flex items-center space-x-3 px-4 py-2.5 text-sm text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE] transition-colors">
                       <User size={18} />
                       <span>Hồ sơ</span>
                     </Link>
                     {(user.role === 'admin' || user.role === 'instructor' || user.role === 'teacher') && (
-                      <Link to="/instructor/courses" className="flex items-center space-x-3 px-4 py-2.5 text-sm text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE] transition-colors">
+                      <Link to="/instructor/courses" onClick={() => setIsProfileOpen(false)} className="flex items-center space-x-3 px-4 py-2.5 text-sm text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE] transition-colors">
                         <Settings size={18} />
                         <span>Quản lý khóa học</span>
                       </Link>
                     )}
                     {(user.role === 'admin' || user.role === 'instructor' || user.role === 'teacher') && (
-                      <Link to="/lesson-editor" className="flex items-center space-x-3 px-4 py-2.5 text-sm text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE] transition-colors">
+                      <Link to="/lesson-editor" onClick={() => setIsProfileOpen(false)} className="flex items-center space-x-3 px-4 py-2.5 text-sm text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE] transition-colors">
                         <BookOpen size={18} />
                         <span>Thêm/Xóa video</span>
                       </Link>
@@ -135,6 +140,7 @@ const Header = () => {
                       <span>Đăng xuất</span>
                     </button>
                   </div>
+                  </>
                 )}
               </div>
             ) : (

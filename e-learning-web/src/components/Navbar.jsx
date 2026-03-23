@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Search, Bell, Menu, LogOut, Settings, User as UserIcon, BookOpen, ChevronDown, FolderPlus, ListVideo, LibraryBig } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -6,7 +6,10 @@ import { useAuth } from '../context/AuthContext';
 const Navbar = () => {
   const { isLoggedIn, user, logout, openAuthModal } = useAuth();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const dropdownRef = useRef(null);
   const navigate = useNavigate();
+
+  // Improved click-outside handling via transparent overlay
   const logoTarget = user && (user.role === 'admin' || user.role === 'instructor' || user.role === 'teacher')
     ? '/explore'
     : '/';
@@ -78,7 +81,7 @@ const Navbar = () => {
                 </button>
 
                 {/* Profile Dropdown */}
-                <div className="relative">
+                <div className="relative" ref={dropdownRef}>
                   <button
                     onClick={() => setIsProfileOpen(!isProfileOpen)}
                     className="flex items-center space-x-2 p-1 pl-2 hover:bg-gray-50 rounded-2xl border border-transparent hover:border-gray-100 transition-all cursor-pointer outline-none"
@@ -97,7 +100,12 @@ const Navbar = () => {
 
                   {/* Dropdown Menu */}
                   {isProfileOpen && (
-                    <div className="absolute right-0 mt-3 w-56 bg-white rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100 py-2 animate-fade-in overflow-hidden">
+                    <>
+                      <div 
+                        className="fixed inset-0 z-40" 
+                        onClick={() => setIsProfileOpen(false)} 
+                      />
+                      <div className="absolute right-0 mt-3 w-56 bg-white rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100 py-2 animate-fade-in overflow-hidden z-50">
                       <div className="px-4 py-3 border-b border-gray-50 mb-1">
                         <p className="text-xs font-bold text-text-muted uppercase tracking-wider">Tài khoản</p>
                         <p className="text-sm font-semibold text-text-main truncate mt-0.5">{user.email}</p>
@@ -155,7 +163,10 @@ const Navbar = () => {
                         </Link>
                       )}
 
-                      <button className="w-full flex items-center space-x-3 px-4 py-2.5 text-sm text-text-muted hover:text-primary hover:bg-primary-light transition-colors cursor-pointer text-left outline-none border-none">
+                      <button 
+                        onClick={() => setIsProfileOpen(false)}
+                        className="w-full flex items-center space-x-3 px-4 py-2.5 text-sm text-text-muted hover:text-primary hover:bg-primary-light transition-colors cursor-pointer text-left outline-none border-none"
+                      >
                         <Settings size={18} />
                         <span>Cài đặt</span>
                       </button>
@@ -168,6 +179,7 @@ const Navbar = () => {
                         <span>Đăng xuất</span>
                       </button>
                     </div>
+                    </>
                   )}
                 </div>
               </>
