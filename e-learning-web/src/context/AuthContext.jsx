@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
 
   // Check for stored user on mount
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = sessionStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
       setIsLoggedIn(true);
@@ -30,14 +30,14 @@ export const AuthProvider = ({ children }) => {
   const login = useCallback((userData) => {
     setUser(userData);
     setIsLoggedIn(true);
-    localStorage.setItem('user', JSON.stringify(userData));
+    sessionStorage.setItem('user', JSON.stringify(userData));
     closeAuthModal();
   }, [closeAuthModal]);
 
   const logout = useCallback(() => {
     setUser(null);
     setIsLoggedIn(false);
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
   }, []);
 
   const value = React.useMemo(() => ({
