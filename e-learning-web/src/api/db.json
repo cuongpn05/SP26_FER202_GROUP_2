@@ -98,7 +98,7 @@
       "instructor": "Ngô Tuấn Kiệt",
       "instructorId": "13",
       "rating": 4.9,
-      "price": 820000,
+      "price": 0,
       "categoryId": 1,
       "level": "Advanced",
       "thumbnail": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500&h=300&fit=crop"
@@ -109,7 +109,7 @@
       "instructor": "Phạm Thị Thu Hà",
       "instructorId": "14",
       "rating": 4.5,
-      "price": 390000,
+      "price": 0,
       "categoryId": 2,
       "level": "Beginner",
       "thumbnail": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&h=300&fit=crop"
@@ -120,7 +120,7 @@
       "instructor": "Đỗ Minh Trí",
       "instructorId": "15",
       "rating": 4.7,
-      "price": 650000,
+      "price": 0,
       "categoryId": 2,
       "level": "Intermediate",
       "thumbnail": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&h=300&fit=crop"
@@ -131,7 +131,7 @@
       "instructor": "Nguyễn Thanh Mai",
       "instructorId": "8",
       "rating": 4.6,
-      "price": 280000,
+      "price": 0,
       "categoryId": 3,
       "level": "Beginner",
       "thumbnail": "https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=500&h=300&fit=crop"
@@ -142,7 +142,7 @@
       "instructor": "David Tran",
       "instructorId": "16",
       "rating": 4.7,
-      "price": 520000,
+      "price": 0,
       "categoryId": 3,
       "level": "Intermediate",
       "thumbnail": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=500&h=300&fit=crop"
@@ -153,7 +153,7 @@
       "instructor": "Hoàng Quốc Khánh",
       "instructorId": "17",
       "rating": 4.8,
-      "price": 320000,
+      "price": 0,
       "categoryId": 4,
       "level": "Beginner",
       "thumbnail": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop"
@@ -164,7 +164,7 @@
       "instructor": "Trịnh Phúc Hưng",
       "instructorId": "18",
       "rating": 4.7,
-      "price": 610000,
+      "price": 0,
       "categoryId": 4,
       "level": "Advanced",
       "thumbnail": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=500&h=300&fit=crop"
@@ -175,7 +175,7 @@
       "instructor": "Nguyễn Thành Đạt",
       "instructorId": "7",
       "rating": 4.8,
-      "price": 540000,
+      "price": 0,
       "categoryId": 6,
       "level": "Intermediate",
       "thumbnail": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop"
@@ -186,7 +186,7 @@
       "instructor": "Phan Nhật Linh",
       "instructorId": "4",
       "rating": 4.9,
-      "price": 470000,
+      "price": 0,
       "categoryId": 5,
       "level": "Intermediate",
       "thumbnail": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=500&h=300&fit=crop"
@@ -197,7 +197,7 @@
       "instructor": "Lý Quang Huy",
       "instructorId": "4",
       "rating": 4.8,
-      "price": 720000,
+      "price": 0,
       "categoryId": 5,
       "level": "Advanced",
       "thumbnail": "https://images.unsplash.com/photo-1558655146-d09347e92766?w=500&h=300&fit=crop"

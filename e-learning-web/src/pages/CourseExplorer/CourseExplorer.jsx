@@ -20,7 +20,6 @@ const CourseExplorer = () => {
   // Filter States
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedLevel, setSelectedLevel] = useState('all');
-  const [selectedPriceRange, setSelectedPriceRange] = useState('all');
 
   // Sort States
   const [sortBy, setSortBy] = useState('featured');
@@ -51,8 +50,6 @@ const CourseExplorer = () => {
   const SORT_OPTIONS = [
     { id: 'featured', label: 'Mặc định (Featured)' },
     { id: 'highest-rated', label: 'Đánh giá cao nhất' },
-    { id: 'price-asc', label: 'Giá: Thấp đến Cao' },
-    { id: 'price-desc', label: 'Giá: Cao đến Thấp' },
   ];
 
   // Fetch Initial Data
@@ -88,31 +85,15 @@ const CourseExplorer = () => {
       // Level logic
       const matchesLevel = selectedLevel === 'all' || course.level === selectedLevel;
 
-      // Price range logic
-      const matchesPrice = selectedPriceRange === 'all' || (() => {
-        if (selectedPriceRange === 'free') return course.price === 0;
-        if (selectedPriceRange === 'under-400') return course.price > 0 && course.price < 400000;
-        if (selectedPriceRange === '400-600') return course.price >= 400000 && course.price <= 600000;
-        if (selectedPriceRange === 'above-600') return course.price > 600000;
-        return true;
-      })();
-
-      return matchesSearch && matchesCategory && matchesLevel && matchesPrice;
+      return matchesSearch && matchesCategory && matchesLevel;
     });
-  }, [originalCourses, searchQuery, selectedCategory, selectedLevel, selectedPriceRange]);
+  }, [originalCourses, searchQuery, selectedCategory, selectedLevel]);
 
   const sortedCourses = useMemo(() => {
     const sorted = [...filteredCourses];
     switch (sortBy) {
       case 'highest-rated':
         sorted.sort((a, b) => b.rating - a.rating);
-        break;
-
-      case 'price-asc':
-        sorted.sort((a, b) => a.price - b.price);
-        break;
-      case 'price-desc':
-        sorted.sort((a, b) => b.price - a.price);
         break;
       case 'featured':
       default:
@@ -124,7 +105,7 @@ const CourseExplorer = () => {
   // Reset page when filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchQuery, selectedCategory, selectedLevel, selectedPriceRange, sortBy]);
+  }, [searchQuery, selectedCategory, selectedLevel, sortBy]);
 
   // Pagination calculations
   const totalPages = Math.ceil(sortedCourses.length / coursesPerPage);
@@ -152,8 +133,6 @@ const CourseExplorer = () => {
               setSelectedCategory={setSelectedCategory}
               selectedLevel={selectedLevel}
               setSelectedLevel={setSelectedLevel}
-              selectedPriceRange={selectedPriceRange}
-              setSelectedPriceRange={setSelectedPriceRange}
             />
           </div>
 
