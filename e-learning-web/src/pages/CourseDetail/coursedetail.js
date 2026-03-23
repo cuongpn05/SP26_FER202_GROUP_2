@@ -8,7 +8,9 @@ import {
   AlertCircle,
   Plus,
   Edit,
-  Trash2
+  Trash2,
+  CheckCircle,
+  XCircle
 } from 'lucide-react';
 
 import { useAuth } from '../../context/AuthContext';
@@ -27,13 +29,13 @@ const SimpleAlert = ({ message, type, show, onClose }) => {
   if (!show) return null;
 
   return (
-    <div className={`fixed top-6 left-1/2 -translate-x-1/2 z-[100] px-6 py-3 rounded-full shadow-xl border backdrop-blur-md flex items-center gap-3 animate-in slide-in-from-top-4 duration-300 ${type === 'success' ? 'bg-white/90 border-green-500 text-green-700' : 'bg-white/90 border-red-500 text-red-700'
+    <div className={`fixed top-8 left-1/2 -translate-x-1/2 z-[150] px-8 py-4 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] border backdrop-blur-xl flex items-center gap-4 animate-in slide-in-from-top-8 duration-500 ease-out ${type === 'success' ? 'bg-white/80 border-green-500 text-green-700' : 'bg-white/80 border-red-500 text-red-700'
       }`}>
-      <div className={`w-6 h-6 rounded-full flex items-center justify-center text-white shrink-0 ${type === 'success' ? 'bg-green-500' : 'bg-red-500'
+      <div className={`w-8 h-8 rounded-2xl flex items-center justify-center text-white shrink-0 shadow-lg ${type === 'success' ? 'bg-green-500 shadow-green-200' : 'bg-red-500 shadow-red-200'
         }`}>
-        {type === 'success' ? '✓' : '✕'}
+        {type === 'success' ? <CheckCircle size={18} strokeWidth={3} /> : <XCircle size={18} strokeWidth={3} />}
       </div>
-      <p className="text-sm font-bold whitespace-nowrap">{message}</p>
+      <p className="text-sm font-black uppercase tracking-widest whitespace-nowrap">{message}</p>
     </div>
   );
 };

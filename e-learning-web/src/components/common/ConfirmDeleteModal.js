@@ -1,4 +1,5 @@
 import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { X, AlertCircle } from "lucide-react";
 
 export default function ConfirmDeleteModal({
@@ -11,47 +12,48 @@ export default function ConfirmDeleteModal({
   onConfirm,
   onCancel,
 }) {
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 overflow-hidden">
-      <div className="w-full max-w-sm rounded-lg bg-white shadow-xl flex flex-col">
-        <div className="px-6 py-4 flex items-center justify-between border-b border-gray-100">
-          <h3 className="text-base font-bold text-gray-900">{title}</h3>
-          <button
-            onClick={onCancel}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+            className="w-full max-w-sm rounded-[2rem] bg-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-slate-100 overflow-hidden relative"
           >
-            <X size={18} />
-          </button>
-        </div>
+            <button
+              onClick={onCancel}
+              className="absolute top-6 right-6 p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-xl transition-all z-10"
+            >
+              <X size={20} />
+            </button>
 
-        <div className="px-6 py-6 flex gap-4">
-          <div className="w-10 h-10 bg-red-50 text-red-500 rounded-full flex items-center justify-center shrink-0">
-            <AlertCircle size={24} />
-          </div>
-          <div className="flex-1">
-            <p className="text-sm text-gray-500 leading-relaxed">{message}</p>
-          </div>
-        </div>
+            <div className="px-8 py-10 flex flex-col items-center text-center">
+              <p className="text-slate-500 font-bold text-base leading-relaxed">
+                {message}
+              </p>
+            </div>
 
-        <div className="px-6 py-4 bg-gray-50 flex justify-end gap-3 rounded-b-lg">
-          <button
-            onClick={onCancel}
-            disabled={loading}
-            className="px-4 py-2 text-sm font-semibold text-gray-500 hover:text-gray-700 transition-colors"
-          >
-            {cancelText}
-          </button>
-          <button
-            onClick={onConfirm}
-            disabled={loading}
-            className="px-6 py-2 rounded shadow-sm bg-red-600 text-white text-sm font-semibold hover:bg-red-700 transition-all disabled:opacity-50"
-          >
-            {loading ? "Đang xử lý..." : confirmText}
-          </button>
+            <div className="px-8 pb-8 flex gap-4">
+              <button
+                onClick={onCancel}
+                disabled={loading}
+                className="flex-1 px-6 py-4 rounded-2xl bg-slate-50 text-slate-400 font-black text-[10px] uppercase tracking-[0.2em] hover:bg-slate-100 hover:text-slate-600 transition-all disabled:opacity-50"
+              >
+                {cancelText}
+              </button>
+              <button
+                onClick={onConfirm}
+                disabled={loading}
+                className="flex-1 px-6 py-4 rounded-2xl bg-red-600 text-white font-black text-[10px] uppercase tracking-[0.2em] hover:bg-red-700 hover:shadow-xl hover:shadow-red-500/20 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+              >
+                {loading ? "Đang xử lý..." : confirmText}
+              </button>
+            </div>
+          </motion.div>
         </div>
-      </div>
-    </div>
+      )}
+    </AnimatePresence>
   );
 }
