@@ -93,7 +93,7 @@ const HomePage = () => {
              <CourseGrid 
                courses={featuredCourses} 
                loading={loading} 
-               columns="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+               columns="grid-cols-1 sm:grid-cols-2 lg:grid-cols-6"
                skeletonCount={6}
              />
           </div>
