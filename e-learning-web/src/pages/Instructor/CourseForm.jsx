@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { createCourse, updateCourse, getCategories } from "../../api/courses";
+import { createCourse, updateCourse, getCategories, getCourses } from "../../api/courses";
 import { useAuth } from "../../context/AuthContext";
 
 export default function CourseForm({ course, onSuccess, onCancel }) {
@@ -89,6 +89,7 @@ export default function CourseForm({ course, onSuccess, onCancel }) {
       return;
     }
 
+
     try {
       const payload = {
         title: title.trim(),
@@ -99,18 +100,27 @@ export default function CourseForm({ course, onSuccess, onCancel }) {
         level,
         categoryId,
         rating: formData.rating,
+        instructorId: user?.id || (course && course.instructorId) || undefined,
       };
-
-      // Add instructorId for new courses
-      if (!course && user) {
-        payload.instructorId = user.id;
-      }
 
       if (course && course.id) {
         // Update existing course
         await updateCourse(course.id, payload);
       } else {
-        // Create new course
+        // Create new course: lấy id lớn nhất dạng chuỗi số, +1, rồi chuyển lại thành chuỗi
+        const allCoursesRes = await getCourses();
+        const allCourses = allCoursesRes.data || [];
+        // Lọc id là chuỗi số
+        const stringNumberIds = allCourses
+          .map((c) => typeof c.id === 'string' && /^\d+$/.test(c.id) ? parseInt(c.id, 10) : (typeof c.id === 'number' ? c.id : NaN))
+          .filter((id) => !isNaN(id));
+        if (stringNumberIds.length > 0) {
+          const maxId = Math.max(...stringNumberIds);
+          payload.id = String(maxId + 1);
+        } else {
+          // Nếu không có id số nào, fallback random chuỗi
+          payload.id = Math.random().toString(36).substr(2, 10);
+        }
         await createCourse(payload);
       }
 

@@ -148,12 +148,12 @@ export default function InstructorCourseManager() {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex justify-end gap-2 flex-wrap">
-                        <button
+                        {/* <button
                           onClick={() => navigate(`/lesson-editor/${course.id}`)}
                           className="px-3 py-1.5 rounded-lg bg-blue-100 text-blue-700 font-semibold hover:bg-blue-200 transition-colors"
                         >
                           Bài học
-                        </button>
+                        </button> */}
                         <button
                           onClick={() => {
                             setEditingCourse(course);

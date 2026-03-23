@@ -101,12 +101,12 @@ const Header = () => {
                         <span>Quản lý khóa học</span>
                       </Link>
                     )}
-                    {(user.role === 'admin' || user.role === 'instructor' || user.role === 'teacher') && (
+                    {/* {(user.role === 'admin' || user.role === 'instructor' || user.role === 'teacher') && (
                       <Link to="/lesson-editor" className="flex items-center space-x-3 px-4 py-2.5 text-sm text-[#5F6368] hover:text-[#1A73E8] hover:bg-[#E8F0FE] transition-colors">
                         <BookOpen size={18} />
                         <span>Thêm/Xóa video</span>
                       </Link>
-                    )}
+                    )} */}
                     {user.role === 'admin' && (
                       <Link 
                         to="/admin/categories" 
