@@ -11,7 +11,6 @@ import AuthModal from './components/auth/AuthModal';
 import CategoryManagement from './pages/Admin/CategoryManagement';
 import MyCourses from './pages/MyCourses/MyCourses';
 import ProfileSettings from './pages/Profile/ProfileSettings';
-import LessonListEditor from './components/course/LessonListEditor';
 import InstructorCourseManager from './pages/Instructor/InstructorCourseManager';
 import { useAuth } from './context/AuthContext';
 import './App.css';
@@ -67,16 +66,8 @@ function App() {
           <Route path="/enroll-detail/:courseId" element={<EnrollDetail />} />
           <Route path="/learning/:courseId" element={<CourseLearningPage />} />
           <Route
-            path="/lesson-editor/:courseId"
-            element={canAccessLessonEditor ? <LessonListEditor /> : <Navigate to="/" />}
-          />
-          <Route
             path="/instructor/courses"
             element={canAccessLessonEditor ? <InstructorCourseManager /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/lesson-editor"
-            element={canAccessLessonEditor ? <LessonListEditor /> : <Navigate to="/" />}
           />
           <Route
             path="/admin/categories"
@@ -88,7 +79,6 @@ function App() {
       {!isLearningPage && <Footer />}
       <AuthModal />
     </div>
-
   );
 }
 

@@ -38,26 +38,26 @@
       "thumbnail": "https://amela.vn/wp-content/uploads/2021/08/reactjs-app-development-500x500-1.jpg"
     },
     {
-      "id": "2",
       "title": "Kinh tế vĩ mô cho người mới bắt đầu",
-      "instructor": "Nguyễn Minh Hằng",
-      "instructorId": "7",
-      "rating": 4.5,
-      "price": 0,
-      "categoryId": 2,
+      "instructor": "oke",
+      "description": "a",
+      "thumbnail": "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=500&h=300&fit=crop",
+      "price": 2000,
       "level": "Beginner",
-      "thumbnail": "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=500&h=300&fit=crop"
+      "categoryId": 2,
+      "rating": 4.5,
+      "id": "2"
     },
     {
-      "id": "3",
       "title": "Thiết kế UI/UX với Figma",
       "instructor": "Phạm Gia Bảo",
-      "instructorId": "4",
-      "rating": 4.7,
-      "price": 0,
-      "categoryId": 5,
+      "description": "sadsa",
+      "thumbnail": "https://s3.cloudfly.vn/colorme/images/1629425608mqjEJpY7cmBdGlB.jpg",
+      "price": 21324,
       "level": "Beginner",
-      "thumbnail": "https://s3.cloudfly.vn/colorme/images/1629425608mqjEJpY7cmBdGlB.jpg"
+      "categoryId": 5,
+      "rating": 4.7,
+      "id": "3"
     },
     {
       "id": "4",
@@ -170,37 +170,38 @@
       "thumbnail": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=500&h=300&fit=crop"
     },
     {
-      "id": "14",
       "title": "Digital Marketing và SEO từ cơ bản đến nâng cao",
       "instructor": "Nguyễn Thành Đạt",
-      "instructorId": "7",
-      "rating": 4.8,
-      "price": 0,
-      "categoryId": 6,
+      "description": "",
+      "thumbnail": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop",
+      "price": 1,
       "level": "Intermediate",
-      "thumbnail": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop"
+      "categoryId": "2",
+      "rating": 4.8,
+      "instructorId": "5",
+      "id": "14"
     },
     {
-      "id": "15",
       "title": "Thiết kế đồ họa chuyên nghiệp với Adobe Photoshop",
       "instructor": "Phan Nhật Linh",
-      "instructorId": "4",
-      "rating": 4.9,
-      "price": 0,
-      "categoryId": 5,
+      "description": "ádsa",
+      "thumbnail": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=500&h=300&fit=crop",
+      "price": 2000,
       "level": "Intermediate",
-      "thumbnail": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=500&h=300&fit=crop"
+      "categoryId": 5,
+      "rating": 4.9,
+      "id": "15"
     },
     {
-      "id": "16",
       "title": "Thiết kế thương hiệu và nhận diện Brand",
       "instructor": "Lý Quang Huy",
-      "instructorId": "4",
-      "rating": 4.8,
-      "price": 0,
-      "categoryId": 5,
+      "description": "aaaaa",
+      "thumbnail": "https://images.unsplash.com/photo-1558655146-d09347e92766?w=500&h=300&fit=crop",
+      "price": 21324,
       "level": "Advanced",
-      "thumbnail": "https://images.unsplash.com/photo-1558655146-d09347e92766?w=500&h=300&fit=crop"
+      "categoryId": 5,
+      "rating": 4.5,
+      "id": "17"
     }
   ],
   "users": [
@@ -629,13 +630,11 @@
       "picture": "https://picsum.photos/seed/lesson5/400/225"
     },
     {
-      "id": "6",
       "courseId": 3,
       "title": "Tạo Frame đầu tiên",
       "videoUrl": "https://www.youtube.com/embed/jk1T6Y7akBk",
       "duration": "08:45",
-      "description": "Khởi đầu với Figma bằng cách tạo các Frame cơ bản cho bản thiết kế.",
-      "picture": "https://picsum.photos/seed/lesson6/400/225"
+      "id": "6"
     },
     {
       "id": "7",
