@@ -77,10 +77,10 @@ const AuthModal = () => {
       };
 
       await registerUser(newUserData);
-      
+
       setAuthSuccess('');
       setMode('success');
-      // Xóa form cũ để họ chuẩn bị đăng nhập
+
       setFormData({
         email: formData.email,
         password: '',
@@ -107,16 +107,16 @@ const AuthModal = () => {
   return (
     <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 transition-all duration-300">
       {/* Overlay */}
-      <div 
+      <div
         className="absolute inset-0 bg-black/60 backdrop-blur-md animate-fade-in"
         onClick={onClose}
       />
-      
+
       {/* Modal Container */}
       <div className="relative bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden animate-slide-up">
         {mode === 'success' ? (
           <div className="p-8 text-center flex flex-col items-center">
-            <button 
+            <button
               onClick={onClose}
               className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer outline-none"
             >
@@ -127,17 +127,17 @@ const AuthModal = () => {
             </div>
             <h2 className="text-2xl font-bold text-text-main mb-3">Đăng ký thành công!</h2>
             <p className="text-text-muted mb-8 text-sm leading-relaxed px-2">
-               Tài khoản của bạn đã được thiết lập thành công. Bây giờ bạn có thể đăng nhập bằng email <b className="text-text-main">{formData.email}</b> để bắt đầu khóa học.
+              Tài khoản của bạn đã được thiết lập thành công. Bây giờ bạn có thể đăng nhập bằng email <b className="text-text-main">{formData.email}</b> để bắt đầu khóa học.
             </p>
             <button
-               type="button"
-               onClick={() => {
-                 setAuthSuccess('');
-                 setMode('login');
-               }}
-               className="w-full py-3.5 bg-primary hover:bg-primary-dark text-white rounded-xl font-bold shadow-lg shadow-primary/25 transition-all transform hover:-translate-y-0.5 active:scale-[0.98] outline-none cursor-pointer"
+              type="button"
+              onClick={() => {
+                setAuthSuccess('');
+                setMode('login');
+              }}
+              className="w-full py-3.5 bg-primary hover:bg-primary-dark text-white rounded-xl font-bold shadow-lg shadow-primary/25 transition-all transform hover:-translate-y-0.5 active:scale-[0.98] outline-none cursor-pointer"
             >
-               Quay về trang đăng nhập
+              Quay về trang đăng nhập
             </button>
           </div>
         ) : (
@@ -149,12 +149,12 @@ const AuthModal = () => {
                   {mode === 'login' ? 'Chào mừng trở lại' : 'Tham gia cùng chúng tôi'}
                 </h2>
                 <p className="text-sm text-text-muted">
-                  {mode === 'login' 
-                    ? 'Đăng nhập để tiếp tục hành trình học tập.' 
+                  {mode === 'login'
+                    ? 'Đăng nhập để tiếp tục hành trình học tập.'
                     : 'Bắt đầu hành trình chinh phục kiến thức ngay hôm nay.'}
                 </p>
               </div>
-              <button 
+              <button
                 onClick={onClose}
                 className="p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
               >
@@ -165,21 +165,19 @@ const AuthModal = () => {
             {/* Tabs */}
             <div className="flex px-6 mt-6 border-b border-gray-100">
               <button
-                className={`pb-3 px-4 text-sm font-semibold transition-all cursor-pointer border-b-2 ${
-                  mode === 'login' 
-                    ? 'text-primary border-primary' 
+                className={`pb-3 px-4 text-sm font-semibold transition-all cursor-pointer border-b-2 ${mode === 'login'
+                    ? 'text-primary border-primary'
                     : 'text-text-muted border-transparent hover:text-text-main'
-                }`}
+                  }`}
                 onClick={() => setMode('login')}
               >
                 Đăng nhập
               </button>
               <button
-                className={`pb-3 px-4 text-sm font-semibold transition-all cursor-pointer border-b-2 ${
-                  mode === 'signup' 
-                    ? 'text-primary border-primary' 
+                className={`pb-3 px-4 text-sm font-semibold transition-all cursor-pointer border-b-2 ${mode === 'signup'
+                    ? 'text-primary border-primary'
                     : 'text-text-muted border-transparent hover:text-text-main'
-                }`}
+                  }`}
                 onClick={() => setMode('signup')}
               >
                 Đăng ký
@@ -193,7 +191,7 @@ const AuthModal = () => {
                   {authError}
                 </div>
               )}
-              
+
               {authSuccess && (
                 <div className="bg-green-50 text-green-600 p-3 rounded-xl text-xs font-bold animate-pulse text-center">
                   {authSuccess}

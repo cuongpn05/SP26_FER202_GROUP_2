@@ -10,9 +10,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   // Improved click-outside handling via transparent overlay
-  const logoTarget = user && (user.role === 'admin' || user.role === 'instructor' || user.role === 'teacher')
-    ? '/explore'
-    : '/';
+  const logoTarget = '/';
 
   const [searchQuery, setSearchQuery] = useState('');
 
