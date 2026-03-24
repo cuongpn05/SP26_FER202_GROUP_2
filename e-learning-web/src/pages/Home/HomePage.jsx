@@ -47,20 +47,16 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-white font-body selection:bg-[#1A73E8]/20 selection:text-[#1A73E8] overflow-x-hidden">
       <main className="w-full">
-        {/* [Nặng] Hero Section */}
         <HeroSection
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           onSearch={handleSearch}
         />
 
-        {/* [Nhẹ] Stats Strip */}
         <StatsStrip />
 
-        {/* [Vừa] Categories */}
         <TopCategories />
 
-        {/* [Nặng] Featured Courses Section */}
         <section className="py-24 bg-gray-50/50">
           <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
